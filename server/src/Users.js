@@ -8,16 +8,24 @@ class Users{
         res.send({
             'status': 'success',
             'data':{
-                'userid': userid,
-                'username':'Yossi', 
-                'email':'yossi@gmail.com'
+                'UserId': userid,
+                'FirstName':'Yossi',
+                'LastName': 'Cohen',
+                'Email':'yossi@gmail.com'
                 }
             }
         );
     }
 
-    set(){
-        res.send({"status":"success"});
+    add(req, res){
+        const firstName = req.body.firstName,
+        lastName = req.body.lastName;
+        res.send({"status":"success",
+        "data":{
+            "FirstName": firstName,
+            "LastName": lastName
+        }
+        });
     }
 
     update(req, res){
@@ -25,7 +33,7 @@ class Users{
         res.send(
             {'status': 'success', 
             'data':
-                {"userid": userid}
+                {"UserId": userid}
             });
     }
 }
