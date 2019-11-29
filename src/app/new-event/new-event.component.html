@@ -1,3 +1,18 @@
+<!-- <form action="/action_page.php"> -->
 <p>
-  new-event works!
+  Event name: <input type="text" id="event-name"><br><br> <!-- TODO: name should be mandatory. astrics should be shown when the field is empty -->
+  Description: <br>
+  <textarea id="event-description"></textarea><br><br>
+  Date: <input type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
+  Gift: <input type="text" id="gift-url"><button type="button" (click)="addGift()">+</button><br>
+  <p>
+    <ag-grid-angular 
+    style="width: 700px; height: 1000px;" 
+    class="ag-theme-balham"
+    [rowData]="giftsList" 
+    [columnDefs]="columnDefs"
+    [modules]="modules">
+  </ag-grid-angular>
+  <button type="button" (click)="createEvent()">Save</button>  
+  <button type="button">Discard</button> <!-- TODO: redirect back to events list -->
 </p>
