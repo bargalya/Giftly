@@ -7,11 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { EventsDashboardComponent } from './events-dashboard/events-dashboard.component';
+import { NewEventComponent } from './new-event/new-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EventsDashboardComponent
+    EventsDashboardComponent,
+    NewEventComponent
   ],
   imports: [
     BrowserModule,
