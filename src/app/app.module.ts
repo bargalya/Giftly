@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { EventsDashboardComponent } from './events-dashboard/events-dashboard.component';
 import { NewEventComponent } from './new-event/new-event.component';
+import { GetGiftStatusPipe } from './new-event/new-event.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventsDashboardComponent,
-    NewEventComponent
+    NewEventComponent,
+    GetGiftStatusPipe
   ],
   imports: [
     BrowserModule,
