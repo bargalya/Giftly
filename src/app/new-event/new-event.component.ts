@@ -17,6 +17,12 @@ export class NewEventComponent implements OnInit {
 
   addGift() : void  {
     var giftUrl = (document.getElementById("gift-url") as HTMLInputElement).value;
+    try{
+    var v = new URL(giftUrl, );
+    }
+    catch{
+      return;
+    }
     this._gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
     this.cd.detectChanges();
   }

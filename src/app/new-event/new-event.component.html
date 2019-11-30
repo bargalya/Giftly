@@ -3,7 +3,7 @@
   Description: <br>
   <textarea id="event-description"></textarea><br><br>
   Date: <input type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
-  Gift: <input type="text" id="gift-url"><button type="button" (click)="addGift()">+</button><br>
+  Gift: <input type="uri" id="gift-url"><button type="button" (click)="addGift()">+</button><br>
 
   <table class="new-event__table fd-table">
     <thead>
@@ -16,7 +16,7 @@
     <tr class="fd-table__cell" *ngFor='let gift of _gifts'>
       <td class="fd-table__cell--url">{{gift.Url}}</td>
       <td class="fd-table__cell--status">{{gift.Status | setGiftStatusPipe}}</td>    
-      <td class="fd-table__cell--delete"><button (click)="removeGift(gift)">-</button></td>  
+      <td class="fd-table__cell--remove"><button (click)="removeGift(gift)">-</button></td>  
     </tr>
     </tbody>
   </table>
