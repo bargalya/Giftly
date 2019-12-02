@@ -10,7 +10,7 @@ import { EventsDashboardComponent } from './events-dashboard/events-dashboard.co
 import { NewEventComponent } from './new-event/new-event.component';
 import { GetGiftStatusPipe } from './new-event/new-event.pipe';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
