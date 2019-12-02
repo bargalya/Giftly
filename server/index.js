@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const users = require('./routes/Users');
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/user/', users);
