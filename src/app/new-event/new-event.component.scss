@@ -1,0 +1,40 @@
+.fd-table__header--url {
+    width: 172px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+  
+.new-event__footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.new-event {
+    &__table {
+        .fd-table__cell {
+            cursor: default;
+            min-height: 44px;      
+
+            td {
+                padding-top: 6px;
+                padding-bottom: 6px;
+            }
+        }
+        .new-event__action-button
+        {
+            width: 83px;
+            height: 28px;
+            margin: 6px;
+        }
+    }
+}
+
+.new-event__table-header {
+    cursor: default;
+}
+
+
+
+

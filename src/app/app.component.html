@@ -10,12 +10,13 @@
     <p><a class="nav-item nav-link" routerLink="/login">Login</a></p>
     <p><a class="nav-item nav-link" routerLink="/register">Register</a></p>
   </div>
+  <router-outlet></router-outlet>
 </nav>
 
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-          <router-outlet></router-outlet>
-        </div>
-    </div>
+<div>
+  <a routerLink="events-dashboard" routerLinkActive="active">events-dashboard</a>
 </div>
+<div>
+  <a routerLink="new-event" routerLinkActive="active">new-event</a>
+</div>
+<router-outlet></router-outlet>
