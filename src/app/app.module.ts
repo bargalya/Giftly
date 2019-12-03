@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +10,7 @@ import { NewEventComponent } from './new-event/new-event.component';
 import { GetGiftStatusPipe } from './new-event/new-event.pipe';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register';
 
 @NgModule({
   declarations: [
