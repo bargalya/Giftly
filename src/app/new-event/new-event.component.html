@@ -8,7 +8,7 @@
   Description: <br>
   <textarea formControlName="description" id="event-description"></textarea><br><br>
   Date: <input formControlName="date" type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
-  Gift: <input formControlName="giftUrl" id="gift-url"><button type="button" (click)="addGift()">+</button><br>
+  Gift: <input formControlName="giftUrl" id="gift-url"><button type="button" (click)="addGift()" [disabled]="giftUrl.invalid">+</button><br>
   <table class="new-event__table fd-table">
     <thead>
     <tr class="new-event__table-header fd-table__header">
@@ -25,5 +25,5 @@
     </tbody>
   </table>
 </form>
-  <button type="button" (click)="createEvent()">Save</button>  
+  <button type="button" [disabled]="myForm.invalid" (click)="createEvent()">Save</button>  
   <button type="button">Discard</button> <!-- TODO: redirect back to events list -->

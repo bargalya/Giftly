@@ -14,13 +14,17 @@ export class NewEventComponent implements OnInit {
   
   _gifts: Array<Gift> = new Array<Gift>();
   ngOnInit() {
+    var URL_REGEXP = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
     this.myForm = this.fb.group({
       name: ['', [
         Validators.required,
       ]],
       description: '',
       date:'',
-      giftUrl:''
+      giftUrl:['', [
+        //Validators.required,
+        Validators.pattern(URL_REGEXP)
+      ]],
     })
   }
   
@@ -28,15 +32,17 @@ export class NewEventComponent implements OnInit {
     return this.myForm.get('name');
   }
 
+  get giftUrl() {
+    return this.myForm.get('giftUrl');
+  }
+
   addGift() : void  {
     var giftUrl = this.myForm.get('giftUrl').value;
-    /*try{
-    var v = new URL(giftUrl, );
-    }
-    catch{
+    if(giftUrl == "")
       return;
-    }*/
     this._gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
+    this.myForm.get('giftUrl').setValue("");
+    //this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
     this.cd.detectChanges();
   }
 
@@ -46,7 +52,6 @@ export class NewEventComponent implements OnInit {
 
   createEvent() : void {
     var eventName = this.myForm.get('name').value;
-    //if()
     var description = this.myForm.get('description').value;
     var date = this.myForm.get('date').value;
     this._event = new Event(eventName, description, date, this._gifts);
