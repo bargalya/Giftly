@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,11 +9,14 @@ import { EventsDashboardComponent } from './events-dashboard/events-dashboard.co
 import { NewEventComponent } from './new-event/new-event.component';
 import { GetGiftStatusPipe } from './new-event/new-event.pipe';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent,     
+    AppComponent,    
+    NavMenuComponent, 
     LoginComponent,
     RegisterComponent,     
     EventsDashboardComponent,
@@ -27,6 +29,9 @@ import { RegisterComponent } from './register/register.component';
     ReactiveFormsModule, 
     HttpClientModule,
     AgGridModule.withComponents([])
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [          
   ],  
