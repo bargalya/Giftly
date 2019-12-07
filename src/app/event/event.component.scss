@@ -10,4 +10,15 @@
         max-width: 300px;
         height: 300px;
     }
+
+    .back-btn{
+        position: fixed;
+        bottom: 12px;
+        right: 12px;
+        text-align: center;
+
+        .mat-button-wrapper{
+            color: #fff;
+        }
+    }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from "@angular/router"
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'gifts',
@@ -37,7 +37,15 @@ export class EventComponent implements OnInit {
 
     searchGift() {
         // console.log('url:' + this.searchForm.get('url').value);
-        this.items.push({"title": this.searchForm.get('url').value})
+        let url = this.searchForm.get('url').value;
+        let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+        if(urlRegex.test(url)){
+            console.log("ok");
+        }
+    }
+
+    backToDashboard(){
+        this.router.navigate(['/events-dashboard']);       
     }
 
 }
