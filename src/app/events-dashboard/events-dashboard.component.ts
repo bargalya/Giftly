@@ -31,8 +31,6 @@ constructor(private http: HttpClient, private router: Router) {}
   }
 
   onRowClicked(event){
-    console.log("test");
-    console.log(event);
     this.router.navigate(['/event', event.data.eventId]);
   }
 
