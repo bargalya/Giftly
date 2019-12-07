@@ -1,0 +1,13 @@
+.gifts{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+   
+    .mat-card{
+        background: #fff;
+        margin: 1.5em;
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+    }
+}
