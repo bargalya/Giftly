@@ -40,12 +40,17 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        let formData = new FormData();
-        formData.append('username', this.loginForm.value.username);    
-        formData.append('password', this.loginForm.value.password);
+        // let formData = new FormData();
+        // formData.append('username', this.loginForm.value.username);    
+        // formData.append('password', this.loginForm.value.password);
+
+        let formData = {
+            userName: this.loginForm.value.username,
+            password: this.loginForm.value.password
+        }
         
 
-        this.http.post('user/' , formData) 
+        this.http.post('api/user/' , formData) 
             .subscribe((response) => console.log(response),
                        (error) => console.log(error));
 
