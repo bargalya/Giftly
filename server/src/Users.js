@@ -6,13 +6,13 @@ const addToDb = require('../dbMgr/dbMgr').addToDb;
 var uuidCreator = require('uuid');
 
 class Users{
-    static url = "mongodb://localhost:27017/";
-    static dbName = "giftlyDB";
-    static collectionName = "Users"; 
-    static connectParams = {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      };   
+    // static url = "mongodb://localhost:27017/";
+    // static dbName = "giftlyDB";
+    // static collectionName = "Users"; 
+    // static connectParams = {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true
+    //   };   
 
     constructor(){
     }
@@ -119,7 +119,8 @@ class Users{
                     Password: password               
                  };                 
                 collection.insertOne(document, 
-                    function(err){
+                    function(err, test){
+                        console.log(test);
                         if(err) {
                             res.send({'status': 'Failed',
                                     'error': err});
@@ -187,5 +188,13 @@ class Users{
         });       */        
     }
 }
+
+Users.url = "mongodb://localhost:27017/";
+Users.dbName = "giftlyDB";
+Users.collectionName = "Users"; 
+Users.connectParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};   
 
 module.exports = Users;
