@@ -119,8 +119,7 @@ class Users{
                     Password: password               
                  };                 
                 collection.insertOne(document, 
-                    function(err, test){
-                        console.log(test);
+                    function(err){
                         if(err) {
                             res.send({'status': 'Failed',
                                     'error': err});
