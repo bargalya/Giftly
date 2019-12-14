@@ -1,5 +1,3 @@
-const db = require('../db');
-
 class Events{
 
     constructor(){
@@ -7,12 +5,7 @@ class Events{
     }
 
     async get(req, res){
-        // db.than(function(err, test){
-        //     console.log(err);
-        //     console.log(test);
-        // }).catch(function(e){
-        //     console.log(e);
-        // })
+    
     }
 
 
