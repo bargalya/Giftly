@@ -10,11 +10,16 @@ import { EventsDashboardComponent } from './events-dashboard/events-dashboard.co
 import { NewEventComponent } from './new-event/new-event.component';
 import { EventComponent } from './event/event.component';
 import { GetGiftStatusPipe } from './new-event/new-event.pipe';
+import { FindEventComponent } from './find-event/find-event.component';
+
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register';
+
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+
 import { MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -26,11 +31,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EventsDashboardComponent,
     NewEventComponent,
     EventComponent,
-    GetGiftStatusPipe
+    GetGiftStatusPipe,
+    FindEventComponent
     ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule, 
     HttpClientModule,
     MatCardModule,
