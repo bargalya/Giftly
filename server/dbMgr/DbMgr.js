@@ -72,6 +72,8 @@ function insertOne(collectionName, document, callback)
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
                 return callback(err);                    
+//                                    res.send({'status': 'Failed',
+//                                         'error': err});
             }
             return callback(null, document);
     });  

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const users = require('./routes/Users');
+const connectToDb = require('./dbMgr/DbMgr').connectToDb;
 const events = require('./routes/Events');
 const connectToDb = require('./dbMgr/DbMgr').connectToDb;
 
