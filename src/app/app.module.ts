@@ -1,3 +1,4 @@
+import { DbService } from './services/db.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from '@ag-grid-community/angular';
@@ -41,7 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [          
+  providers: [   
+    DbService       
   ],  
   bootstrap: [AppComponent]
 })
