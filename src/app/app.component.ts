@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'giftly';
+  title = 'Giftly';
 
   constructor(private http: HttpClient) {
     // this.http.get('api/user/37362').subscribe(res => {console.log('BE result:', res)});
