@@ -4,7 +4,7 @@ import { Event } from '../models/event.class';
 @Injectable({
   providedIn: 'root'
 })
-export class DbService {
+export class DataService {
 
   constructor() { }
 

@@ -3,7 +3,7 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from "@angular/router"
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DbService } from './../services/db.service';
+import { DataService } from '../services/data.service';
 import { Event } from '../models/event.class';
 
 @Component({
@@ -23,7 +23,7 @@ export class EventComponent implements OnInit {
 
     modules = AllCommunityModules;
 
-    constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private readonly dbService: DbService) {
+    constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private readonly dbService: DataService) {
         this.route.params.subscribe(params => {
             this._eventId = params.id;
         });

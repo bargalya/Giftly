@@ -1,4 +1,4 @@
-import { DbService } from './../services/db.service';
+import { DataService } from '../services/data.service';
 import { Gift, GiftStatus } from './../models/gift.class';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Event } from '../models/event.class';
@@ -11,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class NewEventComponent implements OnInit {
   _event:Event;
   myForm: FormGroup;
-  constructor(private readonly dbService: DbService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private readonly dbService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
   
   _gifts: Array<Gift> = new Array<Gift>();
   ngOnInit() {
