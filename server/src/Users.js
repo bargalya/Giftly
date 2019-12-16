@@ -1,7 +1,7 @@
 //const mongo = require('mongodb').MongoClient;
 //const dbMgr = require('../dbMgr/dbMgr');
 
-const getDb = require("./db").getDb;
+//const getDb = require("./db").getDb;
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 
 
@@ -77,7 +77,7 @@ class Users{
         };                 
 
         // const db = getDb();
-
+        console.log("got a post request body: " + req.body);        
         console.log("got a post request: new user request name " + userName + " password " + password);        
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {
