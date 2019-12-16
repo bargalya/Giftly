@@ -11,6 +11,7 @@ let db;
 
 function connectToDb(callback)
 {
+    console.warn("I'm here!! connectToDb");
     if (db)
     {
         console.warn("DB is already connected");
@@ -39,6 +40,7 @@ function getDb() {
 
 function addToDb(collectionName, document, callback)
 {
+    console.log("collectionName: " + collectionName);
     /////////////////////////////////////////////////////////////////
     // DEBUG
     if (db)
@@ -47,7 +49,7 @@ function addToDb(collectionName, document, callback)
         console.log("from func add: DB is not connected!");
         
     /////////////////////////////////////////////////////////////////
-
+    
     const collection = db.collection(collectionName);
     
     collection.insertOne(document,
@@ -64,6 +66,7 @@ function addToDb(collectionName, document, callback)
 
 module.exports = {    
     connectToDb,    
-    getDb
-    //addToDb    
+    getDb,
+    
+    addToDb    
 };
