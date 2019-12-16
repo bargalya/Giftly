@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class DbService {
+export class DataService {
 
   httpOptions = {
     headers: new HttpHeaders({
