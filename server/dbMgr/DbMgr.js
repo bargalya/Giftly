@@ -40,28 +40,41 @@ function getDb() {
 
 function addToDb(collectionName, document, callback)
 {
-    console.log("collectionName: " + collectionName);
     /////////////////////////////////////////////////////////////////
     // DEBUG
     if (db)
+    {
         console.log("from func add: DB is already connected");
+        return insertOne(collectionName, document, callback);
+    }
     else
-        console.log("from func add: DB is not connected!");
-        
-    /////////////////////////////////////////////////////////////////
-    
-    const collection = db.collection(collectionName);
-    
+    {
+        console.log("from func add: DB is not connected!");        
+        mongo.connect(url, connectParams, 
+            function(err, client) {
+                if(err) {                    
+                    console.log("Error!");
+                }
+                db = client.db(dbName);
+                console.log("Database created!" + db);
+                return insertOne(collectionName, document, callback);
+                }
+        );    
+    }        
+    ///////////////////////////////////////////////////////////////// 
+}
+
+function insertOne(collectionName, document, callback)
+{
+    const collection = db.collection(collectionName);    
     collection.insertOne(document,
         function(err){
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
                 return callback(err);                    
-//                                    res.send({'status': 'Failed',
-//                                         'error': err});
             }
             return callback(null, document);
-    });   
+    });  
 }
 
 module.exports = {    
