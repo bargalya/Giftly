@@ -50,16 +50,6 @@ export class LoginComponent implements OnInit {
               'Content-Type': 'application/x-www-form-urlencoded'
             })
           };
-  
-         /* this.http.post('api/user/', formData, httpOptions)
-            .subscribe(
-              (res: any) => {
-                console.log(res);
-                sessionStorage.setItem('access_token', res.access_token);
-                sessionStorage.setItem('refresh_token', res.refresh_token);
-              },
-              err => console.log(err)
-            );*/
 
         this.http.post('api/user/' , formData, httpOptions) 
             .subscribe((response) => console.log(response),

@@ -79,7 +79,6 @@ function insertOne(collectionName, document, callback)
 
 module.exports = {    
     connectToDb,    
-    getDb,
-    
+    getDb,    
     addToDb    
 };
