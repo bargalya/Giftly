@@ -3,7 +3,6 @@ const app = express();
 const users = require('./routes/Users');
 const connectToDb = require('./dbMgr/DbMgr').connectToDb;
 const events = require('./routes/Events');
-const connectToDb = require('./dbMgr/DbMgr').connectToDb;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
