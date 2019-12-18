@@ -40,8 +40,6 @@ function getDb() {
 
 function addToDb(collectionName, document, callback)
 {
-    /////////////////////////////////////////////////////////////////
-    // DEBUG
     if (db)
     {
         console.log("from func add: DB is already connected");
@@ -61,7 +59,6 @@ function addToDb(collectionName, document, callback)
                 }
         );    
     }        
-    ///////////////////////////////////////////////////////////////// 
 }
 
 function insertOne(collectionName, document, callback)

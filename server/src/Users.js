@@ -68,19 +68,15 @@ class Users{
 
     add(req, res){
 
-        const userName = req.body.userName,
-        password = req.body.password,
-        email = req.body.email,
-        uuid = uuidCreator.v4();
-
         const document = { 
-            UserName: userName,
-            Password: password,
-            Email: email,
-            Uuid: uuid               
+            userName: req.body.userName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: req.body.password,
+            email: req.body.email,
+            uuid: uuidCreator.v4()               
         };                 
-        
-        console.log("got a post request: new user request name " + userName + " password " + password);        
+              
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {
                 if (err)
@@ -96,52 +92,7 @@ class Users{
                         'data': responseDocument
                     });                
                 }
-            });
-        
-    //    const mongo = require('mongodb').MongoClient; duplicated - move out
-        // Read the user parameters
-   /*     const userName = req.body.userName,
-        password = req.body.password;
-
-        console.log("got a post request: new user request name " + userName + " password " + password);        
-
-        mongo.connect(Users.url, Users.connectParams, 
-            function(err, client) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                console.log("Database created!");
-                const db = client.db(Users.dbName);
-                const collection = db.collection(Users.collectionName);
-                const document = { 
-                    UserName: userName,
-                    Password: password               
-                 };                 
-                collection.insertOne(document, 
-                    function(err){
-                        if(err) {
-                            res.send({'status': 'Failed',
-                                    'error': err});
-                        }                        
-               */        
-// Can't seem to send a response to the front end. Handle this part later
-                        // Send a response to the front end
-                /*        res.send({"status":"success",
-                                "data":{
-                                "userName": userName,
-                                "password":password}});               */
-                /* Galia
-                       res.send({
-                            'status': 'success',
-                            'data': document
-                            });
-                        })}                         
-                
-                    });                  
-    
-             //   client.close();       
-        });*/
+            });  
     }
 
     update(req, res){
