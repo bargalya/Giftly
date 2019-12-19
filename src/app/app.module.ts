@@ -6,22 +6,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { EventsDashboardComponent } from './events-dashboard/events-dashboard.component';
-import { NewEventComponent } from './new-event/new-event.component';
-import { EventComponent } from './event/event.component';
-import { GetGiftStatusPipe } from './new-event/new-event.pipe';
-import { FindEventComponent } from './find-event/find-event.component';
+import { EventsDashboardComponent } from './components/events-dashboard/events-dashboard.component';
+import { NewEventComponent } from './components/new-event/new-event.component';
+import { EventComponent } from './components/event/event.component';
+import { GetGiftStatusPipe } from './components/new-event/new-event.pipe';
+import { FindEventComponent } from './components/find-event/find-event.component';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RegisterComponent } from './register';
+import { RegisterComponent } from './components/register';
 
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 import { MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [

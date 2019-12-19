@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DataService } from './../services/data.service';
-
-// TODO: maybe this should be in a different filem, that is responsible for all the sends and wating for responses
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../models/user.class';               
+import { DataService } from 'src/app/services/data.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -15,7 +11,6 @@ export class LoginComponent implements OnInit {
     
     constructor(
         private formBuilder: FormBuilder,
-        private http: HttpClient,
         private readonly dataService: DataService  
     ) {  }
 

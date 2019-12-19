@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DataService } from './../services/data.service';
-import { User } from '../models/user.class';
+import { DataService } from 'src/app/services/data.service';
+import { User } from 'src/app/models/user.class';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {

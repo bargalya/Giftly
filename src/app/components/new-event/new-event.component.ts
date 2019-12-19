@@ -1,7 +1,7 @@
-import { DataService } from '../services/data.service';
-import { Gift, GiftStatus } from './../models/gift.class';
+import { DataService } from 'src/app/services/data.service';
+import { Gift, GiftStatus } from 'src/app/models/gift.class';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Event } from '../models/event.class';
+import { Event } from 'src/app/models/event.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-event',
