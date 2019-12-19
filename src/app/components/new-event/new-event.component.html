@@ -1,14 +1,25 @@
 
   <form [formGroup]="myForm">
-  Event name: <input formControlName="name" type="text" id="event-name"> <!-- TODO: name should be mandatory. astrics should be shown when the field is empty -->
+  <mat-form-field class="giftly-form-field">    
+    <input matInput type="url" formControlName="name" placeholder="Event name" required>
+  </mat-form-field>
   <span *ngIf="name.invalid && name.touched">
       <br>Name is required
   </span>
-  <br><br>
-  Description: <br>
-  <textarea formControlName="description" id="event-description"></textarea><br><br>
-  Date: <input formControlName="date" type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
-  Gift: <input formControlName="giftUrl" id="gift-url"><button type="button" (click)="addGift()" [disabled]="giftUrl.invalid">+</button><br>
+  <mat-form-field class="giftly-form-field">
+    <textarea matInput formControlName="description" id="event-description" placeholder="Enter description"></textarea><br><br>
+  </mat-form-field>
+  
+  Date: <input formControlName="date" type="date"  ><br><br>   <!--TODO: change date format to: DD-MM-YYYY -->
+  <!-- <mat-form-field>
+    <input matInput [matDatepicker]="picker" id="event-date" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
+
+  <mat-form-field class="giftly-form-field">
+    <input matInput formControlName="giftUrl" id="gift-url" placeholder="Add gift">
+  </mat-form-field><button type="button" (click)="addGift()" [disabled]="giftUrl.invalid">+</button><br>
   <table class="new-event__table fd-table">
     <thead>
     <tr class="new-event__table-header fd-table__header">
