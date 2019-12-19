@@ -21,6 +21,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NewEventComponent,
     EventComponent,
     GetGiftStatusPipe,
-    FindEventComponent
+    FindEventComponent,
+    HomeComponent
     ], 
   imports: [
     BrowserModule,

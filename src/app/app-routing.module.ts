@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login';
@@ -7,7 +8,8 @@ import { NewEventComponent } from './new-event/new-event.component';
 import { EventComponent } from './event/event.component';
 import { FindEventComponent } from './find-event/find-event.component';
 
-const routes: Routes = [{path: 'events-dashboard', component: EventsDashboardComponent}, 
+const routes: Routes = [{path: 'home', component: HomeComponent}, 	
+						{path: 'events-dashboard', component: EventsDashboardComponent}, 
                         {path: 'new-event', component: NewEventComponent},
 						{ path: 'login', component: LoginComponent },
 						{ path: 'register', component: RegisterComponent },
@@ -15,7 +17,7 @@ const routes: Routes = [{path: 'events-dashboard', component: EventsDashboardCom
 						{ path: 'find-event', component: FindEventComponent },
 
 						// otherwise redirect to home
-						{ path: '**', redirectTo: '' }
+						{ path: '**', redirectTo: 'home' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
