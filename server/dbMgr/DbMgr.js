@@ -8,7 +8,20 @@ connectParams = {
 };
 
 let db;
-
+mongo.connect(url, connectParams, 
+    function(err, client) {
+        if(err) {                    
+            //return callback(err);
+            console.log("ERROR! failed to connect to Data base!");
+        }
+        else {
+            db = client.db(dbName);
+            console.log("Database created from connect!");
+        }
+    //    return callback(null, db);
+    }
+);
+/*
 function connectToDb(callback)
 {
     if (db)
@@ -32,7 +45,7 @@ function connectToDb(callback)
         );          
     }
 }
-
+*/
 function getDb() { 
     return db;
 }
