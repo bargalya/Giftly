@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DbService } from './../services/db.service';
-import { User } from '../models/user.class';
+import { DataService } from 'src/app/services/data.service';
+import { User } from 'src/app/models/user.class';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,     
-        private readonly dbService: DbService   
+        private readonly dataService: DataService   
     ) { }
 
     ngOnInit() {
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
-        this.dbService.saveUser(new User(this.registerForm.value.username,
+        this.dataService.saveUser(new User(this.registerForm.value.username,
              this.registerForm.value.firstName, 
              this.registerForm.value.lastName, 
              this.registerForm.value.password, 

@@ -3,25 +3,28 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> <!-- submit event is bound to the onSubmit method -->
     <div class="form-group">
       <!-- input fields -->
-        <label for="username">Username</label>
         <!-- the formControlName binds it to the username field in the formGroup that is defined in the login.component.ts file -->        
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }"/>        
+        <mat-form-field class="giftly-form-field">    
+            <input matInput type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" placeholder="Username" required/>    
+        </mat-form-field>    
         <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
             <div *ngIf="formControls.username.errors.required">Username is required</div>
         </div>
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" />
+        <mat-form-field class="giftly-form-field">    
+            <input matInput type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" placeholder="Password" required/>    
+        </mat-form-field>
         <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
             <div *ngIf="formControls.password.errors.required">Password is required</div>
         </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary">
+        <button  mat-raised-button color="primary" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Login
-        </button>
-        <a routerLink="/register" class="btn btn-link">Register</a>
+        </button>        
     </div>
+    <br>
+    Don't have a account yet? <a routerLink="/register" class="btn btn-link">Click here</a>
 </form>

@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class DbService {
+export class DataService {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,6 +27,9 @@ export class DbService {
   saveUser(user:User):void{
   
         let body = new HttpParams();
+        body = body.set('firstName', user.FirstName);
+        body = body.set('lastName', user.LastName);
+        body = body.set('password', user.Password);
         body = body.set('userName', user.UserName);
         body = body.set('password', user.Password);
         body = body.set('email', user.Email);
@@ -34,10 +37,15 @@ export class DbService {
         this.http.post('api/user/' , body, this.httpOptions) 
             .subscribe((response) => console.log(response),
                         (error) => console.log(error));
-
   }
 
-  getUser(userId:number):User{
-    return null;
+  getUser(userName:string, password: string):User{
+    let body = new HttpParams();
+    body = body.set('userName', userName);
+    body = body.set('password', password);
+    this.http.post('api/user/'+userName , body, this.httpOptions) 
+            .subscribe((response) => console.log(response),
+                        (error) => console.log(error));
+    return null;//
   }
 }

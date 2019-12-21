@@ -52,8 +52,6 @@ function getDb() {
 
 function addToDb(collectionName, document, callback)
 {
-    /////////////////////////////////////////////////////////////////
-    // DEBUG
     if (db)
     {
         console.log("from func add: DB is already connected");
@@ -83,6 +81,8 @@ function insertOne(collectionName, document, callback)
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
                 return callback(err);                    
+//                                    res.send({'status': 'Failed',
+//                                         'error': err});
             }
             return callback(null, document);
     });  
