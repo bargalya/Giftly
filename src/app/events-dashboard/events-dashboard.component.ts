@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AllCommunityModules} from '@ag-grid-community/all-modules';
 import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-events-dashboard',
@@ -23,10 +24,14 @@ rowData = [
 
 modules = AllCommunityModules;
 
-constructor(private http: HttpClient) {}
+constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     // this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
+  }
+
+  onRowClicked(event){
+    this.router.navigate(['/event', event.data.eventId]);
   }
 
 }

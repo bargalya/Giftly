@@ -1,10 +1,14 @@
-<p>
-  Event name: <input type="text" id="event-name"><br><br> <!-- TODO: name should be mandatory. astrics should be shown when the field is empty -->
-  Description: <br>
-  <textarea id="event-description"></textarea><br><br>
-  Date: <input type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
-  Gift: <input type="uri" id="gift-url"><button type="button" (click)="addGift()">+</button><br>
 
+  <form [formGroup]="myForm">
+  Event name: <input formControlName="name" type="text" id="event-name"> <!-- TODO: name should be mandatory. astrics should be shown when the field is empty -->
+  <span *ngIf="name.invalid && name.touched">
+      <br>Name is required
+  </span>
+  <br><br>
+  Description: <br>
+  <textarea formControlName="description" id="event-description"></textarea><br><br>
+  Date: <input formControlName="date" type="date" id="event-date" ><br><br>  <!-- TODO: change date format to: DD-MM-YYYY -->
+  Gift: <input formControlName="giftUrl" id="gift-url"><button type="button" (click)="addGift()" [disabled]="giftUrl.invalid">+</button><br>
   <table class="new-event__table fd-table">
     <thead>
     <tr class="new-event__table-header fd-table__header">
@@ -20,6 +24,6 @@
     </tr>
     </tbody>
   </table>
-
-  <button type="button" (click)="createEvent()">Save</button>  
+</form>
+  <button type="button" [disabled]="myForm.invalid" (click)="createEvent()">Save</button>  
   <button type="button">Discard</button> <!-- TODO: redirect back to events list -->

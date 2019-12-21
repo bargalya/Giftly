@@ -1,9 +1,9 @@
 //const mongo = require('mongodb').MongoClient;
 //const dbMgr = require('../dbMgr/dbMgr');
 
-const getDb = require("./db").getDb;
+//const getDb = require("./db").getDb;
 const addToDb = require('../dbMgr/dbMgr').addToDb;
-
+var uuidCreator = require('uuid');
 
 class Users{
     static url = "mongodb://localhost:27017/";
@@ -69,15 +69,17 @@ class Users{
     add(req, res){
 
         const userName = req.body.userName,
-        password = req.body.password;
+        password = req.body.password,
+        email = req.body.email,
+        uuid = uuidCreator.v4();
 
         const document = { 
             UserName: userName,
-            Password: password               
+            Password: password,
+            Email: email,
+            Uuid: uuid               
         };                 
-
-        // const db = getDb();
-
+        
         console.log("got a post request: new user request name " + userName + " password " + password);        
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {

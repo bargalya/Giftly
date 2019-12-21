@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // TODO: maybe this should be in a different filem, that is responsible for all the sends and wating for responses
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // TODO: define in a common file (?)
 //const serverAddress = 'http://localhost:3000/';                       
@@ -40,12 +40,18 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        let formData = new FormData();
-        formData.append('username', this.loginForm.value.username);    
-        formData.append('password', this.loginForm.value.password);
-        
+        let formData = {
+            userName: this.loginForm.value.username,
+            password: this.loginForm.value.password
+        }
 
-        this.http.post('user/' , formData) 
+          const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded'
+            })
+          };
+
+        this.http.post('api/user/' , formData, httpOptions) 
             .subscribe((response) => console.log(response),
                        (error) => console.log(error));
 

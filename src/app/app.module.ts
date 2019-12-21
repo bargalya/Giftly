@@ -1,6 +1,6 @@
+import { DbService } from './services/db.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,17 +8,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { EventsDashboardComponent } from './events-dashboard/events-dashboard.component';
 import { NewEventComponent } from './new-event/new-event.component';
+import { EventComponent } from './event/event.component';
 import { GetGiftStatusPipe } from './new-event/new-event.pipe';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,     
+    AppComponent,    
+    NavMenuComponent, 
     LoginComponent,
     RegisterComponent,     
     EventsDashboardComponent,
     NewEventComponent,
+    EventComponent,
     GetGiftStatusPipe
     ], 
   imports: [
@@ -26,9 +33,17 @@ import { RegisterComponent } from './register/register.component';
     AppRoutingModule,
     ReactiveFormsModule, 
     HttpClientModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
     AgGridModule.withComponents([])
   ],
-  providers: [          
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [   
+    DbService       
   ],  
   bootstrap: [AppComponent]
 })

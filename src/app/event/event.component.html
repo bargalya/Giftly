@@ -1,0 +1,16 @@
+<div class="search-input">
+    <form layout layout-align="center" layout-padding [formGroup]="searchForm" (ngSubmit)="searchGift()">
+        <mat-form-field class="example-full-width">
+            <input matInput type="url" formControlName="url" placeholder="Search a gift" required>
+        </mat-form-field>
+        <button mat-stroked-button color="primary">Add</button>
+    </form>
+</div>
+
+<div class="gifts">
+    <mat-card *ngFor="let item of _gifts">
+        <mat-card-title>{{item.title}}</mat-card-title>
+        <img mat-card-image src="{{item.img}}" alt="{{item.title}}">
+    </mat-card>
+    <button mat-fab class="back-btn" (click)="backToDashboard()">Back</button>
+</div>
