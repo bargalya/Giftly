@@ -1,7 +1,7 @@
 const mongo = require('mongodb').MongoClient;
 
 url = "mongodb://localhost:27017/";    
-dbName = "giftlyDB";
+dbName = "GiftlyDB";
 connectParams = {
         useNewUrlParser: true,
         useUnifiedTopology: true
