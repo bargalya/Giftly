@@ -1,10 +1,10 @@
 /* Global Styles */
 @import "~@ag-grid-community/all-modules/dist/styles/ag-grid.css";
 @import "~@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 * {
   font-family: 'Roboto', Arial, sans-serif;
-  color: #616161;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -38,4 +38,8 @@ a {
 
 a:hover {
   opacity: 0.8;
+}
+
+.giftly-form-field {
+  width: 800px;
 }

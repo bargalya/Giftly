@@ -1,34 +1,59 @@
+import { DataService } from './services/data.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { EventsDashboardComponent } from './events-dashboard/events-dashboard.component';
-import { NewEventComponent } from './new-event/new-event.component';
-import { GetGiftStatusPipe } from './new-event/new-event.pipe';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { EventsDashboardComponent } from './components/events-dashboard/events-dashboard.component';
+import { NewEventComponent } from './components/new-event/new-event.component';
+import { EventComponent } from './components/event/event.component';
+import { GetGiftStatusPipe } from './components/new-event/new-event.pipe';
+import { FindEventComponent } from './components/find-event/find-event.component';
+
+import { LoginComponent } from './components/login/login.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RegisterComponent } from './components/register';
+
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+
+import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,     
+    AppComponent,    
+    NavMenuComponent, 
     LoginComponent,
     RegisterComponent,     
     EventsDashboardComponent,
     NewEventComponent,
-    GetGiftStatusPipe
+    EventComponent,
+    GetGiftStatusPipe,
+    FindEventComponent,
+    HomeComponent
     ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule, 
     HttpClientModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,    
     AgGridModule.withComponents([])
   ],
-  providers: [          
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [   
+    DataService       
   ],  
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,8 @@
   class="ag-theme-balham"
   [rowData]="rowData" 
   [columnDefs]="columnDefs"
-  [modules]="modules">
+  [modules]="modules"
+  (rowClicked)='onRowClicked($event)'
+  >
 </ag-grid-angular>
 </p>

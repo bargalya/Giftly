@@ -11,6 +11,7 @@ let db;
 
 function connectToDb(callback)
 {
+    console.warn("I'm here!! connectToDb");
     if (db)
     {
         console.warn("DB is already connected");
@@ -39,17 +40,30 @@ function getDb() {
 
 function addToDb(collectionName, document, callback)
 {
-    /////////////////////////////////////////////////////////////////
-    // DEBUG
     if (db)
+    {
         console.log("from func add: DB is already connected");
+        return insertOne(collectionName, document, callback);
+    }
     else
-        console.log("from func add: DB is not connected!");
-        
-    /////////////////////////////////////////////////////////////////
+    {
+        console.log("from func add: DB is not connected!");        
+        mongo.connect(url, connectParams, 
+            function(err, client) {
+                if(err) {                    
+                    console.log("Error!");
+                }
+                db = client.db(dbName);
+                console.log("Database created!" + db);
+                return insertOne(collectionName, document, callback);
+                }
+        );    
+    }        
+}
 
-    const collection = db.collection(collectionName);
-    
+function insertOne(collectionName, document, callback)
+{
+    const collection = db.collection(collectionName);    
     collection.insertOne(document,
         function(err){
             if(err) { 
@@ -59,11 +73,11 @@ function addToDb(collectionName, document, callback)
 //                                         'error': err});
             }
             return callback(null, document);
-    });   
+    });  
 }
 
 module.exports = {    
     connectToDb,    
-    getDb
-    //addToDb    
+    getDb,    
+    addToDb    
 };
