@@ -21,6 +21,9 @@ mongo.connect(url, connectParams,
     //    return callback(null, db);
     }
 );
+
+// deleting the connect function definition. connecting at the object's initialization
+// TODO: delete in the merge to the master branch *********************
 /*
 function connectToDb(callback)
 {
@@ -59,7 +62,9 @@ function addToDb(collectionName, document, callback)
     }
     else
     {
-        console.log("from func add: DB is not connected!");
+        // the object is expected to be initialized at the application's rise
+        console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
+
         mongo.connect(url, connectParams, 
             function(err, client) {
                 if(err) {                    
@@ -88,8 +93,7 @@ function insertOne(collectionName, document, callback)
     });  
 }
 
-module.exports = {    
-    connectToDb,    
-    getDb
-    //addToDb    
+module.exports = {        
+    getDb,
+    addToDb    
 };
