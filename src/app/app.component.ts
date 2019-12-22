@@ -8,10 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
-<<<<<<< HEAD
-  constructor(private http: HttpClient) {
-=======
   constructor() {
->>>>>>> d548807039fb0de257b82174043f5d6c1848d302
   }
 }

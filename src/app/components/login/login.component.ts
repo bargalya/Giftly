@@ -35,23 +35,7 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-<<<<<<< HEAD:src/app/login/login.component.ts
-        // let formData = new FormData();
-        // formData.append('username', this.loginForm.value.username);    
-        // formData.append('password', this.loginForm.value.password);
-
-        let formData = {
-            userName: this.loginForm.value.username,
-            password: this.loginForm.value.password
-        }
-        
-
-        this.http.post('api/user/' , formData) 
-            .subscribe((response) => console.log(response),
-                       (error) => console.log(error));
-=======
         this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
->>>>>>> d548807039fb0de257b82174043f5d6c1848d302:src/app/components/login/login.component.ts
 
         this.loading = true;        
     }

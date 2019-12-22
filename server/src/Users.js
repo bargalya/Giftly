@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-const mongo = require('mongodb').MongoClient;
-const getDb = require("./db").getDb;
-
-class Users {
-    static collectionName = "Users"; 
-
-=======
 //const mongo = require('mongodb').MongoClient;
 //const dbMgr = require('../dbMgr/dbMgr');
 
@@ -21,7 +13,6 @@ class Users{
     //     useNewUrlParser: true,
     //     useUnifiedTopology: true
     //   };   
->>>>>>> d548807039fb0de257b82174043f5d6c1848d302
 
     constructor(){
     }
@@ -29,15 +20,9 @@ class Users{
     // TODO: should we support GET method?
     // I don't see any reason to support
     get(req, res) {
-<<<<<<< HEAD
-        const db = getDb();
-        const collection = db.collection(Users.collectionName); 
-
-=======
 
         //********************* old code - delete */
 /*        const mongo = require('mongodb').MongoClient; duplicated move out
->>>>>>> d548807039fb0de257b82174043f5d6c1848d302
         const ObjectId = require('mongodb').ObjectID;
         const userid = ObjectId(req.params.userid);
         let query = {'_id' : userid};
@@ -47,36 +32,6 @@ class Users{
                     res.send({'status': 'Failed',
                             'error': err});
                 }
-<<<<<<< HEAD
-                res.send({
-                    'status': 'success',
-                    'data': document
-                    });
-        });      
-    }
-
-    add(req, res){
-        const db = getDb();
-        const collection = db.collection(Users.collectionName); 
-        const document = { 
-            UserName: req.body.userName,
-            Password: req.body.password               
-         };  
-        console.log("created document from request data:", document);
-
-        collection.insertOne(document, 
-            function(err){
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }                        
-            });                  
-            console.log("user was created!");
-    }
-
-    update(req, res){
-        
-=======
                 let db = client.db(Users.dbName);
                 let collection = db.collection(Users.collectionName);
                 collection.findOne(query, 
@@ -156,7 +111,6 @@ class Users{
                 }
             });
         /*
->>>>>>> d548807039fb0de257b82174043f5d6c1848d302
         const ObjectId = require('mongodb').ObjectID;
         const userid = ObjectId(req.params.userid);
         let query = {'_id' : userid};
