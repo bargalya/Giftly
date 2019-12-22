@@ -1,6 +1,7 @@
-import { Gift, GiftStatus } from './../models/gift.class';
+import { DataService } from 'src/app/services/data.service';
+import { Gift, GiftStatus } from 'src/app/models/gift.class';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Event } from '../models/event.class';
+import { Event } from 'src/app/models/event.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-event',
@@ -10,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class NewEventComponent implements OnInit {
   _event:Event;
   myForm: FormGroup;
-  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
   
   _gifts: Array<Gift> = new Array<Gift>();
   ngOnInit() {
@@ -55,6 +56,7 @@ export class NewEventComponent implements OnInit {
     var description = this.myForm.get('description').value;
     var date = this.myForm.get('date').value;
     this._event = new Event(eventName, description, date, this._gifts);
-    //TODO:send the event to BE and save in the DB
+    console.log("evenr created: " + eventName)
+    this.dataService.saveEvent(this._event);
   }
 }

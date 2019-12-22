@@ -7,8 +7,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'giftly';
 
+<<<<<<< HEAD
   constructor(private http: HttpClient) {
+=======
+  constructor() {
+>>>>>>> d548807039fb0de257b82174043f5d6c1848d302
   }
 }

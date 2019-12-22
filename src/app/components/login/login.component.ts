@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-// TODO: maybe this should be in a different filem, that is responsible for all the sends and wating for responses
-import { HttpClient } from '@angular/common/http';
-
-// TODO: define in a common file (?)
-//const serverAddress = 'http://localhost:3000/';                       
+import { DataService } from 'src/app/services/data.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -16,7 +11,7 @@ export class LoginComponent implements OnInit {
     
     constructor(
         private formBuilder: FormBuilder,
-        private http: HttpClient  
+        private readonly dataService: DataService  
     ) {  }
 
     ngOnInit() {
@@ -40,6 +35,7 @@ export class LoginComponent implements OnInit {
             return;
         }
 
+<<<<<<< HEAD:src/app/login/login.component.ts
         // let formData = new FormData();
         // formData.append('username', this.loginForm.value.username);    
         // formData.append('password', this.loginForm.value.password);
@@ -53,6 +49,9 @@ export class LoginComponent implements OnInit {
         this.http.post('api/user/' , formData) 
             .subscribe((response) => console.log(response),
                        (error) => console.log(error));
+=======
+        this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
+>>>>>>> d548807039fb0de257b82174043f5d6c1848d302:src/app/components/login/login.component.ts
 
         this.loading = true;        
     }
