@@ -27,13 +27,11 @@ export class DataService {
   saveUser(user:User):void{
   
         let body = new HttpParams();
+        body = body.set('userName', user.UserName);
         body = body.set('firstName', user.FirstName);
         body = body.set('lastName', user.LastName);
         body = body.set('password', user.Password);
-        body = body.set('userName', user.UserName);
-        body = body.set('password', user.Password);
         body = body.set('email', user.Email);
-  
         this.http.post('api/user/' , body, this.httpOptions) 
             .subscribe((response) => console.log(response),
                         (error) => console.log(error));
