@@ -8,47 +8,20 @@ connectParams = {
 };
 
 let db;
+
+// Connect to the DB and initialize the variable with the connection
 mongo.connect(url, connectParams, 
     function(err, client) {
-        if(err) {                    
-            //return callback(err);
+        if(err) {                        
             console.log("ERROR! failed to connect to Data base!");
         }
         else {
             db = client.db(dbName);
-            console.log("Database created from connect!");
-        }
-    //    return callback(null, db);
+            console.log("Database created");
+        }    
     }
 );
 
-// deleting the connect function definition. connecting at the object's initialization
-// TODO: delete in the merge to the master branch *********************
-/*
-function connectToDb(callback)
-{
-    if (db)
-    {
-        console.warn("DB is already connected");
-        return callback(null, _db);
-    }
-    else
-    {
-        console.log("trying to connect to DB");
-
-        mongo.connect(url, connectParams, 
-            function(err, client) {
-                if(err) {                    
-                    return callback(err);
-                }
-                db = client.db(dbName);
-                console.log("Database created!");
-                return callback(null, db);
-            }
-        );          
-    }
-}
-*/
 function getDb() { 
     return db;
 }
@@ -56,8 +29,7 @@ function getDb() {
 function addToDb(collectionName, document, callback)
 {
     if (db)
-    {
-        console.log("from func add: DB is already connected");
+    {        
         return insertOne(collectionName, document, callback);
     }
     else
@@ -85,10 +57,8 @@ function insertOne(collectionName, document, callback)
         function(err){
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
-                return callback(err);                    
-//                                    res.send({'status': 'Failed',
-//                                         'error': err});
-            }
+                return callback(err);
+            }            
             return callback(null, document);
     });  
 }

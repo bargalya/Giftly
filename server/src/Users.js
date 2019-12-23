@@ -1,20 +1,45 @@
-//const mongo = require('mongodb').MongoClient;
-//const dbMgr = require('../dbMgr/dbMgr');
-
-//const getDb = require("./db").getDb;
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 var uuidCreator = require('uuid');
 
-class Users{
-    // static url = "mongodb://localhost:27017/";
-    // static dbName = "giftlyDB";
-    // static collectionName = "Users"; 
-    // static connectParams = {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true
-    //   };   
+class Users{    
 
     constructor(){
+        Users.collectionName = "Users"; 
+    }
+
+    // Handle registration request
+    add(req, res){
+
+        // Initialize the DB document
+        const document = { 
+            userName: req.body.userName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: req.body.password,
+            email: req.body.email,
+            uuid: uuidCreator.v4()               
+        };                 
+              
+        // Insert the document to the DB
+        addToDb(Users.collectionName, document,
+            function(err, responseDocument) {
+                if (err)
+                {
+                    res.send({
+                        'status': 'Failed',
+                        'error': err});
+                }
+                else
+                {
+
+                    console.log("A new user was added. username: " + document.userName);
+
+                    res.send({
+                        'status': 'success',
+                        'data': responseDocument
+                    });                
+                }
+            });  
     }
 
     // TODO: should we support GET method?
@@ -65,36 +90,7 @@ class Users{
             });        
             */
     }
-
-    add(req, res){
-
-        const document = { 
-            userName: req.body.userName,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            password: req.body.password,
-            email: req.body.email,
-            uuid: uuidCreator.v4()               
-        };                 
-              
-        addToDb(Users.collectionName, document,
-            function(err, responseDocument) {
-                if (err)
-                {
-                    res.send({
-                        'status': 'Failed',
-                        'error': err});
-                }
-                else
-                {
-                    res.send({
-                        'status': 'success',
-                        'data': responseDocument
-                    });                
-                }
-            });  
-    }
-
+    
     update(req, res){
 
         dbMgr.update(req.params.userid, Users.collectionName, req.body,
@@ -138,13 +134,5 @@ class Users{
         });       */        
     }
 }
-
-Users.url = "mongodb://localhost:27017/";
-Users.dbName = "giftlyDB";
-Users.collectionName = "Users"; 
-Users.connectParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-};   
 
 module.exports = Users;
