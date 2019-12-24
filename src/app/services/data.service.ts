@@ -17,7 +17,14 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   saveEvent(event: Event): void {
-
+    let body = new HttpParams();
+    body = body.set('description', event.Description);
+    body = body.set('name', event.Name);
+    body = body.set('date', event.Date.toString());
+    // body = body.set('gifts', event.Gifts);
+    this.http.post('api/event/' , body, this.httpOptions)
+        .subscribe((response) => console.log(response),
+                    (error) => console.log(error));
   }
 
   getEvent(eventId: number): Event {
