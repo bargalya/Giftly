@@ -5,8 +5,8 @@ export class Event {
     Name: string;
     Description: string;
     Date: Date;
-    Gifts: Array<Gift>
-    constructor(name: string, description: string, date: Date, gifts: Array<Gift>){
+    Gifts: Array<Gift>;
+    constructor(name: string, description: string, date: Date, gifts: Array<Gift>) {
         this.Name = name;
         this.Description = description;
         this.Date = date;
@@ -21,6 +21,3 @@ export class Event {
         this.Gifts = gifts;
     }
 }
-
-
-  

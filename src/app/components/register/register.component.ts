@@ -12,8 +12,8 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,     
-        private readonly dataService: DataService   
+        private router: Router,
+        private readonly dataService: DataService
     ) { }
 
     ngOnInit() {
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
             lastName: ['', Validators.required],
             username: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            email: ['', Validators.required]        
+            email: ['', Validators.required]
         });
     }
 
@@ -38,11 +38,11 @@ export class RegisterComponent implements OnInit {
         }
 
         this.dataService.saveUser(new User(this.registerForm.value.username,
-             this.registerForm.value.firstName, 
-             this.registerForm.value.lastName, 
-             this.registerForm.value.password, 
+             this.registerForm.value.firstName,
+             this.registerForm.value.lastName,
+             this.registerForm.value.password,
              this.registerForm.value.email));
-        
-        this.loading = true;        
+
+        this.loading = true;
     }
 }

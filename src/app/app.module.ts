@@ -25,36 +25,36 @@ import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,    
-    NavMenuComponent, 
+    AppComponent,
+    NavMenuComponent,
     LoginComponent,
-    RegisterComponent,     
+    RegisterComponent,
     EventsDashboardComponent,
     NewEventComponent,
     EventComponent,
     GetGiftStatusPipe,
     FindEventComponent,
     HomeComponent
-    ], 
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,    
+    MatFormFieldModule,
     AgGridModule.withComponents([])
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [   
-    DataService       
-  ],  
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
