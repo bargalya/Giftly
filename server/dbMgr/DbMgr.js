@@ -71,7 +71,7 @@ function findOne(quary, collectionName, callback)
 
                  return callback(err);
         }   
-        console.log("DbMgr: found document in " + collectionName + " collection");
+        
         return callback(null, document);
         }
     );

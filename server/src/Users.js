@@ -21,7 +21,7 @@ class Users{
             uuid: uuidCreator.v4()               
         };    
         
-        // TODO: Verify the userName does not already exist - should we make an extra DB query, or define a unique field?     
+        // TODO: make userName field unique
         
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {
@@ -43,9 +43,6 @@ class Users{
                 }
             });             
     }
-
-    // TODO: should we support GET method?
-    // I don't see any reason to support
    
     find(req, res) {
         
@@ -64,7 +61,7 @@ class Users{
 
                     if (document.password == req.body.password)
                     {
-                        console.log("password matches");
+                        console.log("password match");
                         
                         res.send({
                             'status': 'success',
@@ -82,6 +79,8 @@ class Users{
             });
     }
     
+    /*
+    // not supported yet
     update(req, res){
 
         dbMgr.update(req.params.userid, Users.collectionName, req.body,
@@ -93,7 +92,7 @@ class Users{
                 else {
                     res.send({
                         'status': 'success',
-                        'data': response // TODO: I am not sure what should I send back
+                        'data': response 
                         });
                 }
             });
@@ -123,7 +122,7 @@ class Users{
                             });
                 });
         });       */        
-    }
+//    }
 }
 
 module.exports = Users;

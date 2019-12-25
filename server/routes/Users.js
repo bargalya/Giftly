@@ -9,7 +9,7 @@ router.post('/', user.add);
 // login requests
 router.post('/:userName', user.find);
 
-//update user
-router.put('/:userName',user.update);
+//update user - not supported yet
+// router.put('/:userName',user.update);
 
  module.exports = router;
