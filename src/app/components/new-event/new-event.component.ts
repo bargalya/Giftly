@@ -58,7 +58,7 @@ export class NewEventComponent implements OnInit {
     const description = this.myForm.get('description').value;
     const date = this.myForm.get('date').value;
     this.event = new Event(eventName, description, date, this.gifts);
-    console.log('evenr created: ' + eventName);
+    console.log('event created: ' + eventName);
     this.dataService.saveEvent(this.event);
   }
 }
