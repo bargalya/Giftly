@@ -18,7 +18,7 @@ import { RegisterComponent } from './components/register';
 
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
-import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
@@ -47,6 +47,8 @@ import { HomeComponent } from './components/home/home.component';
     MatButtonModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AgGridModule.withComponents([])
   ],
   schemas: [
