@@ -9,7 +9,7 @@ class Users{
     }
 
     // Handle registration request
-    register(req, res){
+    add(req, res){
 
         // Initialize the DB document
         const document = { 
@@ -22,8 +22,7 @@ class Users{
         };    
         
         // TODO: Verify the userName does not already exist - should we make an extra DB query, or define a unique field?     
-                
-        // user name does not exist - insert the document to the DB
+        
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {
                 if (err)
@@ -48,7 +47,7 @@ class Users{
     // TODO: should we support GET method?
     // I don't see any reason to support
    
-    login(req, res) {
+    find(req, res) {
         
         console.log("got a request to search user " + req.params.userName);
 

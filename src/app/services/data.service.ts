@@ -38,12 +38,11 @@ export class DataService {
   }
 
   getUser(userName:string, password: string):User{
-    let body = new HttpParams();
-    body = body.set('userName', userName);
+    let body = new HttpParams();    
     body = body.set('password', password);
     this.http.post('api/user/'+userName , body, this.httpOptions) 
             .subscribe((response) => console.log(response),
                         (error) => console.log(error));
-    return null;//
+    return null;
   }
 }

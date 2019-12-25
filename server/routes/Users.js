@@ -4,10 +4,10 @@ const Users = require('../src/Users');
 const user = new Users;
 
 //registerations requests
-router.post('/', user.register);
+router.post('/', user.add);
 
 // login requests
-router.post('/:userName', user.login);
+router.post('/:userName', user.find);
 
 //update user
 router.put('/:userName',user.update);
