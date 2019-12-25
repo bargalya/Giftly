@@ -1,7 +1,8 @@
 const mongo = require('mongodb').MongoClient;
+// const ObjectId = require('mongodb').ObjectID;
 
 url = "mongodb://localhost:27017/";    
-dbName = "GiftlyDB";
+dbName = "giftlyDB";
 connectParams = {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -9,45 +10,30 @@ connectParams = {
 
 let db;
 
-function connectToDb(callback)
-{
-    console.warn("I'm here!! connectToDb");
-    if (db)
-    {
-        console.warn("DB is already connected");
-        return callback(null, _db);
+// Connect to the DB and initialize the variable with the connection
+mongo.connect(url, connectParams, 
+    function(err, client) {
+        if(err) {                        
+            console.log("ERROR! failed to connect to Data base!");
+        }
+        else {
+            db = client.db(dbName);
+            console.log("Database created");
+        }    
     }
-    else
-    {
-        console.log("trying to connect to DB");
-
-        mongo.connect(url, connectParams, 
-            function(err, client) {
-                if(err) {                    
-                    return callback(err);
-                }
-                db = client.db(dbName);
-                console.log("Database created!");
-                return callback(null, db);
-            }
-        );          
-    }
-}
-
-function getDb() { 
-    return db;
-}
+);
 
 function addToDb(collectionName, document, callback)
 {
     if (db)
-    {
-        console.log("from func add: DB is already connected");
+    {        
         return insertOne(collectionName, document, callback);
     }
     else
     {
-        console.log("from func add: DB is not connected!");        
+        // the object is expected to be initialized at the application's rise
+        console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
+
         mongo.connect(url, connectParams, 
             function(err, client) {
                 if(err) {                    
@@ -68,16 +54,36 @@ function insertOne(collectionName, document, callback)
         function(err){
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
-                return callback(err);                    
-//                                    res.send({'status': 'Failed',
-//                                         'error': err});
-            }
+                return callback(err);
+            }            
             return callback(null, document);
     });  
 }
 
-module.exports = {    
-    connectToDb,    
-    getDb,    
-    addToDb    
+function findOne(quary, collectionName, callback)
+{        
+    // get the desired collection we want to search in
+    let collection = db.collection(collectionName);
+
+    collection.findOne(quary,function(err, document) {
+        if(err) {                      
+                console.log("DbMgr: failed to find a document in " + collectionName + " collection");
+
+                 return callback(err);
+        }   
+        console.log("DbMgr: found document in " + collectionName + " collection");
+        return callback(null, document);
+        }
+    );
+}
+
+function findUserName(userName, collectionName, callback)
+{
+    let query = {"userName" : userName};    
+    return findOne(query, collectionName, callback);
+}
+           
+module.exports = { 
+    addToDb,
+    findUserName
 };

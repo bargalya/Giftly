@@ -37,11 +37,12 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
-        this.dataService.saveUser(new User(this.registerForm.value.username,
-             this.registerForm.value.firstName, 
+        this.dataService.saveUser(new User(
+             this.registerForm.value.firstName,              
              this.registerForm.value.lastName, 
+             this.registerForm.value.username,
              this.registerForm.value.password, 
-             this.registerForm.value.email));
+             this.registerForm.value.email));             
         
         this.loading = true;        
     }
