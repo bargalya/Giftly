@@ -21,7 +21,7 @@ export class DataService {
     body = body.set('description', event.Description);
     body = body.set('name', event.Name);
     body = body.set('date', event.Date.toString());
-    // body = body.set('gifts', event.Gifts);
+    body = body.set('gifts', JSON.stringify(event.Gifts));
     this.http.post('api/event/' , body, this.httpOptions)
         .subscribe((response) => console.log(response),
                     (error) => console.log(error));
