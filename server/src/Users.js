@@ -1,4 +1,5 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
+const findUserName = require('../dbMgr/dbMgr').findUserName;
 var uuidCreator = require('uuid');
 
 class Users{    
@@ -8,7 +9,7 @@ class Users{
     }
 
     // Handle registration request
-    add(req, res){
+    register(req, res){
 
         // Initialize the DB document
         const document = { 
@@ -18,20 +19,22 @@ class Users{
             password: req.body.password,
             email: req.body.email,
             uuid: uuidCreator.v4()               
-        };                 
-              
-        // Insert the document to the DB
+        };    
+        
+        // TODO: Verify the userName does not already exist - should we make an extra DB query, or define a unique field?     
+                
+        // user name does not exist - insert the document to the DB
         addToDb(Users.collectionName, document,
             function(err, responseDocument) {
                 if (err)
                 {
+                    console.log("Failed to add a new user to the DB");
                     res.send({
                         'status': 'Failed',
                         'error': err});
                 }
                 else
                 {
-
                     console.log("A new user was added. username: " + document.userName);
 
                     res.send({
@@ -39,43 +42,17 @@ class Users{
                         'data': responseDocument
                     });                
                 }
-            });  
+            });             
     }
 
     // TODO: should we support GET method?
     // I don't see any reason to support
-    get(req, res) {
-
-        //********************* old code - delete */
-/*        const mongo = require('mongodb').MongoClient; duplicated move out
-        const ObjectId = require('mongodb').ObjectID;
-        const userid = ObjectId(req.params.userid);
-        let query = {'_id' : userid};
-        mongo.connect(Users.url, Users.connectParams, 
-            function(err, client) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                let db = client.db(Users.dbName);
-                let collection = db.collection(Users.collectionName);
-                collection.findOne(query, 
-                    function(err, document){
-                        if(err) {
-                            res.send({'status': 'Failed',
-                                    'error': err});
-                        }
-                        client.close();
-                        res.send({
-                            'status': 'success',
-                            'data': document
-                            });
-                });
-        });        */
+   
+    login(req, res) {
         
+        console.log("got a request to search user " + req.params.userName);
 
-        /********************************* new code - uncomment and check it works 
-        dbMgr.find(req.params.userid, Users.collectionName,
+        findUserName(req.params.userName, Users.collectionName,
             function(err, document)
             {
                 if(err) {
@@ -83,12 +60,27 @@ class Users{
                             'error': err});
                 }
                 else {
-                res.send({
-                    'status': 'success',
-                    'data': document}
-                )};
-            });        
-            */
+
+                    console.log("user was found. password is " + document.password);
+
+                    if (document.password == req.body.password)
+                    {
+                        console.log("password matches");
+                        
+                        res.send({
+                            'status': 'success',
+                            'data': document});
+                    }
+                    else  
+                    {
+                        console.log("password doesnt match!");
+                        
+                        res.send({'status': 'Failed',
+                        'error': err});
+                        
+                    }
+                }
+            });
     }
     
     update(req, res){
