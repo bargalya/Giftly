@@ -1,10 +1,12 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
+const addManyToDb = require('../dbMgr/dbMgr').addManyToDb;
 var uuidCreator = require('uuid');
 
 class Events{
 
     constructor(){
         Events.collectionName = "Events"; 
+        Events.giftsCollectionName = "Gifts"; 
     }
 
     async get(req, res){
@@ -16,18 +18,43 @@ class Events{
 
     }
 
-    // Handle event request
     add(req, res){
+        const eventId = uuidCreator.v4();
+        let gifts = JSON.parse(req.body.gifts);
+        let giftsDocument = [];
+        gifts.forEach(gift => { 
+            giftsDocument.push(
+                {
+                    url:gift["Url"],
+                    status:gift["Status"],
+                    eventId: eventId
+                }
+            ); 
+          });
 
-        // Initialize the DB document
+        let responseGiftsDocument;
+        addManyToDb(Events.giftsCollectionName, giftsDocument,
+            function(err, responseDocument) {
+                if (err)
+                {
+                    res.send({
+                        'status': 'Failed',
+                        'error': err});
+                }
+                else
+                {
+                    console.log("New gifts were added.");       
+                    responseGiftsDocument = responseDocument;
+                }
+            });  
+            
         const document = { 
             name: req.body.name,
             description: req.body.description,
             date: req.body.date,
-            euid: uuidCreator.v4()               
+            euid: eventId             
         };            
-                
-        // Insert the document to the DB
+        
         addToDb(Events.collectionName, document,
             function(err, responseDocument) {
                 if (err)
@@ -38,12 +65,11 @@ class Events{
                 }
                 else
                 {
-
                     console.log("A new event was added. event: " + document.name);
-
                     res.send({
                         'status': 'success',
-                        'data': responseDocument
+                        'eventData': responseDocument,
+                        'giftsdata': responseGiftsDocument
                     });                
                 }
             });  
