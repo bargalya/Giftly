@@ -1,4 +1,5 @@
 const mongo = require('mongodb').MongoClient;
+// const ObjectId = require('mongodb').ObjectID;
 
 url = "mongodb://localhost:27017/";    
 dbName = "giftlyDB";
@@ -21,10 +22,6 @@ mongo.connect(url, connectParams,
         }    
     }
 );
-
-function getDb() { 
-    return db;
-}
 
 function addToDb(collectionName, document, callback)
 {
@@ -100,10 +97,31 @@ function insertMany(collectionName, documents, callback)
     });  
 }
 
+function findOne(quary, collectionName, callback)
+{        
+    // get the desired collection we want to search in
+    let collection = db.collection(collectionName);
 
+    collection.findOne(quary,function(err, document) {
+        if(err) {                      
+                console.log("DbMgr: failed to find a document in " + collectionName + " collection");
 
-module.exports = {        
-    getDb,
+                 return callback(err);
+        }   
+        
+        return callback(null, document);
+        }
+    );
+}
+
+function findUserName(userName, collectionName, callback)
+{
+    let query = {"userName" : userName};    
+    return findOne(query, collectionName, callback);
+}
+           
+module.exports = { 
     addToDb,
-    addManyToDb    
+    findUserName,
+    addManyToDb
 };
