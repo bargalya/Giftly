@@ -18,43 +18,45 @@ import { RegisterComponent } from './components/register';
 
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
-import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,    
-    NavMenuComponent, 
+    AppComponent,
+    NavMenuComponent,
     LoginComponent,
-    RegisterComponent,     
+    RegisterComponent,
     EventsDashboardComponent,
     NewEventComponent,
     EventComponent,
     GetGiftStatusPipe,
     FindEventComponent,
     HomeComponent
-    ], 
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,    
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AgGridModule.withComponents([])
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [   
-    DataService       
-  ],  
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

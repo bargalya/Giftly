@@ -3,7 +3,7 @@ export class Gift {
     public Status: GiftStatus;
     constructor(url: string, status: GiftStatus)    {
         this.Url = url;
-        this.Status = status
+        this.Status = status;
     }
 }
 
@@ -11,4 +11,3 @@ export enum GiftStatus {
     ReadyForGrabs,
     Taken
 }
-  

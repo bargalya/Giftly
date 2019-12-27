@@ -9,26 +9,26 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./new-event.component.scss']
 })
 export class NewEventComponent implements OnInit {
-  _event:Event;
+  event: Event;
   myForm: FormGroup;
   constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
-  
-  _gifts: Array<Gift> = new Array<Gift>();
+
+  gifts: Array<Gift> = new Array<Gift>();
   ngOnInit() {
-    var URL_REGEXP = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
+    const URL_REGEXP = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
     this.myForm = this.fb.group({
       name: ['', [
         Validators.required,
       ]],
       description: '',
-      date:'',
-      giftUrl:['', [
-        //Validators.required,
+      date: '',
+      giftUrl: ['', [
+        // Validators.required,
         Validators.pattern(URL_REGEXP)
       ]],
-    })
+    });
   }
-  
+
   get name() {
     return this.myForm.get('name');
   }
@@ -37,26 +37,28 @@ export class NewEventComponent implements OnInit {
     return this.myForm.get('giftUrl');
   }
 
-  addGift() : void  {
-    var giftUrl = this.myForm.get('giftUrl').value;
-    if(giftUrl == "")
+  addGift(): void  {
+    const giftUrl = this.myForm.get('giftUrl').value;
+    if (giftUrl === '') {
       return;
-    this._gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
-    this.myForm.get('giftUrl').setValue("");
-    //this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
+    }
+
+    this.gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
+    this.myForm.get('giftUrl').setValue('');
+    // this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
     this.cd.detectChanges();
   }
 
-  removeGift(gift:Gift) : void{
-    this._gifts = this._gifts.filter(obj => obj !== gift);
+  removeGift(gift: Gift): void {
+    this.gifts = this.gifts.filter(obj => obj !== gift);
   }
 
-  createEvent() : void {
-    var eventName = this.myForm.get('name').value;
-    var description = this.myForm.get('description').value;
-    var date = this.myForm.get('date').value;
-    this._event = new Event(eventName, description, date, this._gifts);
-    console.log("evenr created: " + eventName)
-    this.dataService.saveEvent(this._event);
+  createEvent(): void {
+    const eventName = this.myForm.get('name').value;
+    const description = this.myForm.get('description').value;
+    const date = this.myForm.get('date').value;
+    this.event = new Event(eventName, description, date, this.gifts);
+    console.log('event created: ' + eventName);
+    this.dataService.saveEvent(this.event);
   }
 }

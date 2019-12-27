@@ -8,17 +8,17 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    
+
     constructor(
         private formBuilder: FormBuilder,
-        private readonly dataService: DataService  
+        private readonly dataService: DataService
     ) {  }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
-        });        
+        });
     }
 
     // convenience getter for easy access to form fields
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // Debug print
-        console.log("submit was called " + this.loginForm.value.username + " password " + this.loginForm.value.password);
+        console.log('submit was called ' + this.loginForm.value.username + ' password ' + this.loginForm.value.password);
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
@@ -37,6 +37,6 @@ export class LoginComponent implements OnInit {
 
         this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
 
-        this.loading = true;        
+        this.loading = true;
     }
 }

@@ -10,12 +10,11 @@
     <textarea matInput formControlName="description" id="event-description" placeholder="Enter description"></textarea><br><br>
   </mat-form-field>
   
-  Date: <input formControlName="date" type="date"  ><br><br>   <!--TODO: change date format to: DD-MM-YYYY -->
-  <!-- <mat-form-field>
-    <input matInput [matDatepicker]="picker" id="event-date" placeholder="Choose a date">
+  <mat-form-field class="giftly-form-field">
+    <input formControlName="date" matInput [matDatepicker]="picker" id="event-date" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
+  </mat-form-field>
 
   <mat-form-field class="giftly-form-field">
     <input matInput formControlName="giftUrl" id="gift-url" placeholder="Add gift">
@@ -28,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="fd-table__cell" *ngFor='let gift of _gifts'>
+    <tr class="fd-table__cell" *ngFor='let gift of gifts'>
       <td class="fd-table__cell--url">{{gift.Url}}</td>
       <td class="fd-table__cell--status">{{gift.Status | setGiftStatusPipe}}</td>    
       <td class="fd-table__cell--remove"><button (click)="removeGift(gift)">-</button></td>  

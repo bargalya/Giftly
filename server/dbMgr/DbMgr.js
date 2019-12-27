@@ -54,9 +54,46 @@ function insertOne(collectionName, document, callback)
         function(err){
             if(err) { 
                 console.log("failed to add a document to " + collection + " collection");
-                return callback(err);
+                return callback(err, null, );
             }            
             return callback(null, document);
+    });  
+}
+
+function addManyToDb(collectionName, document, callback)
+{
+    if (db)
+    {        
+        return insertMany(collectionName, document, callback);
+    }
+    else
+    {
+        // the object is expected to be initialized at the application's rise
+        console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
+
+        mongo.connect(url, connectParams, 
+            function(err, client) {
+                if(err) {                    
+                    console.log("Error!");
+                }
+                db = client.db(dbName);
+                console.log("Database created!" + db);
+                return insertMany(collectionName, document, callback);
+                }
+        );    
+    }        
+}
+
+function insertMany(collectionName, documents, callback)
+{
+    const collection = db.collection(collectionName);    
+    collection.insertMany(documents,
+        function(err){
+            if(err) { 
+                console.log("failed to add a documents to " + collection + " collection");
+                return callback(err);
+            }            
+            return callback(null, documents);
     });  
 }
 
@@ -85,5 +122,6 @@ function findUserName(userName, collectionName, callback)
            
 module.exports = { 
     addToDb,
-    findUserName
+    findUserName,
+    addManyToDb
 };

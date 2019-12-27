@@ -5,7 +5,7 @@ const TAKEN = 1;
 
 @Pipe( { name: 'setGiftStatusPipe' } )
 export class GetGiftStatusPipe implements PipeTransform {
-  transform (status: number): string {
+  transform(status: number): string {
         switch (status) {
             case READY: {
                 return 'Ready for grabs';

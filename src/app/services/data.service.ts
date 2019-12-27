@@ -16,31 +16,38 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  saveEvent(event:Event):void{
-
+  saveEvent(event: Event): void {
+    let body = new HttpParams();
+    body = body.set('description', event.Description);
+    body = body.set('name', event.Name);
+    body = body.set('date', event.Date.toString());
+    body = body.set('gifts', JSON.stringify(event.Gifts));
+    this.http.post('api/event/' , body, this.httpOptions)
+        .subscribe((response) => console.log(response),
+                    (error) => console.log(error));
   }
 
-  getEvent(eventId:number):Event{
+  getEvent(eventId: number): Event {
     return null;
   }
 
-  saveUser(user:User):void{
-  
+  saveUser(user: User): void {
         let body = new HttpParams();
         body = body.set('userName', user.UserName);
         body = body.set('firstName', user.FirstName);
         body = body.set('lastName', user.LastName);
         body = body.set('password', user.Password);
         body = body.set('email', user.Email);
-        this.http.post('api/user/' , body, this.httpOptions) 
+        this.http.post('api/user/' , body, this.httpOptions)
             .subscribe((response) => console.log(response),
                         (error) => console.log(error));
   }
 
-  getUser(userName:string, password: string):User{
-    let body = new HttpParams();    
+  getUser(userName: string, password: string): User {
+    let body = new HttpParams();
+    body = body.set('userName', userName);
     body = body.set('password', password);
-    this.http.post('api/user/'+userName , body, this.httpOptions) 
+    this.http.post('api/user/' + userName , body, this.httpOptions)
             .subscribe((response) => console.log(response),
                         (error) => console.log(error));
     return null;
