@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const users = require('./routes/Users');
-const connectToDb = require('./dbMgr/DbMgr').connectToDb;
 const events = require('./routes/Events');
 
 app.use(express.urlencoded({ extended: true }));
@@ -14,9 +13,6 @@ app.get('/', function (req, res) {
     res.send('Giftly Server');
 });
 
-
-connectToDb(function (err) {
-    app.listen(3000, function () {
-      console.log('Example app listening on port 3000!');
-    }
-  )});  
+app.listen(3000, function () {
+    console.log('Example app listening on port 3000!');
+});  
