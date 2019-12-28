@@ -1,0 +1,57 @@
+<mat-button-toggle-group name="giftsToShow" #group="matButtonToggleGroup" aria-label="Gifts to Show" 
+    [(value)] = "showItemsStatus" 
+    (change)="changeGiftStatusToShow(group.value)">
+    <mat-button-toggle value="ReadyForGrabs">Gifts I Can Buy</mat-button-toggle>
+    <mat-button-toggle value="Taken">Gifts I Bought</mat-button-toggle>
+</mat-button-toggle-group>
+
+<div class=bar>
+    <ul>
+        <li class="search-input">
+            <mat-form-field>
+                <button mat-button mat-icon-button matPrefix 
+                    (click)="clearSearchText()" *ngIf="searchText">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <input 
+                matInput 
+                placeholder="Search a gift" 
+                [(ngModel)] = "searchText">
+            </mat-form-field>
+            <button mat-button (click)=searchGifts(searchText)>
+                <mat-icon class="search-icon" aria-hidden="false" aria-label="search">search</mat-icon>
+            </button>
+        </li>
+        <li class="sort">
+            <mat-form-field>
+                <mat-label>Sort By</mat-label>
+                <mat-select [(ngModel)] = "selectedSort" (selectionChange)="sort(selectedSort)">
+                  <mat-option *ngFor="let sortOption of sortOptions" [value]="sortOption">
+                    {{sortOption}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </li>
+    </ul>
+</div>
+
+<div class="gifts">
+    <mat-card *ngFor="let item of show_items">
+        <mat-card-title>{{item.Title}}</mat-card-title>
+        <img mat-card-image src="{{item.Url}}" alt="{{item.title}}">
+        <mat-card-actions>      
+                <button *ngIf="!isBought(item)" mat-button (click)="changeGiftStatus(item)">
+                    <mat-icon aria-hidden="false" aria-label="mark as bought">
+                        shopping_cart
+                    </mat-icon>
+                    Mark as bought
+                </button>
+                <button *ngIf="isBought(item)" mat-button (click)="changeGiftStatus(item)">
+                        <mat-icon aria-hidden="false" aria-label="mark as free to buy">
+                            remove_shopping_cart
+                        </mat-icon>
+                        Mark as free to buy
+                </button>
+        </mat-card-actions>           
+    </mat-card>            
+</div>
