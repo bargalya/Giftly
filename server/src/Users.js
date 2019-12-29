@@ -1,6 +1,5 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const findUserName = require('../dbMgr/dbMgr').findUserName;
-var uuidCreator = require('uuid');
 
 class Users{    
 
@@ -17,8 +16,7 @@ class Users{
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             password: req.body.password,
-            email: req.body.email,
-            uuid: uuidCreator.v4()               
+            email: req.body.email           
         };    
         
         // TODO: make userName field unique

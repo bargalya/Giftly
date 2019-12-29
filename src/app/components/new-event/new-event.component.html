@@ -3,11 +3,9 @@
   <mat-form-field class="giftly-form-field">    
     <input matInput type="url" formControlName="name" placeholder="Event name" required>
   </mat-form-field>
-  <span *ngIf="name.invalid && name.touched">
-      <br>Name is required
-  </span>
+
   <mat-form-field class="giftly-form-field">
-    <textarea matInput formControlName="description" id="event-description" placeholder="Enter description"></textarea><br><br>
+    <textarea matInput formControlName="description" id="event-description" placeholder="Enter description"></textarea>
   </mat-form-field>
   
   <mat-form-field class="giftly-form-field">
