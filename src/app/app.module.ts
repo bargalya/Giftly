@@ -18,7 +18,9 @@ import { RegisterComponent } from './components/register';
 
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
-import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatButtonToggleModule, MatIconModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule,
+  MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatButtonToggleModule,
+  MatIconModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';

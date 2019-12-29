@@ -5,43 +5,45 @@ import { Gift } from '../models/gift.class';
     providedIn: 'root',
   })
 export class ArrangeGiftList {
-    sortOptions : {};
-    constructor() { 
+    sortOptions: {};
+    constructor() {
         this.sortOptions = {
-            "Title" : gift=>gift.Title,
-            'Online Store' : gift=>gift.Url
+            Title : gift => gift.Title,
+            'Online Store' : gift => gift.Url
         };
     }
 
-    changeSort(giftsArr: Array<Gift>, sortOption: string) : Array<Gift>{
-        let attribute = this.sortOptions[sortOption];
+    changeSort(giftsArr: Array<Gift>, sortOption: string): Array<Gift> {
+        const attribute = this.sortOptions[sortOption];
         return giftsArr.sort(
-            (giftA,giftB) => {
-                let attrA = attribute(giftA);
-                let attrB = attribute(giftB);
-                if(attrA) {
-                    if(attrB)
+            (giftA, giftB) => {
+                const attrA = attribute(giftA);
+                const attrB = attribute(giftB);
+                if (attrA) {
+                    if (attrB) {
                         return attrA.toLocaleLowerCase().localeCompare(attrB.toLocaleLowerCase());
-                    else
+                    } else {
                         return -1;
+                    }
+                } else {
+                    return 1;
                 }
-                else 
-                    return 1;  
             }
         );
       }
 
-      searchGifts(giftsArr: Array<Gift>, searchText: String) : Array<Gift>{
+      searchGifts(giftsArr: Array<Gift>, searchText: string): Array<Gift> {
         return giftsArr.filter(gift => {
-            let title = gift.Title;
-            if(title)
-                return title.toLowerCase().search(searchText.toLowerCase()) != -1;
-            else
+            const title = gift.Title;
+            if (title) {
+                return title.toLowerCase().search(searchText.toLowerCase()) !== -1;
+            } else {
                 return false;
+            }
         });
       }
 
-      getSortOptions() : Array<string> {
+      getSortOptions(): Array<string> {
           return Object.keys(this.sortOptions);
       }
 }
