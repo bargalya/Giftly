@@ -37,39 +37,31 @@ class Users{
         }      
     }
    
-    find(req, res) {
-        
+    async find(req, res) {        
         console.log("got a request to search user " + req.params.userName);
+        const document = await findUserName(req.params.userName, Users.collectionName);
+        if(document != null) {
+            console.log("user was found. password is " + document.password);
 
-        findUserName(req.params.userName, Users.collectionName,
-            function(err, document)
-            {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                else {
-
-                    console.log("user was found. password is " + document.password);
-
-                    if (document.password == req.body.password)
-                    {
-                        console.log("password match");
-                        
-                        res.send({
-                            'status': 'success',
-                            'data': document});
-                    }
-                    else  
-                    {
-                        console.log("password doesnt match!");
-                        
-                        res.send({'status': 'Failed',
-                        'error': err});
-                        
-                    }
-                }
-            });
+            if (document.password == req.body.password) {
+                console.log("password match");                
+                res.send({
+                    'status': 'success',
+                    'data': document});
+            }
+            else {
+                console.log("password doesnt match!");                
+                res.send({
+                    'status': 'Failed',
+                    'error': err});                
+            }
+        }
+        else {
+            console.log("Failed to fimding new user in the DB");
+            res.send({
+                'status': 'Failed',
+                'error': err});
+        }
     }
     
     /*
