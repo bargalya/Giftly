@@ -1,5 +1,4 @@
 const mongo = require('mongodb').MongoClient;
-// const ObjectId = require('mongodb').ObjectID;
 
 url = "mongodb://localhost:27017/";    
 dbName = "giftlyDB";
@@ -22,6 +21,29 @@ mongo.connect(url, connectParams,
         }    
     }
 );
+
+async function asyncInsertOne(collectionName, document) {
+    if (db)
+    {        
+        const collection = db.collection(collectionName); 
+        return await collection.insertOne(document);
+    }else {
+        // the object is expected to be initialized at the application's rise
+        throw new Error("ERROR!!! asyncInsertOne: DB is not connected! connecting now. fix bug later!");
+    }
+}
+
+async function asyncInsertMany(collectionName, document) {
+    if (db)
+    {        
+        const collection = db.collection(collectionName); 
+        return await collection.insertMany(document);
+    }else {
+        // the object is expected to be initialized at the application's rise
+        throw new Error("ERROR!!! asyncInsertMany: DB is not connected! connecting now. fix bug later!");
+    }
+}
+
 
 function addToDb(collectionName, document, callback)
 {
@@ -123,5 +145,7 @@ function findUserName(userName, collectionName, callback)
 module.exports = { 
     addToDb,
     findUserName,
-    addManyToDb
+    addManyToDb,
+    asyncInsertOne,
+    asyncInsertMany
 };
