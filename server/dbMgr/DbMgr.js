@@ -96,21 +96,29 @@ function insertMany(collectionName, documents, callback)
     });  
 }
 
-function findOne(quary, collectionName, callback)
+async function findOne(quary, collectionName, callback)
 {        
-    // get the desired collection we want to search in
-    let collection = db.collection(collectionName);
+    try{
+        // get the desired collection we want to search in
+        let collection = db.collection(collectionName);
+        return await collection.findOne(quary);
+    }
+    catch(err)
+    {
+        console.log("DbMgr: failed to find a document in " + collectionName + " collection");
+        return null;
+    }
 
-    collection.findOne(quary,function(err, document) {
-        if(err) {                      
-                console.log("DbMgr: failed to find a document in " + collectionName + " collection");
+    // collection.findOne(quary,function(err, document) {
+    //     if(err) {                      
+    //             console.log("DbMgr: failed to find a document in " + collectionName + " collection");
 
-                 return callback(err);
-        }   
+    //              return callback(err);
+    //     }   
         
-        return callback(null, document);
-        }
-    );
+    //     return callback(null, document);
+    //     }
+    // );
 }
 
 function findUserName(userName, collectionName, callback)
