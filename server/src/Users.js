@@ -8,7 +8,7 @@ class Users{
     }
 
     // Handle registration request
-    add(req, res){
+    async add(req, res){
 
         // Initialize the DB document
         const document = { 
@@ -21,25 +21,20 @@ class Users{
         
         // TODO: make userName field unique
         
-        addToDb(Users.collectionName, document,
-            function(err, responseDocument) {
-                if (err)
-                {
-                    console.log("Failed to add a new user to the DB");
-                    res.send({
-                        'status': 'Failed',
-                        'error': err});
-                }
-                else
-                {
-                    console.log("A new user was added. username: " + document.userName);
-
-                    res.send({
-                        'status': 'success',
-                        'data': responseDocument
-                    });                
-                }
-            });             
+        const responseDocument = await addToDb(Users.collectionName, document); 
+        if(responseDocument != null) {
+            console.log("A new user was added. username: " + document.userName);
+            res.send({
+                'status': 'success',
+                'data': responseDocument["ops"][0]
+             });
+        }
+        else {
+            console.log("Failed to add a new user to the DB");
+            res.send({
+                'status': 'Failed',
+                'error': err}); 
+        }      
     }
    
     find(req, res) {
