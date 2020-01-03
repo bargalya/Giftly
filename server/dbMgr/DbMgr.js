@@ -23,11 +23,11 @@ mongo.connect(url, connectParams,
     }
 );
 
-function addToDb(collectionName, document, callback)
+async function addToDb(collectionName, document)
 {
     if (db)
-    {        
-        return insertOne(collectionName, document, callback);
+    {       
+        return await insertOne(collectionName, document);
     }
     else
     {
@@ -41,23 +41,22 @@ function addToDb(collectionName, document, callback)
                 }
                 db = client.db(dbName);
                 console.log("Database created!" + db);
-                return insertOne(collectionName, document, callback);
+                return insertOne(collectionName, document);
                 }
         );    
     }        
 }
 
-function insertOne(collectionName, document, callback)
-{
-    const collection = db.collection(collectionName);    
-    collection.insertOne(document,
-        function(err){
-            if(err) { 
-                console.log("failed to add a document to " + collection + " collection");
-                return callback(err, null, );
-            }            
-            return callback(null, document);
-    });  
+async function insertOne(collectionName, document) {
+    try{
+        const collection = db.collection(collectionName);  
+        return await collection.insertOne(document);
+    }
+    catch(err)
+    {
+        console.log("failed to add a document to " + collection + " collection");
+        return null;
+    }
 }
 
 function addManyToDb(collectionName, document, callback)
