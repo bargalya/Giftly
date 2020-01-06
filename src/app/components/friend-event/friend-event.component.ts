@@ -1,6 +1,6 @@
 import { Component, OnInit, NgModule, ChangeDetectorRef } from '@angular/core';
 import { Gift, GiftStatus } from '../../models/gift.class';
-import { ArrangeGiftList } from 'src/app/services/arrangeGiftList.service';
+import { ArrangeGiftList } from 'src/app/services/ArrangeGiftList.service';
 
 @Component({
   selector: 'app-friend-event',
