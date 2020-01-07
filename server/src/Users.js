@@ -21,46 +21,56 @@ class Users{
         
         // TODO: make userName field unique
         
-        const responseDocument = await addToDb(Users.collectionName, document); 
-        if(responseDocument != null) {
+        try {
+            const responseDocument = await addToDb(Users.collectionName, document); 
             console.log("A new user was added. username: " + document.userName);
-            res.send({
+            res.status(200).send({
                 'status': 'success',
                 'data': responseDocument["ops"][0]
-             });
-        }
-        else {
+            });
+        }    
+        catch(error) {
             console.log("Failed to add a new user to the DB");
-            res.send({
+            res.status(500).json({
                 'status': 'Failed',
-                'error': err}); 
+                'message': error.message
+            });
         }      
     }
    
     async find(req, res) {        
         console.log("got a request to search user " + req.params.userName);
-        const document = await findUserName(req.params.userName, Users.collectionName);
-        if(document != null) {
-            console.log("user was found. password is " + document.password);
-
-            if (document.password == req.body.password) {
-                console.log("password match");                
-                res.send({
-                    'status': 'success',
-                    'data': document});
+        try {
+            const document = await findUserName(req.params.userName, Users.collectionName);
+            if(document != null) {
+                console.log("user was found. password is " + document.password);
+                if (document.password == req.body.password) {
+                    console.log("password match");                
+                    res.status(200).json({
+                        'status': 'success',
+                        'data': document});
+                }
+                else {
+                    console.log("password doesnt match!");                
+                    res.status(401).json({
+                        'status': 'Failed',
+                        'error': 'username or password are incorrect'});                
+                }
             }
             else {
-                console.log("password doesnt match!");                
-                res.send({
+                console.log("Failed to find the user in the DB");
+                res.status(401).json({
                     'status': 'Failed',
-                    'error': err});                
+                    'message': 'username or password are incorrect'
+                });
             }
         }
-        else {
-            console.log("Failed to fimding new user in the DB");
-            res.send({
+        catch(error) {
+            console.log("DB error");
+            res.status(500).json({
                 'status': 'Failed',
-                'error': err});
+                'message': error.message
+            });
         }
     }
     

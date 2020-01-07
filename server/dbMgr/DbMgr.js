@@ -55,7 +55,7 @@ async function insertOne(collectionName, document) {
     catch(err)
     {
         console.log("failed to add a document to " + collection + " collection");
-        return null;
+        throw new Error("failed to add a document to " + collection + " collection");
     }
 }
 
@@ -106,19 +106,8 @@ async function findOne(quary, collectionName, callback)
     catch(err)
     {
         console.log("DbMgr: failed to find a document in " + collectionName + " collection");
-        return null;
-    }
-
-    // collection.findOne(quary,function(err, document) {
-    //     if(err) {                      
-    //             console.log("DbMgr: failed to find a document in " + collectionName + " collection");
-
-    //              return callback(err);
-    //     }   
-        
-    //     return callback(null, document);
-    //     }
-    // );
+        throw new Error("DbMgr: failed to find a document in " + collectionName + " collection");
+    }   
 }
 
 function findUserName(userName, collectionName, callback)
