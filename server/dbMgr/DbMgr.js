@@ -35,13 +35,13 @@ async function addToDb(collectionName, document)
         console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
 
         mongo.connect(url, connectParams, 
-            function(err, client) {
+            async function(err, client) {
                 if(err) {                    
                     console.log("Error!");
                 }
                 db = client.db(dbName);
                 console.log("Database created!" + db);
-                return insertOne(collectionName, document);
+                return await insertOne(collectionName, document);
                 }
         );    
     }        
