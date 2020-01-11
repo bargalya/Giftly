@@ -1,5 +1,4 @@
 const mongo = require('mongodb').MongoClient;
-// const ObjectId = require('mongodb').ObjectID;
 
 url = "mongodb://localhost:27017/";    
 dbName = "giftlyDB";
@@ -98,7 +97,6 @@ async function insertMany(collectionName, documents)
 async function findOne(quary, collectionName)
 {        
     try {
-        // get the desired collection we want to search in
         let collection = db.collection(collectionName);
         return await collection.findOne(quary);
     }
@@ -109,14 +107,13 @@ async function findOne(quary, collectionName)
     }   
 }
 
-async function findUserName(userName, collectionName)
-{
-    let query = {"userName" : userName};    
+async function search(query, collectionName)
+{  
     return await findOne(query, collectionName);
 }
            
 module.exports = { 
     addToDb,
-    findUserName,
-    addManyToDb
+    addManyToDb,
+    search
 };

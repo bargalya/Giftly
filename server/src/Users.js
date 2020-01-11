@@ -1,5 +1,5 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
-const findUserName = require('../dbMgr/dbMgr').findUserName;
+const search = require('../dbMgr/dbMgr').search;
 
 class Users{    
 
@@ -41,7 +41,8 @@ class Users{
     async find(req, res) {        
         console.log("got a request to search user " + req.params.userName);
         try {
-            const document = await findUserName(req.params.userName, Users.collectionName);
+            let query = {"userName" : req.params.userName};
+            const document = await search(query, Users.collectionName);
             if(document != null) {
                 console.log("user was found. password is " + document.password);
                 if (document.password == req.body.password) {
@@ -51,7 +52,7 @@ class Users{
                         'data': document});
                 }
                 else {
-                    console.log("password doesnt match!");                
+                    console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
                     res.status(401).json({
                         'status': 'Failed',
                         'error': 'username or password are incorrect'});                
