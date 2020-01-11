@@ -1,11 +1,9 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
-const addManyToDb = require('../dbMgr/dbMgr').addManyToDb;
-
+const saveGifts = require('../src/Gifts').saveGifts;
 class Events{
 
     constructor(){
         Events.collectionName = "Events"; 
-        Events.giftsCollectionName = "Gifts"; 
     }
 
     async get(req, res){
@@ -37,26 +35,6 @@ class Events{
             });
         }        
     }
-}
-
-
-var saveGifts = async function(giftsReq, eventId) {
-    let gifts = JSON.parse(giftsReq);
-    let giftsDocument = [];
-    gifts.forEach(gift => { 
-        giftsDocument.push(
-            {
-                url:gift["Url"],
-                status:gift["Status"],
-                eventId: eventId
-            }
-        ); 
-      });
-
-    
-      const responseDocument = await addManyToDb(Events.giftsCollectionName, giftsDocument);
-      console.log("New gifts were added");
-      return responseDocument;
 }
 
 var saveEvent = async function(name, description, date) { 
