@@ -59,11 +59,11 @@ async function insertOne(collectionName, document) {
     }
 }
 
-function addManyToDb(collectionName, document, callback)
+async function addManyToDb(collectionName, document, callback)
 {
     if (db)
     {        
-        return insertMany(collectionName, document, callback);
+        return await insertMany(collectionName, document, callback);
     }
     else
     {
@@ -71,34 +71,33 @@ function addManyToDb(collectionName, document, callback)
         console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
 
         mongo.connect(url, connectParams, 
-            function(err, client) {
+            async function(err, client) {
                 if(err) {                    
                     console.log("Error!");
                 }
                 db = client.db(dbName);
                 console.log("Database created!" + db);
-                return insertMany(collectionName, document, callback);
+                return await insertMany(collectionName, document, callback);
                 }
         );    
     }        
 }
 
-function insertMany(collectionName, documents, callback)
+async function insertMany(collectionName, documents)
 {
-    const collection = db.collection(collectionName);    
-    collection.insertMany(documents,
-        function(err){
-            if(err) { 
-                console.log("failed to add a documents to " + collection + " collection");
-                return callback(err);
-            }            
-            return callback(null, documents);
-    });  
+    try {
+        const collection = db.collection(collectionName);    
+        return await collection.insertMany(documents);  
+    }
+    catch(err) {
+        console.log("failed to add a documents to " + collection + " collection");
+        throw new Error("failed to add a documents to " + collection + " collection");
+    }
 }
 
 async function findOne(quary, collectionName, callback)
 {        
-    try{
+    try {
         // get the desired collection we want to search in
         let collection = db.collection(collectionName);
         return await collection.findOne(quary);

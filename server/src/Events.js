@@ -17,15 +17,30 @@ class Events{
 
     }
 
-    add(req, res)    
+    async add(req, res)    
     {
-        let responseEventDocument = saveEvent(req.body.name, req.body.description, req.body.date, res);
-        saveGifts(req.body.gifts, responseEventDocument, res);
+        try {
+            const responseEventDocument = await saveEvent(req.body.name, req.body.description, req.body.date);
+            const eventId = responseEventDocument["ops"][0]._id;
+            const responseGiftsDocument = await saveGifts(req.body.gifts, eventId);
+            res.status(200).send({
+                'status': 'success',
+                'eventData': responseEventDocument["ops"][0],
+                'giftsdata': responseGiftsDocument["ops"]
+            });
+        }
+        catch(error) {
+            console.log("Failed adding an event: " + req.body.name);
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        }        
     }
 }
 
 
-var saveGifts = function(giftsReq, responseEventDocument, res) {
+var saveGifts = async function(giftsReq, eventId) {
     let gifts = JSON.parse(giftsReq);
     let giftsDocument = [];
     gifts.forEach(gift => { 
@@ -33,55 +48,27 @@ var saveGifts = function(giftsReq, responseEventDocument, res) {
             {
                 url:gift["Url"],
                 status:gift["Status"],
-                //eventId: responseEventDocument["_id"]
+                eventId: eventId
             }
         ); 
       });
 
-    addManyToDb(Events.giftsCollectionName, giftsDocument,
-        function(err, responseDocument) {
-            if (err)
-            {
-                res.send({
-                    'status': 'Failed',
-                    'error': err});
-            }
-            else
-            {
-                console.log("New gifts were added.");       
-                res.send({
-                    'status': 'success',
-                    'eventData': responseEventDocument,
-                    'giftsdata': responseDocument
-                }); 
-            }
-        });
+    
+      const responseDocument = await addManyToDb(Events.giftsCollectionName, giftsDocument);
+      console.log("New gifts were added");
+      return responseDocument;
 }
-var saveEvent = function(name, description, date, res) { 
-    let responseEventDocument;
+
+var saveEvent = async function(name, description, date) { 
     const document = { 
         name: name,
         description: description,
         date: date
-    };            
-    
-    addToDb(Events.collectionName, document,
-        function(err, responseDocument) {
-            if (err)
-            {
-                console.log("error adding an event: " + document.name);
-                res.send({
-                    'status': 'Failed',
-                    'error': err});
-            }
-            else
-            {                
-                responseEventDocument = responseDocument;  
-                console.log("A new event was added. event: " + document.name + " eventId: " + responseEventDocument["_id"]);     
-            }
-        });
-        //console.log("!!!!!A new event was added. event: " + document.name + " eventId: " + responseEventDocument["_id"]); 
-        return responseEventDocument;
+    };  
+
+    const responseDocument = await addToDb(Events.collectionName, document); 
+    console.log("A new event was added. event: " + document.name + " eventId: " + responseDocument["ops"][0]["_id"]);
+    return responseDocument;
 } 
 
 module.exports = Events;
