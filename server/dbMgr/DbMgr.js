@@ -58,11 +58,13 @@ async function insertOne(collectionName, document) {
     }
 }
 
-async function addManyToDb(collectionName, document, callback)
+async function addManyToDb(collectionName, document)
 {
+    
+    console.log("collectionName!!!!!!" + collectionName);
     if (db)
     {        
-        return await insertMany(collectionName, document, callback);
+        return await insertMany(collectionName, document);
     }
     else
     {
@@ -76,7 +78,7 @@ async function addManyToDb(collectionName, document, callback)
                 }
                 db = client.db(dbName);
                 console.log("Database created!" + db);
-                return await insertMany(collectionName, document, callback);
+                return await insertMany(collectionName, document);
                 }
         );    
     }        
