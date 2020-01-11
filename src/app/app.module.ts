@@ -25,6 +25,7 @@ import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { FriendEventComponent } from './components/friend-event/friend-event.component';
+import { GiftsTableComponent } from './components/gifts-table/gifts-table.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FriendEventComponent } from './components/friend-event/friend-event.com
     GetGiftStatusPipe,
     FindEventComponent,
     HomeComponent,
-    FriendEventComponent
+    FriendEventComponent,
+    GiftsTableComponent
     ],
   imports: [
     BrowserModule,
