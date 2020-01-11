@@ -109,10 +109,10 @@ async function findOne(quary, collectionName, callback)
     }   
 }
 
-function findUserName(userName, collectionName, callback)
+async function findUserName(userName, collectionName)
 {
     let query = {"userName" : userName};    
-    return findOne(query, collectionName, callback);
+    return await findOne(query, collectionName);
 }
            
 module.exports = { 
