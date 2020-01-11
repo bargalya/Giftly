@@ -95,7 +95,7 @@ async function insertMany(collectionName, documents)
     }
 }
 
-async function findOne(quary, collectionName, callback)
+async function findOne(quary, collectionName)
 {        
     try {
         // get the desired collection we want to search in
