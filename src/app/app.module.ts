@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { FriendEventComponent } from './components/friend-event/friend-event.component';
 import { GiftsTableComponent } from './components/gifts-table/gifts-table.component';
+import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { GiftsTableComponent } from './components/gifts-table/gifts-table.compon
     NewEventComponent,
     EventComponent,
     GetGiftStatusPipe,
+    GetGiftImageId,
     FindEventComponent,
     HomeComponent,
     FriendEventComponent,

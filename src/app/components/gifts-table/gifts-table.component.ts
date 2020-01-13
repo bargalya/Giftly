@@ -33,8 +33,8 @@ export class GiftsTableComponent implements OnInit {
     this.giftsChange.emit(this.giftsArr);   
   }
 
-  isBought(gift: Gift): boolean {
-    return gift.Status === GiftStatus.Taken;
+  isAvailable(status: GiftStatus): boolean {
+    return status === GiftStatus.Taken;
   }
 
   getIsAllowEditList(): boolean {        
