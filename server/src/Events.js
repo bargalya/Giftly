@@ -1,5 +1,7 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
-const saveGifts = require('../src/Gifts').saveGifts;
+// const saveGifts = require('../src/Gifts').saveGifts;
+const Gifts = require('../src/Gifts');
+const gifts = new Gifts;
 class Events{
 
     constructor(){
@@ -7,7 +9,7 @@ class Events{
     }
 
     async get(req, res){
-    
+        
     }
 
 
@@ -20,7 +22,7 @@ class Events{
         try {
             const responseEventDocument = await saveEvent(req.body.name, req.body.description, req.body.date);
             const eventId = responseEventDocument["ops"][0]._id;
-            const responseGiftsDocument = await saveGifts(req.body.gifts, eventId);
+            const responseGiftsDocument = await gifts.saveGifts(req.body.gifts, eventId);
             res.status(200).send({
                 'status': 'success',
                 'eventData': responseEventDocument["ops"][0],

@@ -1,6 +1,8 @@
 import { Component, OnInit, NgModule, ChangeDetectorRef } from '@angular/core';
 import { Gift, GiftStatus } from '../../models/gift.class';
 import { ArrangeGiftList } from 'src/app/services/ArrangeGiftList.service';
+import { DataService } from 'src/app/services/data.service';
+
 
 @Component({
   selector: 'app-friend-event',
@@ -15,24 +17,29 @@ export class FriendEventComponent implements OnInit {
   sortOptions: Array<string>;
   selectedSort: string;
   showItemsStatus: string;
-  giftStatusToDBCall = {};
+  eventId: string;
 
-  constructor(private readonly arrangeGiftList: ArrangeGiftList) {
-    // , private http: HttpClient, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef
+  constructor(private readonly arrangeGiftList: ArrangeGiftList, private readonly dataService: DataService) {
+    this.eventId = "5e2575fb255882385819513b";
  }
 
  ngOnInit() {
-   this.giftStatusToDBCall[GiftStatus.ReadyForGrabs] = this.getFreeGiftsMOCK;
-   this.giftStatusToDBCall[GiftStatus.Taken] = this.getBoughtGiftsMOCK;
    this.showItemsStatus = GiftStatus[GiftStatus.ReadyForGrabs];
    this.sortOptions = this.arrangeGiftList.getSortOptions();
    this.selectedSort = this.sortOptions[0];
    this.setGiftsAndArrange();
   }
 
-  private getGiftsFromDB() {
-    for (let item of this.giftStatusToDBCall[GiftStatus[this.showItemsStatus]].apply()) {
-      this.items.push(new Gift(item.Url, item.Status, item.Title));
+  private async getGiftsFromDB() {
+    var gifts;
+    if(this.showItemsStatus === GiftStatus[GiftStatus.ReadyForGrabs]) {
+      gifts = await this.dataService.getAvailableGifts(this.eventId); 
+      for (let item of gifts) {
+        this.items.push(new Gift(item.url, item.status, item.imgTitle, item.imgUrl));
+      } 
+    } else {
+      gifts = this.getBoughtGiftsMOCK();
+      this.items = gifts;
     }
     this.sort(this.selectedSort);
   }
@@ -85,9 +92,9 @@ export class FriendEventComponent implements OnInit {
   getBoughtGiftsMOCK() {
     return [
       new Gift('https://media.baligam.co.il/_media/media/37154/316142.jpg', 
-      GiftStatus.Taken, 'B Table'),
+      GiftStatus.Taken, 'B Table', 'https://media.baligam.co.il/_media/media/37154/316142.jpg'),
       new Gift('https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg',
-        GiftStatus.Taken, 'C Clock')
+        GiftStatus.Taken, 'C Clock', 'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg')
     ];
   }
 }

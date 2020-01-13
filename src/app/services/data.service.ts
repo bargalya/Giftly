@@ -76,4 +76,11 @@ export class DataService {
     user.Uid = response[userStr][uidStr];
     return user;
   }
+
+  async getAvailableGifts(eventId: string): Promise<Array<Gift>> {
+    let gifts: Array<Gift> = [];
+    const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();
+    gifts = response["gifts"];
+    return gifts;
+  }
 }

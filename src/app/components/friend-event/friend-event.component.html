@@ -38,7 +38,7 @@
 <div class="gifts">
     <mat-card *ngFor="let item of showItems">
         <mat-card-title>{{item.Title}}</mat-card-title>
-        <img mat-card-image src="{{item.Url}}" alt="{{item.title}}">
+        <img mat-card-image src="{{item.ImgUrl}}" alt="{{item.Title}}">
         <mat-card-actions>      
                 <button *ngIf="!isBought(item)" mat-button (click)="changeGiftStatus(item)">
                     <mat-icon aria-hidden="false" aria-label="mark as bought">
