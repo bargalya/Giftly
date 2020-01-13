@@ -8,7 +8,9 @@ import { Gift, GiftStatus } from 'src/app/models/gift.class';
 })
 export class GiftsTableComponent implements OnInit {
 
+  @Input() allowEditList: string;  
   giftsArr: Array<Gift>;
+  
   @Output() giftsChange = new EventEmitter();
   constructor() {
     //this.gifts = this.getFreeGiftsMOCK();
@@ -33,6 +35,12 @@ export class GiftsTableComponent implements OnInit {
 
   isBought(gift: Gift): boolean {
     return gift.Status === GiftStatus.Taken;
+  }
+
+  getIsAllowEditList(): boolean {        
+    if(this.allowEditList == "true")
+      return true;
+    return false;    
   }
 
   @Input()
