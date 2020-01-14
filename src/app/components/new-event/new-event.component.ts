@@ -43,8 +43,9 @@ export class NewEventComponent implements OnInit {
     if (giftUrl === '') {
       return;
     }
-
-    this.gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
+    const gift = new Gift(giftUrl, GiftStatus.ReadyForGrabs);
+    this.dataService.getImgDetails(giftUrl, gift);
+    this.gifts.push(gift);
     this.myForm.get('giftUrl').setValue('');
     // this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
     this.cd.detectChanges();

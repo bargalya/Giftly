@@ -2,8 +2,8 @@
   <mat-card *ngFor="let gift of gifts">
     <a href="{{gift.Url}}" target="_blank">
         <mat-card-title>{{gift.Title}}</mat-card-title>
-        <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="assets/giftly.png" alt="{{gift.title}}" aria-disabled="true" *ngIf="isAvailable(gift.Status)">
-        <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="assets/giftly.png" alt="{{gift.title}}" aria-disabled="true" *ngIf="!isAvailable(gift.Status)">
+        <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="isAvailable(gift.Status)">
+        <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="!isAvailable(gift.Status)">
         <!-- <img mat-card-image src="{{gift.Status | getGiftImagePipe}}" alt="{{gift.title}}"> -->
     </a>
     <mat-card-actions>      

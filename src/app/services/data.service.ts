@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Gift } from '../models/gift.class';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,18 @@ export class DataService {
   };
 
   constructor(private http: HttpClient) { }
+
+  getImgDetails(url: string, gift: Gift): void {
+    let body = new HttpParams();
+    body = body.set('url', url);
+    this.http.post('api/imgservice/' , body, this.httpOptions)
+    .subscribe(
+      (response) => {
+        console.log({url: response['imgUrl'], title: response['imgTitle']});
+        gift.ImgUrl = response['imgUrl'];
+        gift.Title = response['imgTitle']; },
+      (error) => console.log(error));
+    }
 
   saveEvent(event: Event): void {
     let body = new HttpParams();

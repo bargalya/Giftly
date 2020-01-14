@@ -34,6 +34,13 @@ export class GiftsTableComponent implements OnInit {
     return false;
   }
 
+  getImgUrl(imgUrl: string) {
+    if (imgUrl === undefined) {
+      return 'assets/giftly.png';
+    }
+    return imgUrl;
+  }
+
   @Input()
   get gifts() {
     return this.giftsArr;
