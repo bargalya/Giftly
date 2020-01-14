@@ -3,11 +3,14 @@ const app = express();
 const users = require('./routes/Users');
 const events = require('./routes/Events');
 
+const imgService = require('./routes/ImgService');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/user/', users);
 app.use('/event/', events);
+app.use('/imgservice/', imgService);
 
 app.get('/', function (req, res) {
     res.send('Giftly Server');
