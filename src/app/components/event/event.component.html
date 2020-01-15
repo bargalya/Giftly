@@ -11,9 +11,10 @@
 </div>
 
 <div class="gifts">
-    <mat-card *ngFor="let item of _gifts">
+    <!-- <mat-card *ngFor="let item of gifts">
         <mat-card-title>{{item.title}}</mat-card-title>
         <img mat-card-image src="{{item.img}}" alt="{{item.title}}">
-    </mat-card>
+    </mat-card> -->
+    <app-gifts-table [(gifts)]="gifts" allowEditList="false"></app-gifts-table>
     <button mat-fab class="back-btn" (click)="backToDashboard()">Back</button>
 </div>
