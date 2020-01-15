@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Gift, GiftStatus } from 'src/app/models/gift.class';
 
 @Component({
-  selector: 'app-gifts-table',
+  selector: 'giftly-gifts-table',
   templateUrl: './gifts-table.component.html',
   styleUrls: ['./gifts-table.component.scss']
 })
