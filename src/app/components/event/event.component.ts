@@ -42,7 +42,7 @@ export class EventComponent implements OnInit {
         else
         {   
             // todo: delete! dummy init - delete when the fetch from the BE will work            
-            this._event = new Event(
+            this.event = new Event(
                 "Giftly kickoff event",
                 "Best event of the year",
                 new Date("2021-01-01"),
