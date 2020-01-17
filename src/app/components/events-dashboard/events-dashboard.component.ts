@@ -9,6 +9,9 @@ import {Router} from "@angular/router"
   styleUrls: ['./events-dashboard.component.scss']
 })
 export class EventsDashboardComponent implements OnInit {
+
+  page_title = "Your events";
+
   columnDefs = [
     {headerName: 'Id', field: 'eventId' },
     {headerName: 'Name', field: 'eventName' },
@@ -27,7 +30,7 @@ modules = AllCommunityModules;
 constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    // this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
+    // this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');        
   }
 
   onRowClicked(event){

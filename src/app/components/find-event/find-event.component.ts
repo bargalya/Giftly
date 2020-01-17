@@ -7,6 +7,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   styleUrls: ['./find-event.component.scss']
 })
 export class FindEventComponent implements OnInit {
+
+  page_title = "Find Event";
+
   value = '';
 
   searchEvent() {

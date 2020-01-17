@@ -1,8 +1,10 @@
+<h1>{{page_title}}</h1>
+
 <mat-form-field class="giftly-form-field">
   <input matInput type="search" placeholder="Enter Event ID" [(ngModel)]="value" id="eventId">
   
-  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-  <mat-icon>x</mat-icon>
+  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">    
+  <mat-icon>x</mat-icon>  
   </button>
 </mat-form-field>
 <div>

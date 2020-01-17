@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./new-event.component.scss']
 })
 export class NewEventComponent implements OnInit {
+  page_title = "New Event";
   event: Event;
   myForm: FormGroup;
   constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
