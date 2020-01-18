@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,6 +26,7 @@ export class DataService {
     this.http.post('api/event/' , body, this.httpOptions)
         .subscribe((response) => console.log(response),
                     (error) => console.log(error));
+                    
   }
 
   getEvent(eventId: number): Event {
@@ -48,8 +50,21 @@ export class DataService {
     body = body.set('userName', userName);
     body = body.set('password', password);
     this.http.post('api/user/' + userName , body, this.httpOptions)
-            .subscribe((response) => console.log(response),
-                        (error) => console.log(error));
+            .subscribe(response =>
+              
+               console.log(response),                          
+              (error) => {
+                if (error instanceof HttpErrorResponse)
+                {
+                  switch (error.status) {
+                    case 401:     
+                      alert("login error. incorrent username or password");       
+                      break;
+                    case 403:     
+                      alert("Forbiden action");
+                      break;
+                }
+              }});
     return null;
   }
 }
