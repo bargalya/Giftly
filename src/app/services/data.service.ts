@@ -1,3 +1,4 @@
+import { GiftStatus } from './../models/gift.class';
 import { Injectable } from '@angular/core';
 import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
@@ -24,16 +25,14 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getImgDetails(url: string, gift: Gift): void {
+  async getImgDetails(url: string): Promise<Gift> {
     let body = new HttpParams();
     body = body.set('url', url);
-    this.http.post('api/imgservice/' , body, this.httpOptions)
-    .subscribe(
-      (response) => {
-        console.log({url: response['imgUrl'], title: response['imgTitle']});
-        gift.ImgUrl = response['imgUrl'];
-        gift.Title = response['imgTitle']; },
-      (error) => console.log(error));
+    let gift = new Gift(url, GiftStatus.ReadyForGrabs);
+    const response = await this.http.post<any>('api/imgservice/' , body, this.httpOptions).toPromise();
+    gift.ImgUrl = response['imgUrl'];
+    gift.Title = response['imgTitle'];
+    return gift;
   }
 
   saveEvent(event: Event): void {
@@ -69,7 +68,6 @@ export class DataService {
     body = body.set(userNameStr, userName);
     body = body.set(passwordStr, password);
     const response = await this.http.post<any>('api/user/' + userName , body, this.httpOptions).toPromise();
-    console.log('user: ' + response[userStr]);
     const user = new User(response[userStr][firstNameStr],
                           response[userStr][lastNameStr],
                           response[userStr][userNameStr],

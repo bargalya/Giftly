@@ -38,13 +38,12 @@ export class NewEventComponent implements OnInit {
     return this.myForm.get('giftUrl');
   }
 
-  addGift(): void  {
+  async addGift() {
     const giftUrl = this.myForm.get('giftUrl').value;
     if (giftUrl === '') {
       return;
     }
-    const gift = new Gift(giftUrl, GiftStatus.ReadyForGrabs);
-    this.dataService.getImgDetails(giftUrl, gift);
+    const gift = await this.dataService.getImgDetails(giftUrl);
     this.gifts.push(gift);
     this.myForm.get('giftUrl').setValue('');
     // this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
