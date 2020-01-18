@@ -15,6 +15,10 @@ export class SessionService {
     console.log('coockie: ' + document.cookie);
   }
 
+  deleteSession() {
+    document.cookie = 'token' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
   getSession(): string {
     const name = 'token' + '=';
     const decodedCookie = decodeURIComponent(document.cookie);
