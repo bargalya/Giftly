@@ -29,6 +29,7 @@ import { FriendEventComponent } from './components/friend-event/friend-event.com
 import { GiftsTableComponent } from './components/gifts-table/gifts-table.component';
 import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
 import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NotifyUserDialogComponent } from './components/notify-user-dialog/notif
     HomeComponent,
     FriendEventComponent,
     GiftsTableComponent,
+    LogoutComponent,
     NotifyUserDialogComponent
     ],
   imports: [
