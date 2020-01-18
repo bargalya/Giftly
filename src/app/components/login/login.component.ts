@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         }
 
         const user = await this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
-        if(user === null) {
+        if (user === null) {
             alert('Wrong username or password');
             return;
         }

@@ -9,7 +9,7 @@ const userStr = 'user';
 const firstNameStr = 'firstName';
 const lastNameStr = 'lastName';
 const userNameStr = 'userName';
-const passwordStr ='password';
+const passwordStr = 'password';
 const emailStr = 'email';
 const uidStr = '_id';
 @Injectable({
@@ -28,7 +28,7 @@ export class DataService {
   async getImgDetails(url: string): Promise<Gift> {
     let body = new HttpParams();
     body = body.set('url', url);
-    let gift = new Gift(url, GiftStatus.ReadyForGrabs);
+    const gift = new Gift(url, GiftStatus.ReadyForGrabs);
     const response = await this.http.post<any>('api/imgservice/' , body, this.httpOptions).toPromise();
     gift.ImgUrl = response['imgUrl'];
     gift.Title = response['imgTitle'];
@@ -59,8 +59,8 @@ export class DataService {
         body = body.set(emailStr, user.Email);
         const response = await this.http.post<any>('api/user/' , body, this.httpOptions)
                                         .toPromise()
-                                        .catch(err=>this.handleError(err));
-        if(response['status'] === 'Failed') {
+                                        .catch(err => this.handleError(err));
+        if (response['status'] === 'Failed') {
           console.log(response['message']);
           return null;
         }
@@ -74,8 +74,8 @@ export class DataService {
     body = body.set(passwordStr, password);
     const response = await this.http.post<any>('api/user/' + userName , body, this.httpOptions)
                                     .toPromise()
-                                    .catch(err=>this.handleError(err));
-    if(response === undefined) {
+                                    .catch(err => this.handleError(err));
+    if (response === undefined) {
       return null;
     }
     const user = new User(response[userStr][firstNameStr],
@@ -132,6 +132,3 @@ export class DataService {
     return response;
   }
 }
-
-
-
