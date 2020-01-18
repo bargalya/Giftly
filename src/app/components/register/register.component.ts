@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 import { User } from 'src/app/models/user.class';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -12,8 +13,8 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,
-        private readonly dataService: DataService
+        private readonly dataService: DataService,
+        private readonly sessionService: SessionService
     ) { }
 
     ngOnInit() {
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get formControls() { return this.registerForm.controls; }
 
-    onSubmit() {
+    async onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
@@ -37,13 +38,18 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
-        this.dataService.saveUser(new User(
-             this.registerForm.value.firstName,
-             this.registerForm.value.lastName,
-             this.registerForm.value.username,
-             this.registerForm.value.password,
-             this.registerForm.value.email));
-
+        const user = new User(
+            this.registerForm.value.firstName,
+            this.registerForm.value.lastName,
+            this.registerForm.value.username,
+            this.registerForm.value.password,
+            this.registerForm.value.email);
+        const uid = await this.dataService.saveUser(user);
+        if (uid === null) {
+            return;
+        }
+        user.Uid = uid;
+        this.sessionService.setSession(user.Uid);
         this.loading = true;
     }
 }

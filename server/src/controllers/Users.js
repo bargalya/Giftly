@@ -26,7 +26,7 @@ class Users{
             console.log("A new user was added. username: " + document.userName);
             res.status(200).send({
                 'status': 'success',
-                'data': responseDocument["ops"][0]
+                'user': responseDocument["ops"][0]
             });
         }    
         catch(error) {
@@ -55,7 +55,7 @@ class Users{
                     console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
                     res.status(401).json({
                         'status': 'Failed',
-                        'error': 'username or password are incorrect'});                
+                        'message': 'username or password are incorrect'});                
                 }
             }
             else {

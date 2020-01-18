@@ -50,16 +50,21 @@ export class DataService {
     return null;
   }
 
-  saveUser(user: User): void {
+  async saveUser(user: User): Promise<string> {
         let body = new HttpParams();
         body = body.set(userNameStr, user.UserName);
         body = body.set(firstNameStr, user.FirstName);
         body = body.set(lastNameStr, user.LastName);
         body = body.set(passwordStr, user.Password);
         body = body.set(emailStr, user.Email);
-        this.http.post('api/user/' , body, this.httpOptions)
-            .subscribe((response) => console.log(response),
-                        (error) => console.log(error));
+        const response = await this.http.post<any>('api/user/' , body, this.httpOptions)
+                                        .toPromise()
+                                        .catch(err=>this.handleError(err));
+        if(response['status'] === 'Failed') {
+          console.log(response['message']);
+          return null;
+        }
+        return response[userStr][uidStr];
   }
 
   async getUser(userName: string, password: string): Promise<User> {
@@ -67,7 +72,12 @@ export class DataService {
     let body = new HttpParams();
     body = body.set(userNameStr, userName);
     body = body.set(passwordStr, password);
-    const response = await this.http.post<any>('api/user/' + userName , body, this.httpOptions).toPromise();
+    const response = await this.http.post<any>('api/user/' + userName , body, this.httpOptions)
+                                    .toPromise()
+                                    .catch(err=>this.handleError(err));
+    if(response === undefined) {
+      return null;
+    }
     const user = new User(response[userStr][firstNameStr],
                           response[userStr][lastNameStr],
                           response[userStr][userNameStr],
@@ -122,3 +132,6 @@ export class DataService {
     return response;
   }
 }
+
+
+
