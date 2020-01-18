@@ -19,8 +19,6 @@ class Users{
             email: req.body.email           
         };    
         
-        // TODO: make userName field unique
-        
         try {
             const responseDocument = await addToDb(Users.collectionName, document); 
             console.log("A new user was added. username: " + document.userName);
@@ -55,7 +53,7 @@ class Users{
                     console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
                     res.status(401).json({
                         'status': 'Failed',
-                        'error': 'username or password are incorrect'});                
+                        'error': 'username or password are incorrect'}); 
                 }
             }
             else {

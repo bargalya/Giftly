@@ -8,9 +8,11 @@ connectParams = {
 };
 
 let db;
-
-// Connect to the DB and initialize the variable with the connection
-mongo.connect(url, connectParams, 
+let usersCollection;
+function connectToDb()
+{
+    // Connect to the DB and initialize the variable with the connection
+    mongo.connect(url, connectParams,
     function(err, client) {
         if(err) {                        
             console.log("ERROR! failed to connect to Data base!");
@@ -18,9 +20,18 @@ mongo.connect(url, connectParams,
         else {
             db = client.db(dbName);
             console.log("Database created");
+            createUniqueIndex();            
         }    
-    }
-);
+    });
+}
+
+function createUniqueIndex()
+{
+    usersCollection = db.collection("Users");  
+    usersCollection.createIndex( { "userName": 1 }, { unique: true } )
+}
+
+connectToDb();
 
 async function addToDb(collectionName, document)
 {
@@ -33,23 +44,15 @@ async function addToDb(collectionName, document)
         // the object is expected to be initialized at the application's rise
         console.log("ERROR!!! from func add: DB is not connected! connecting now. fix bug later!");
 
-        mongo.connect(url, connectParams, 
-            async function(err, client) {
-                if(err) {                    
-                    console.log("Error!");
-                }
-                db = client.db(dbName);
-                console.log("Database created!" + db);
-                return await insertOne(collectionName, document);
-                }
-        );    
-    }        
+        await connectToDb();
+        return await insertOne(collectionName, document);
+    }
 }
 
 async function insertOne(collectionName, document) {
     try{
-        const collection = db.collection(collectionName);  
-        return await collection.insertOne(document);
+        
+        return await usersCollection.insertOne(document);
     }
     catch(err)
     {
