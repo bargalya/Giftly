@@ -4,13 +4,13 @@ import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
 
-const userStr: string = 'user';
-const firstNameStr: string = 'firstName';
-const lastNameStr: string = 'lastName';
-const userNameStr: string = 'userName';
-const passwordStr: string ='password';
-const emailStr: string = 'email';
-const uidStr: string = '_id';
+const userStr = 'user';
+const firstNameStr = 'firstName';
+const lastNameStr = 'lastName';
+const userNameStr = 'userName';
+const passwordStr ='password';
+const emailStr = 'email';
+const uidStr = '_id';
 @Injectable({
   providedIn: 'root'
 })
