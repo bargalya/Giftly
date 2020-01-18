@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Gift } from 'src/app/models/gift.class';
 
 import { GiftStatus } from 'src/app/models/gift.class';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
     selector: 'gifts',
@@ -26,17 +27,21 @@ export class EventComponent implements OnInit {
 
     modules = AllCommunityModules;
 
-    constructor(private router: Router, private route: ActivatedRoute, private readonly dataService: DataService) {
+    constructor(private router: Router, private route: ActivatedRoute, 
+        private readonly dataService: DataService, 
+        private readonly sessionService: SessionService) {
         this.route.params.subscribe(params => {
             this.eventId = params.id;
         });
      }
 
     ngOnInit() {
+        const uid = this.sessionService.getSession();
+        console.log('logged in uid is: ' + uid);
         //Todo: remove this init!!
         this.gifts = [{ "title": "Table", "url":'https://media.baligam.co.il/_media/media/37154/316142.jpg' }, 
         { "title": "Clock", "url":'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg' }];
-        this.event = this.dataService.getEvent(this.eventId);
+        this.event = this.dataService.getEvent(uid);
         if(this.event != null)
             this.gifts = this.event.getGifts();
         else
