@@ -27,7 +27,7 @@ export class EventComponent implements OnInit {
 
     modules = AllCommunityModules;
 
-    constructor(private router: Router, private route: ActivatedRoute, 
+    constructor(private readonly router: Router, private route: ActivatedRoute, 
         private readonly dataService: DataService, 
         private readonly sessionService: SessionService) {
         this.route.params.subscribe(params => {

@@ -1,4 +1,5 @@
 import { Component, Input} from '@angular/core';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
     selector: 'app-nav-menu',
@@ -7,6 +8,8 @@ import { Component, Input} from '@angular/core';
 })
 export class NavMenuComponent {
     isExpanded = false;
-    constructor() {
+    isUserLoggedIn = false;
+    constructor(private readonly sessionService: SessionService) {
+            this.isUserLoggedIn = this.sessionService.isLoggedIn();
     }
 }
