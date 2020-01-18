@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
+import { SessionService } from 'src/app/services/session.service';
+import { User } from 'src/app/models/user.class';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -11,7 +13,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private readonly dataService: DataService
+        private readonly dataService: DataService,
+        private readonly sessionService: SessionService
     ) {  }
 
     ngOnInit() {
@@ -24,7 +27,7 @@ export class LoginComponent implements OnInit {
     // convenience getter for easy access to form fields
     get formControls() { return this.loginForm.controls; }
 
-    onSubmit() {
+    async onSubmit() {
         this.submitted = true;
 
         // Debug print
@@ -35,8 +38,8 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
-
+        const user = await this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
+        this.sessionService.setSession(user.Uid);
         this.loading = true;
     }
 }
