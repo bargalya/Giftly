@@ -49,7 +49,7 @@ class Users{
                     console.log("password match");                
                     res.status(200).json({
                         'status': 'success',
-                        'data': document});
+                        'user': document});
                 }
                 else {
                     console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
