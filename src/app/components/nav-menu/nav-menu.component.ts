@@ -9,7 +9,7 @@ import { SessionService } from 'src/app/services/session.service';
 export class NavMenuComponent {
     isExpanded = false;
     isUserLoggedIn = false;
-    constructor(private readonly sessionService: SessionService) {
-            this.isUserLoggedIn = this.sessionService.isLoggedIn();
+    constructor(public readonly sessionService: SessionService) {
     }
+
 }
