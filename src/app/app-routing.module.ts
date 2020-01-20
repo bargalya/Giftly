@@ -17,7 +17,7 @@ const routes: Routes = [
 	{ path: 'register', component: RegisterComponent},
 	{ path: 'event/:id', component: EventComponent},
 	{ path: 'find-event', component: FindEventComponent},
-	{ path: 'friend-event', component: FriendEventComponent},
+	{ path: 'friend-event/:eventId', component: FriendEventComponent},
 	// otherwise redirect to home
 	{ path: '**', redirectTo: 'home'}
 ];

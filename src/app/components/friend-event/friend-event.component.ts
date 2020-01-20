@@ -2,6 +2,7 @@ import { Component, OnInit, NgModule, ChangeDetectorRef } from '@angular/core';
 import { Gift, GiftStatus } from '../../models/gift.class';
 import { ArrangeGiftList } from 'src/app/services/ArrangeGiftList.service';
 import { DataService } from 'src/app/services/data.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,8 +20,10 @@ export class FriendEventComponent implements OnInit {
   showItemsStatus: string;
   eventId: string;
 
-  constructor(private readonly arrangeGiftList: ArrangeGiftList, private readonly dataService: DataService) {
-    this.eventId = "5e2575fb255882385819513b";
+  constructor(private readonly arrangeGiftList: ArrangeGiftList, 
+              private readonly dataService: DataService, 
+              private route: ActivatedRoute) {
+    route.params.subscribe(params => {this.eventId = params.eventId});
  }
 
  ngOnInit() {
