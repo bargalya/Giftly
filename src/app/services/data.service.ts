@@ -87,7 +87,8 @@ export class DataService {
           giftResponse["url"],
           giftResponse["status"],
           giftResponse["imgTitle"],
-          giftResponse["imgUrl"]
+          giftResponse["imgUrl"],
+          giftResponse["_id"]
         ));
     });
     console.log(gifts);
