@@ -4,6 +4,7 @@ import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
+import { range } from 'rxjs';
 
 const userStr = 'user';
 const firstNameStr = 'firstName';
@@ -78,9 +79,18 @@ export class DataService {
   }
 
   async getAvailableGifts(eventId: string): Promise<Array<Gift>> {
-    let gifts: Array<Gift> = [];
+    var gifts: Array<Gift> = [];
     const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();
-    gifts = response["gifts"];
+    response["gifts"].forEach((giftResponse) => {
+      gifts.push(
+        new Gift(
+          giftResponse["url"],
+          giftResponse["status"],
+          giftResponse["imgTitle"],
+          giftResponse["imgUrl"]
+        ));
+    });
+    console.log(gifts);
     return gifts;
   }
 }

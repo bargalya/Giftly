@@ -34,15 +34,10 @@ export class FriendEventComponent implements OnInit {
   }
 
   private async getGiftsFromDB() {
-    var gifts;
     if(this.showItemsStatus === GiftStatus[GiftStatus.ReadyForGrabs]) {
-      gifts = await this.dataService.getAvailableGifts(this.eventId); 
-      for (let item of gifts) {
-        this.items.push(new Gift(item.url, item.status, item.imgTitle, item.imgUrl));
-      } 
+      this.items = await this.dataService.getAvailableGifts(this.eventId); 
     } else {
-      gifts = this.getBoughtGiftsMOCK();
-      this.items = gifts;
+      this.items = this.getBoughtGiftsMOCK();
     }
     this.sort(this.selectedSort);
   }
