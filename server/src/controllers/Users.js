@@ -75,6 +75,10 @@ class Users{
         }
     }
     
+    async get(req, res) {  
+        console.log("haha" + req)
+    }
+
     /*
     // not supported yet
     update(req, res){

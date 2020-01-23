@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const users = require('./routes/UsersRouter');
-const events = require('./routes/EventsRouter');
-const gifts = require('./routes/GiftsRouter');
+const users = require('./src/routes/UsersRouter');
+const events = require('./src/routes/EventsRouter');
+const gifts = require('./src/routes/GiftsRouter');
 
-const imgService = require('./routes/ImgServiceRouter');
+const imgService = require('./src/routes/ImgServiceRouter');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

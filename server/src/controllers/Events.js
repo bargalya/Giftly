@@ -1,7 +1,8 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 // const saveGifts = require('../src/Gifts').saveGifts;
-const Gifts = require('../src/Gifts');
+const Gifts = require('./Gifts');
 const gifts = new Gifts;
+
 class Events{
 
     constructor(){
