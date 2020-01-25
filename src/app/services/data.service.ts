@@ -94,4 +94,13 @@ export class DataService {
     console.log(gifts);
     return gifts;
   }
+
+  //returns false if the gift is already taken
+  async setGiftStatusToTaken(giftId: string, userId: string): Promise<boolean> {
+    return false;
+  }
+
+  async setGiftStatusToAvailable(giftId): Promise<boolean> {
+    return true;
+  }
 }
