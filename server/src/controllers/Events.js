@@ -1,4 +1,5 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
+const search = require('../dbMgr/dbMgr').search;
 // const saveGifts = require('../src/Gifts').saveGifts;
 const Gifts = require('./Gifts');
 const gifts = new Gifts;
@@ -10,7 +11,33 @@ class Events{
     }
 
     async get(req, res){
-        
+        let eventId = req.params.eventId
+        console.log("got a request to search event " + eventId);
+        const ObjectId = require('mongodb').ObjectID;
+        const eventIdObj = ObjectId(eventId);
+        try {
+            let query = {'_id' : eventIdObj};
+            const document = await search(query, Events.collectionName);
+            if(document != null) {
+                console.log("event was found." + document);
+                res.status(200).json({
+                    'status': 'success',
+                    'event': document});
+                } else {
+                console.log("Failed to find the event in the DB");
+                res.status(401).json({
+                    'status': 'Failed',
+                    'message': 'failed to find event in DB.'
+                });
+            }
+        }
+        catch(error) {
+            console.log("DB error:" + error);
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        }
     }
 
 

@@ -75,8 +75,21 @@ class Users{
         }
     }
     
-    async get(req, res) {  
-        console.log("haha" + req)
+    async getAllEventsForUser(req, res) {  
+        console.log("got a request to get all events for  user " + req.params.userName);
+        try {
+            //TODO get from Mongo DB
+            let events = {"name": "foo"};
+            res.status(200).json({events});
+            
+        } catch(error) {
+            console.log("DB error");
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        }
+
     }
 
     /*
