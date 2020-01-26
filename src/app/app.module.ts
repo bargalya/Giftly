@@ -20,13 +20,15 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule,
   MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatButtonToggleModule,
-  MatIconModule } from '@angular/material';
+  MatIconModule, 
+  MatDialogModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { FriendEventComponent } from './components/friend-event/friend-event.component';
 import { GiftsTableComponent } from './components/gifts-table/gifts-table.component';
 import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
+import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
     FindEventComponent,
     HomeComponent,
     FriendEventComponent,
-    GiftsTableComponent
+    GiftsTableComponent,
+    NotifyUserDialogComponent
     ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
     MatIconModule,
     MatSelectModule,
     MatButtonToggleModule,
+    MatDialogModule,
     AgGridModule.withComponents([])
   ],
   schemas: [
@@ -68,6 +72,9 @@ import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
   providers: [
     DataService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    NotifyUserDialogComponent
+  ]
 })
 export class AppModule { }
