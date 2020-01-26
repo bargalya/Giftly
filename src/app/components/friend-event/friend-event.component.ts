@@ -54,11 +54,19 @@ export class FriendEventComponent implements OnInit {
   }
 
   changeGiftStatus(gift: Gift) {
-    // @TODO: Make it work!
-    // call to DB
-    gift.Status = this.isBought(gift) ? GiftStatus.ReadyForGrabs : GiftStatus.Taken;
-    // let index = this.items.indexOf(gift);
-    // this.items.splice(index, 1);
+    var res;
+    if(this.isBought(gift)) {
+      // this.dataService.setGiftStatusToAvailable(gift.GiftId);
+    } else {
+      res = this.dataService.setGiftStatusToTaken(gift.GiftId, "5de41cf834f0fb51fc99c500");
+      if(res) {
+        this.showItems = this.showItems.filter(obj => obj !== gift);
+        this.items = this.items.filter(obj => obj !== gift);
+      } else {
+        //TODO: message user
+        this.setGiftsAndArrange()
+      }
+    }
   }
 
   isBought(gift: Gift): boolean {
