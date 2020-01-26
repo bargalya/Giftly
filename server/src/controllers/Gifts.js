@@ -47,6 +47,28 @@ class Gifts{
         }        
     }
 
+    async getBoughtGifts(req, res) {
+        const eventId = ObjectID(req.params.eventId);
+        const userId = ObjectID(req.params.userId);
+        const query = {"eventId": eventId,
+                        "userId": userId,
+                        "status": 1};
+        try {
+            let gifts = await findMany(query, Gifts.giftsCollectionName);
+            res.status(200).send({
+                'status': 'success',
+                'gifts': gifts
+            });
+        } catch(error) {
+            console.log("Failed finding gifts of event: " + eventId + " that were bought by user " + userId);
+            console.log(error);
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        }        
+    }
+
     async updateGiftStatus(req, res) {
         const giftId = ObjectID(req.params.giftId);
         const status = req.body.status;

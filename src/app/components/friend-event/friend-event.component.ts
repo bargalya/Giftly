@@ -43,7 +43,7 @@ export class FriendEventComponent implements OnInit {
     if(this.showItemsStatus === GiftStatus[GiftStatus.ReadyForGrabs]) {
       this.items = await this.dataService.getAvailableGifts(this.eventId); 
     } else {
-      this.items = this.getBoughtGiftsMOCK();
+      this.items = await this.dataService.getGiftsBoughtByUser(this.eventId, this.userId);
     }
     this.sort(this.selectedSort);
   }

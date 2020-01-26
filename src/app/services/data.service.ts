@@ -4,7 +4,6 @@ import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
-import { range } from 'rxjs';
 
 const userStr = 'user';
 const firstNameStr = 'firstName';
@@ -83,6 +82,12 @@ export class DataService {
     return this.buildGiftArrayFromPromise(response);
   }
 
+  async getGiftsBoughtByUser(eventId:string, userId:string): Promise<Array<Gift>> {
+    var url = 'api/gift/' + eventId + '/' + userId;
+    console.log(url);
+    const response = await this.http.get(url, this.httpOptions).toPromise();
+    return this.buildGiftArrayFromPromise(response);
+  }
 
   private buildGiftArrayFromPromise(promise: Object): Array<Gift> {
     var gifts: Array<Gift> = [];
@@ -96,7 +101,6 @@ export class DataService {
           gift["_id"]
         ));
     });
-    console.log(gifts);
     return gifts;
   }
 
