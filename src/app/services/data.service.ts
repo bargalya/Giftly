@@ -79,16 +79,21 @@ export class DataService {
   }
 
   async getAvailableGifts(eventId: string): Promise<Array<Gift>> {
-    var gifts: Array<Gift> = [];
     const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();
-    response["gifts"].forEach((giftResponse) => {
+    return this.buildGiftArrayFromPromise(response);
+  }
+
+
+  private buildGiftArrayFromPromise(promise: Object): Array<Gift> {
+    var gifts: Array<Gift> = [];
+    promise["gifts"].forEach((gift) => {
       gifts.push(
         new Gift(
-          giftResponse["url"],
-          giftResponse["status"],
-          giftResponse["imgTitle"],
-          giftResponse["imgUrl"],
-          giftResponse["_id"]
+          gift["url"],
+          gift["status"],
+          gift["imgTitle"],
+          gift["imgUrl"],
+          gift["_id"]
         ));
     });
     console.log(gifts);
