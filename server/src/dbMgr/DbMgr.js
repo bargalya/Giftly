@@ -129,11 +129,11 @@ async function findMany(query, collectionName) {
     }
 }
 
-async function update(query, collectionName) {
+async function update(query, newValues, collectionName) {
     if(db) {
         try {
             const collection = db.collection(collectionName);
-            return await collection.update(query);
+            return await collection.updateOne(query, newValues);
         }
         catch(err) {
             console.log("DbMgr: failed to update documents in " + collectionName + " collection. Error:", err);

@@ -48,20 +48,33 @@ class Gifts{
     }
 
     async updateGiftStatus(req, res) {
-        const giftId = req.params.giftId;
+        const giftId = ObjectID(req.params.giftId);
         const status = req.body.status;
-        const query = {'giftId' : giftId,
-                        '$set' : {'status' : status}};
-        if(status === "Taken") {
-            query.set('userid', req.body.userId);
+        var query = {'_id' : giftId};
+        var newValues = {};
+        if(status === 1) {
+            query['status'] = 0;
+            newValues['$set'] = {'userId': ObjectID(req.body.userId), 
+                                'status': 1};
         } else {
-            query.set('$unset', '{userId: ""}');
+            query['status'] = 1;
+            console.log('query1' + query);
+            newValues['$set'] = {'status' : 0, 'userId': ""};
+            console.log(newValues);
         }
         try {
-            const updateResponse = await update(query, Gifts.giftsCollectionName);
-            res.status(200).send({
-                'status': 'success'
-            });
+            const updateResponse = await update(query, newValues, Gifts.giftsCollectionName);
+            if(updateResponse.result.nModified == 0) {
+                console.log("no update");
+                res.status(403).send({
+                    'status': 'Failed',
+                    'error': 'Gift ' + giftId + ' alredy taken, or no such gift exists'
+                });
+            } else {
+                res.status(200).send({
+                    'status': 'success'
+                });
+            }
         } catch(error) {
             console.log("Failed updating the status of gift: " + giftId);
             res.status(500).json({

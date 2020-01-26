@@ -97,7 +97,11 @@ export class DataService {
 
   //returns false if the gift is already taken
   async setGiftStatusToTaken(giftId: string, userId: string): Promise<boolean> {
-    return false;
+    const body = {'status': GiftStatus.Taken, 'userId': userId};
+    var response = await this.http.put('api/gift/' + giftId, body).toPromise()
+      .then(() =>  true)
+      .catch(() => false);
+      return response;
   }
 
   async setGiftStatusToAvailable(giftId): Promise<boolean> {
