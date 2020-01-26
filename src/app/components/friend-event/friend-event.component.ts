@@ -3,6 +3,8 @@ import { Gift, GiftStatus } from '../../models/gift.class';
 import { ArrangeGiftList } from 'src/app/services/ArrangeGiftList.service';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
 
 
 @Component({
@@ -22,7 +24,8 @@ export class FriendEventComponent implements OnInit {
 
   constructor(private readonly arrangeGiftList: ArrangeGiftList, 
               private readonly dataService: DataService, 
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dialog: MatDialog) {
     route.params.subscribe(params => {this.eventId = params.eventId});
  }
 
@@ -53,17 +56,28 @@ export class FriendEventComponent implements OnInit {
     this.setGiftsAndArrange();
   }
 
-  changeGiftStatus(gift: Gift) {
+  async changeGiftStatus(gift: Gift) {
     var res;
     if(this.isBought(gift)) {
       // this.dataService.setGiftStatusToAvailable(gift.GiftId);
     } else {
-      res = this.dataService.setGiftStatusToTaken(gift.GiftId, "5de41cf834f0fb51fc99c500");
+      res = await this.dataService.setGiftStatusToTaken(gift.GiftId, "5de41cf834f0fb51fc99c500");
       if(res) {
         this.showItems = this.showItems.filter(obj => obj !== gift);
         this.items = this.items.filter(obj => obj !== gift);
+        //TODO: add gift title to message and a link to "Gifts I Bought"
+        this.dialog.open(NotifyUserDialogComponent, 
+          {'data' : 
+            {"title":"You are a good friend!", 
+              "message": "You just bought your friend a gift. To undo this go to \"Gifts I Bought\"."}
+          });
       } else {
-        //TODO: message user
+        //TODO: add gift title to message
+        this.dialog.open(NotifyUserDialogComponent, 
+          {'data' : 
+            {"title":"Sorry,", 
+              "message": "you can't buy this gift anymore. Either it was already bought, or your friend does not want it anymore."}
+          });
         this.setGiftsAndArrange()
       }
     }
