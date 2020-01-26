@@ -21,12 +21,15 @@ export class FriendEventComponent implements OnInit {
   selectedSort: string;
   showItemsStatus: string;
   eventId: string;
+  userId: string;
 
   constructor(private readonly arrangeGiftList: ArrangeGiftList, 
               private readonly dataService: DataService, 
               private route: ActivatedRoute,
               private dialog: MatDialog) {
     route.params.subscribe(params => {this.eventId = params.eventId});
+    //TODO: get userId from session
+    this.userId = "5de41cf834f0fb51fc99c500";
  }
 
  ngOnInit() {
@@ -61,7 +64,7 @@ export class FriendEventComponent implements OnInit {
     if(this.isBought(gift)) {
       // this.dataService.setGiftStatusToAvailable(gift.GiftId);
     } else {
-      res = await this.dataService.setGiftStatusToTaken(gift.GiftId, "5de41cf834f0fb51fc99c500");
+      res = await this.dataService.setGiftStatusToTaken(gift.GiftId, this.userId);
       if(res) {
         this.showItems = this.showItems.filter(obj => obj !== gift);
         this.items = this.items.filter(obj => obj !== gift);
