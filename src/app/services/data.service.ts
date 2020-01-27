@@ -114,6 +114,11 @@ export class DataService {
   }
 
   async setGiftStatusToAvailable(giftId): Promise<boolean> {
-    return true;
+    const body = {'status': GiftStatus.ReadyForGrabs};
+    const response = await this.http.put('api/gift/' + giftId, body).toPromise()
+      .then(() => true)
+      .catch((error) => {console.log(error); 
+                          return false;});
+    return response;
   }
 }

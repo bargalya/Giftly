@@ -80,18 +80,23 @@ class Gifts{
                                 'status': 1};
         } else {
             query['status'] = 1;
-            console.log('query1' + query);
-            newValues['$set'] = {'status' : 0, 'userId': ""};
-            console.log(newValues);
+            newValues['$set'] = {'status' : 0};
+            newValues['$unset'] = {'userId': ""};
         }
         try {
             const updateResponse = await update(query, newValues, Gifts.giftsCollectionName);
             if(updateResponse.result.nModified == 0) {
                 console.log("no update");
-                res.status(403).send({
-                    'status': 'Failed',
-                    'error': 'Gift ' + giftId + ' alredy taken, or no such gift exists'
-                });
+                if(status === 1) {
+                    res.status(403).send({
+                        'status': 'Failed',
+                        'error': 'Gift ' + giftId + ' alredy taken, or no such gift exists'
+                    });
+                } else {
+                    res.status(500).json({
+                        'status': 'Failed',
+                    });
+                }
             } else {
                 res.status(200).send({
                     'status': 'success'

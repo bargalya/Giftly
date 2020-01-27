@@ -62,12 +62,20 @@ export class FriendEventComponent implements OnInit {
   async changeGiftStatus(gift: Gift) {
     var res;
     if(this.isBought(gift)) {
-      // this.dataService.setGiftStatusToAvailable(gift.GiftId);
+      res = this.dataService.setGiftStatusToAvailable(gift.GiftId);
+      if(res) {
+        this.filterGift(gift);
+      } else {
+      this.dialog.open(NotifyUserDialogComponent, 
+        {'data' : 
+            {"title":"Sorry,", 
+              "message": "We could not remove the gift from the gifts you bought. Please try again later."}
+        });
+      }
     } else {
       res = await this.dataService.setGiftStatusToTaken(gift.GiftId, this.userId);
       if(res) {
-        this.showItems = this.showItems.filter(obj => obj !== gift);
-        this.items = this.items.filter(obj => obj !== gift);
+        this.filterGift(gift);
         //TODO: add gift title to message and a link to "Gifts I Bought"
         this.dialog.open(NotifyUserDialogComponent, 
           {'data' : 
@@ -84,6 +92,11 @@ export class FriendEventComponent implements OnInit {
         this.setGiftsAndArrange()
       }
     }
+  }
+
+  filterGift(gift: Gift) {
+    this.showItems = this.showItems.filter(obj => obj !== gift);
+    this.items = this.items.filter(obj => obj !== gift);
   }
 
   isBought(gift: Gift): boolean {
