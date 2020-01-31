@@ -36,7 +36,7 @@ export class EventComponent implements OnInit {
      }
 
     ngOnInit() {
-        const uid = this.sessionService.getSession();
+        const uid = this.sessionService.getUserIdFromsSession();
         console.log('logged in uid is: ' + uid);
         //Todo: remove this init!!
         this.gifts = [{ "title": "Table", "url":'https://media.baligam.co.il/_media/media/37154/316142.jpg' }, 

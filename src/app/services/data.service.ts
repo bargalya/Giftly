@@ -128,12 +128,12 @@ export class DataService {
     const response = await this.http.put('api/gift/' + giftId, body).toPromise()
       .then(() => true)
       .catch((error) => {console.log(error); 
-                          return false;});
+                        return false; });
     return response;
   }
 
   handleError(response) {
-    if(response['status'] === 'Failed') {
+    if (response['status'] === 'Failed') {
       console.log(response['message']);
     }
   }

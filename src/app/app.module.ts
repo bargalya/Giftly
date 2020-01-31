@@ -30,6 +30,7 @@ import { GiftsTableComponent } from './components/gifts-table/gifts-table.compon
 import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
 import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     MatSelectModule,
     MatButtonToggleModule,
     MatDialogModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    CookieModule.forRoot()
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
