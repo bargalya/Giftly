@@ -131,4 +131,10 @@ export class DataService {
                           return false;});
     return response;
   }
+
+  handleError(response) {
+    if(response['status'] === 'Failed') {
+      console.log(response['message']);
+    }
+  }
 }
