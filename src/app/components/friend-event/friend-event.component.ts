@@ -1,6 +1,11 @@
 import { Component, OnInit, NgModule, ChangeDetectorRef } from '@angular/core';
 import { Gift, GiftStatus } from '../../models/gift.class';
 import { ArrangeGiftList } from 'src/app/services/ArrangeGiftList.service';
+import { DataService } from 'src/app/services/data.service';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
+
 
 @Component({
   selector: 'app-friend-event',
@@ -15,24 +20,30 @@ export class FriendEventComponent implements OnInit {
   sortOptions: Array<string>;
   selectedSort: string;
   showItemsStatus: string;
-  giftStatusToDBCall = {};
+  eventId: string;
+  userId: string;
 
-  constructor(private readonly arrangeGiftList: ArrangeGiftList) {
-    // , private http: HttpClient, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef
+  constructor(private readonly arrangeGiftList: ArrangeGiftList, 
+              private readonly dataService: DataService, 
+              private route: ActivatedRoute,
+              private dialog: MatDialog) {
+    route.params.subscribe(params => {this.eventId = params.eventId});
+    //TODO: get userId from session
+    this.userId = "5de41cf834f0fb51fc99c500";
  }
 
  ngOnInit() {
-   this.giftStatusToDBCall[GiftStatus.ReadyForGrabs] = this.getFreeGiftsMOCK;
-   this.giftStatusToDBCall[GiftStatus.Taken] = this.getBoughtGiftsMOCK;
    this.showItemsStatus = GiftStatus[GiftStatus.ReadyForGrabs];
    this.sortOptions = this.arrangeGiftList.getSortOptions();
    this.selectedSort = this.sortOptions[0];
    this.setGiftsAndArrange();
   }
 
-  private getGiftsFromDB() {
-    for (let item of this.giftStatusToDBCall[GiftStatus[this.showItemsStatus]].apply()) {
-      this.items.push(new Gift(item.Url, item.Status, item.Title));
+  private async getGiftsFromDB() {
+    if(this.showItemsStatus === GiftStatus[GiftStatus.ReadyForGrabs]) {
+      this.items = await this.dataService.getAvailableGifts(this.eventId); 
+    } else {
+      this.items = await this.dataService.getGiftsBoughtByUser(this.eventId, this.userId);
     }
     this.sort(this.selectedSort);
   }
@@ -48,12 +59,44 @@ export class FriendEventComponent implements OnInit {
     this.setGiftsAndArrange();
   }
 
-  changeGiftStatus(gift: Gift) {
-    // @TODO: Make it work!
-    // call to DB
-    gift.Status = this.isBought(gift) ? GiftStatus.ReadyForGrabs : GiftStatus.Taken;
-    // let index = this.items.indexOf(gift);
-    // this.items.splice(index, 1);
+  async changeGiftStatus(gift: Gift) {
+    var res;
+    if(this.isBought(gift)) {
+      res = this.dataService.setGiftStatusToAvailable(gift.GiftId);
+      if(res) {
+        this.filterGift(gift);
+      } else {
+      this.dialog.open(NotifyUserDialogComponent, 
+        {'data' : 
+            {"title":"Sorry,", 
+              "message": "We could not remove the gift from the gifts you bought. Please try again later."}
+        });
+      }
+    } else {
+      res = await this.dataService.setGiftStatusToTaken(gift.GiftId, this.userId);
+      if(res) {
+        this.filterGift(gift);
+        //TODO: add gift title to message and a link to "Gifts I Bought"
+        this.dialog.open(NotifyUserDialogComponent, 
+          {'data' : 
+            {"title":"You are a good friend!", 
+              "message": "You just bought your friend a gift. To undo this go to \"Gifts I Bought\"."}
+          });
+      } else {
+        //TODO: add gift title to message
+        this.dialog.open(NotifyUserDialogComponent, 
+          {'data' : 
+            {"title":"Sorry,", 
+              "message": "you can't buy this gift anymore. Either it was already bought, or your friend does not want it anymore."}
+          });
+        this.setGiftsAndArrange()
+      }
+    }
+  }
+
+  filterGift(gift: Gift) {
+    this.showItems = this.showItems.filter(obj => obj !== gift);
+    this.items = this.items.filter(obj => obj !== gift);
   }
 
   isBought(gift: Gift): boolean {
@@ -85,9 +128,9 @@ export class FriendEventComponent implements OnInit {
   getBoughtGiftsMOCK() {
     return [
       new Gift('https://media.baligam.co.il/_media/media/37154/316142.jpg', 
-      GiftStatus.Taken, 'B Table'),
+      GiftStatus.Taken, 'B Table', 'https://media.baligam.co.il/_media/media/37154/316142.jpg'),
       new Gift('https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg',
-        GiftStatus.Taken, 'C Clock')
+        GiftStatus.Taken, 'C Clock', 'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg')
     ];
   }
 }

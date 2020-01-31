@@ -20,11 +20,15 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule,
   MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatButtonToggleModule,
-  MatIconModule } from '@angular/material';
+  MatIconModule, 
+  MatDialogModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { FriendEventComponent } from './components/friend-event/friend-event.component';
+import { GiftsTableComponent } from './components/gifts-table/gifts-table.component';
+import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
+import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +40,12 @@ import { FriendEventComponent } from './components/friend-event/friend-event.com
     NewEventComponent,
     EventComponent,
     GetGiftStatusPipe,
+    GetGiftImageId,
     FindEventComponent,
     HomeComponent,
-    FriendEventComponent
+    FriendEventComponent,
+    GiftsTableComponent,
+    NotifyUserDialogComponent
     ],
   imports: [
     BrowserModule,
@@ -56,6 +63,7 @@ import { FriendEventComponent } from './components/friend-event/friend-event.com
     MatIconModule,
     MatSelectModule,
     MatButtonToggleModule,
+    MatDialogModule,
     AgGridModule.withComponents([])
   ],
   schemas: [
@@ -64,6 +72,9 @@ import { FriendEventComponent } from './components/friend-event/friend-event.com
   providers: [
     DataService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    NotifyUserDialogComponent
+  ]
 })
 export class AppModule { }

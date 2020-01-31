@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./new-event.component.scss']
 })
 export class NewEventComponent implements OnInit {
-  page_title = "New Event";
+  title = 'New Event';
   event: Event;
   myForm: FormGroup;
   constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
@@ -38,13 +38,13 @@ export class NewEventComponent implements OnInit {
     return this.myForm.get('giftUrl');
   }
 
-  addGift(): void  {
+  async addGift() {
     const giftUrl = this.myForm.get('giftUrl').value;
     if (giftUrl === '') {
       return;
     }
-
-    this.gifts.push(new Gift(giftUrl, GiftStatus.ReadyForGrabs));
+    const gift = await this.dataService.getImgDetails(giftUrl);
+    this.gifts.push(gift);
     this.myForm.get('giftUrl').setValue('');
     // this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
     this.cd.detectChanges();

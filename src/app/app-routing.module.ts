@@ -10,14 +10,14 @@ import { FindEventComponent } from './components/find-event/find-event.component
 import { FriendEventComponent } from './components/friend-event/friend-event.component';
 
 const routes: Routes = [
-	{path: 'home', component: HomeComponent},
-	{path: 'events-dashboard', component: EventsDashboardComponent},
-	{path: 'new-event', component: NewEventComponent},
+	{ path: 'home', component: HomeComponent},
+	{ path: 'events-dashboard', component: EventsDashboardComponent},
+	{ path: 'new-event', component: NewEventComponent},
 	{ path: 'login', component: LoginComponent},
 	{ path: 'register', component: RegisterComponent},
 	{ path: 'event/:id', component: EventComponent},
 	{ path: 'find-event', component: FindEventComponent},
-	{ path: 'friend-event', component: FriendEventComponent},
+	{ path: 'friend-event/:eventId', component: FriendEventComponent},
 	// otherwise redirect to home
 	{ path: '**', redirectTo: 'home'}
 ];

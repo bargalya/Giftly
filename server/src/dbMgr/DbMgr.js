@@ -116,9 +116,41 @@ async function search(query, collectionName)
 {  
     return await findOne(query, collectionName);
 }
+
+async function findMany(query, collectionName) {
+    if(db) {
+        try {
+            const collection = db.collection(collectionName);
+            return await collection.find(query).toArray();    
+        }
+        catch(err) {
+            console.log("DbMgr: failed to find documents in " + collectionName + " collection. Error:", err);
+            throw new Error("DbMgr: failed to find documents in " + collectionName + " collection");
+        }
+    } else {
+        console.log("DbMgr Error: No connection to DB")
+    }
+}
+
+async function update(query, newValues, collectionName) {
+    if(db) {
+        try {
+            const collection = db.collection(collectionName);
+            return await collection.updateOne(query, newValues);
+        }
+        catch(err) {
+            console.log("DbMgr: failed to update documents in " + collectionName + " collection. Error:", err);
+            throw new Error("DbMgr: failed to update documents in " + collectionName + " collection");
+        }
+    } else {
+        console.log("DbMgr Error: No connection to DB")
+    }
+}
            
 module.exports = { 
     addToDb,
     addManyToDb,
-    search
+    search,
+    findMany,
+    update
 };
