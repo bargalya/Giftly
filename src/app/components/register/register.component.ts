@@ -14,7 +14,8 @@ export class RegisterComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private readonly dataService: DataService,
-        private readonly sessionService: SessionService
+        private readonly sessionService: SessionService,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -50,6 +51,7 @@ export class RegisterComponent implements OnInit {
         }
         user.Uid = uid;
         this.sessionService.setSession(user.Uid);
+        this.router.navigate(['/home']);
         this.loading = true;
     }
 }
