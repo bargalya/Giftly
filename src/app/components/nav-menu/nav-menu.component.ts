@@ -12,4 +12,11 @@ export class NavMenuComponent {
     constructor(public readonly sessionService: SessionService) {
     }
 
+    ngOnInit() {
+        const isUserLoggedInObservable = this.sessionService.getIsLoggedInObservable();
+        isUserLoggedInObservable.subscribe((isUserLoggedInData: boolean) => {
+            this.isUserLoggedIn = isUserLoggedInData;
+        });
+    }
+
 }

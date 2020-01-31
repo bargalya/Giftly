@@ -7,25 +7,25 @@
             [routerLinkActiveOptions]="{ exact: true }" >
             <a class="nav-link text-dark" routerLink="/home" >Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="!sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="!isUserLoggedIn">
             <a class="nav-item nav-link" routerLink="/login">Login</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="!sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="!isUserLoggedIn">
             <a class="nav-item nav-link" routerLink="/register">Register</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="isUserLoggedIn">
             <a class="nav-item nav-link" routerLink="/logout">Logout</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
             <a routerLink="events-dashboard" routerLinkActive="active">Events Dashboard</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
             <a routerLink="new-event" routerLinkActive="active">New Event</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
             <a routerLink="find-event" routerLinkActive="active">Find Event (guest)</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
             <a routerLink="friend-event" routerLinkActive="active">Friend Event</a>
           </li>
         </ul>
