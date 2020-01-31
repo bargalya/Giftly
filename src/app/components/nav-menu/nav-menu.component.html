@@ -22,10 +22,10 @@
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
             <a routerLink="new-event" routerLinkActive="active">New Event</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
             <a routerLink="find-event" routerLinkActive="active">Find Event (guest)</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="sessionService.isLoggedIn()">
             <a routerLink="friend-event" routerLinkActive="active">Friend Event</a>
           </li>
         </ul>
