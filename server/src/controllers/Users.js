@@ -1,5 +1,6 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const search = require('../dbMgr/dbMgr').search;
+const createUniqueIndex = require('../dbMgr/dbMgr').createUniqueIndex;
 
 class Users{    
 
@@ -27,8 +28,8 @@ class Users{
                 'data': responseDocument["ops"][0]
             });
         }    
-        catch(error) {
-            console.log("Failed to add a new user to the DB");
+        catch(error) {            
+            console.log("Failed to add a new user to the DB. " + error);
             res.status(500).json({
                 'status': 'Failed',
                 'message': error.message
@@ -88,52 +89,12 @@ class Users{
             });
         }
 
-    }
+    }    
 
-    /*
-    // not supported yet
-    update(req, res){
-
-        dbMgr.update(req.params.userid, Users.collectionName, req.body,
-            function(err, response) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                else {
-                    res.send({
-                        'status': 'success',
-                        'data': response 
-                        });
-                }
-            });
-        /*
-        const ObjectId = require('mongodb').ObjectID;
-        const userid = ObjectId(req.params.userid);
-        let query = {'_id' : userid};
-        let newValues = {$set: req.body};
-        mongo.connect(Users.url, Users.connectParams, 
-            function(err, client) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                let db = client.db(Users.dbName);
-                let collection = db.collection(Users.collectionName);
-                collection.updateOne(query, newValues,
-                    function(err, response){
-                        if(err) {
-                            res.send({'status': 'Failed',
-                                    'error': err});
-                        }
-                        client.close();
-                        res.send({
-                            'status': 'success',
-                            'data': response
-                            });
-                });
-        });       */        
-//    }
+    init()
+    {   
+        createUniqueIndex(Users.collectionName, "userName");                    
+    }    
 }
 
 module.exports = Users;

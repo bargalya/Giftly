@@ -8,35 +8,43 @@ connectParams = {
 };
 
 let db;
-let usersCollection;
-function connectToDb()
-{
-    // Connect to the DB and initialize the variable with the connection
+
+function connectToDb(callback)
+{       
     mongo.connect(url, connectParams,
-    function(err, client) {
-        if(err) {                        
-            console.log("ERROR! failed to connect to Data base!");
-        }
-        else {
-            db = client.db(dbName);
-            console.log("Database created");
-            createUniqueIndex();            
-        }    
-    });
+        function(err, client) {
+            if(err) {                        
+                console.log("ERROR! failed to connect to Data base! error: " + err);
+                return callback(err);
+            }
+            else {
+                try {
+                    db = client.db(dbName);
+                    console.log("Database created");
+                    return callback(null);
+                }
+                catch (err) {
+                    console.log("client.db(dbName) failed. error: " + err);
+                    return callback(err);
+                }
+            }  
+        });
 }
 
-function createUniqueIndex()
+function createUniqueIndex(collectionName, uniqueFieldName)
 {
-    usersCollection = db.collection("Users");  
-    usersCollection.createIndex( { "userName": 1 }, { unique: true } )
+    try {        
+        collection = db.collection(collectionName);        
+        collection.createIndex( { uniqueFieldName: 1 }, { unique: true } );    
+    } catch (err) {
+        console.log("createIndex failed. collection name " + collectionName + "filed name " + name + " error " + err);
+    }
 }
-
-connectToDb();
 
 async function addToDb(collectionName, document)
 {
     if (db)
-    {       
+    {   
         return await insertOne(collectionName, document);
     }
     else
@@ -51,8 +59,8 @@ async function addToDb(collectionName, document)
 
 async function insertOne(collectionName, document) {
     try{
-        
-        return await usersCollection.insertOne(document);
+        collection = db.collection(collectionName);
+        return await collection.insertOne(document);
     }
     catch(err)
     {
@@ -146,11 +154,13 @@ async function update(query, newValues, collectionName) {
         console.log("DbMgr Error: No connection to DB")
     }
 }
-           
+            
 module.exports = { 
     addToDb,
     addManyToDb,
     search,
     findMany,
-    update
+    update,
+    createUniqueIndex,
+    connectToDb
 };
