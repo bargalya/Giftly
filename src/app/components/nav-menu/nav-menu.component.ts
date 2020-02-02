@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component} from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -13,10 +13,8 @@ export class NavMenuComponent {
     }
 
     ngOnInit() {
-        const isUserLoggedInObservable = this.sessionService.getIsLoggedInObservable();
-        isUserLoggedInObservable.subscribe((isUserLoggedInData: boolean) => {
+        this.sessionService.isloggedIn.subscribe((isUserLoggedInData: boolean) => {
             this.isUserLoggedIn = isUserLoggedInData;
         });
     }
-
 }
