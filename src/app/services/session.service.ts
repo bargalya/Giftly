@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 const GIFTLY_TOKEN_STR = 'giftly_token';
 @Injectable({
@@ -8,7 +8,7 @@ const GIFTLY_TOKEN_STR = 'giftly_token';
 })
 export class SessionService {
 
-  public isloggedIn = new Subject();
+  public isloggedIn = new BehaviorSubject<boolean>(false);
   constructor(private cookieService: CookieService) {
     this.isLoggedIn();
    }
@@ -32,11 +32,12 @@ export class SessionService {
   }
 
 
-  isLoggedIn(): boolean {
+  isLoggedIn() {
     const uid = this.getUserIdFromsSession();
     if (uid !== undefined) {     
-      return true;
-    }    
-    return false;
+      this.isloggedIn.next(true);
+    } else {
+      this.isloggedIn.next(false);
+    }
   }
 }
