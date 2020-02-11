@@ -10,7 +10,8 @@ export class SessionService {
 
   public isloggedIn = new BehaviorSubject<boolean>(false);
   constructor(private cookieService: CookieService) {
-    this.isLoggedIn();
+    const res = this.isLoggedIn();
+    this.isloggedIn.next(res);
    }
 
   setSession(cvalue) {
@@ -32,12 +33,11 @@ export class SessionService {
   }
 
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     const uid = this.getUserIdFromsSession();
-    if (uid !== undefined) {     
-      this.isloggedIn.next(true);
-    } else {
-      this.isloggedIn.next(false);
-    }
+    if (uid !== undefined) {   
+      return true;
+    }    
+    return false;
   }
 }
