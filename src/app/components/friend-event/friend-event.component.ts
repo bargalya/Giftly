@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
+import { SessionService } from 'src/app/services/session.service';
 
 
 @Component({
@@ -26,10 +27,10 @@ export class FriendEventComponent implements OnInit {
   constructor(private readonly arrangeGiftList: ArrangeGiftList, 
               private readonly dataService: DataService, 
               private route: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private readonly sessionService: SessionService) {
     route.params.subscribe(params => {this.eventId = params.eventId});
-    //TODO: get userId from session
-    this.userId = "5de41cf834f0fb51fc99c500";
+    this.userId = sessionService.getUserIdFromsSession();
  }
 
  ngOnInit() {
