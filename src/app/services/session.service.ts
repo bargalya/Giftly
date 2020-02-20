@@ -24,12 +24,13 @@ export class SessionService {
     this.isloggedIn.next(false);
   }
 
-  getSession(): string {
+  getSession(): string {    
     return this.cookieService.get(GIFTLY_TOKEN_STR);
   }
 
   getUserIdFromsSession(): string {
-    return this.cookieService.get(GIFTLY_TOKEN_STR);
+    const uid = this.cookieService.get(GIFTLY_TOKEN_STR);
+    return uid;
   }
 
 

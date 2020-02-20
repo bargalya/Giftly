@@ -4,6 +4,7 @@ import { Event } from '../models/event.class';
 import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
+import { SessionService } from './session.service';
 
 const userStr = 'user';
 const firstNameStr = 'firstName';
@@ -23,7 +24,7 @@ export class DataService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private readonly sessionService: SessionService) { }
 
   async getImgDetails(url: string): Promise<Gift> {
     let body = new HttpParams();
@@ -35,19 +36,32 @@ export class DataService {
     return gift;
   }
 
-  saveEvent(event: Event): void {
+  async saveEvent(event: Event): Promise<string> {
     let body = new HttpParams();
     body = body.set('description', event.Description);
     body = body.set('name', event.Name);
     body = body.set('date', event.Date.toString());
     body = body.set('gifts', JSON.stringify(event.Gifts));
-    this.http.post('api/event/' , body, this.httpOptions)
-        .subscribe((response) => console.log(response),
-                    (error) => console.log(error));
+    const uid = this.sessionService.getUserIdFromsSession();
+    body = body.set('uid', uid);
+    const response = await this.http.post<any>('api/event/' , body, this.httpOptions)
+                    .toPromise()
+                    .catch(err => this.handleError(err));
+    return response["eventData"]["_id"];
   }
 
-  getEvent(eventId: string): Event {
-    return null;
+  async getEvent(eventId: string): Promise<Event> {
+    const response = await this.http.get('api/event/' + eventId , this.httpOptions)
+    .toPromise()
+    .catch(err => this.handleError(err));
+    
+    console.log(response);
+    if (response === undefined || response['status'] === 'Failed') {
+      console.log(response['message']);
+      return null;
+    }
+    let event = new Event(response['event']['name'], response['event']['description'], response['event']['date'], null);
+    return event;
   }
 
   async saveUser(user: User): Promise<string> {
@@ -85,6 +99,23 @@ export class DataService {
                           response[userStr][emailStr]);
     user.Uid = response[userStr][uidStr];
     return user;
+  }
+
+  async getUserEvents(uid: string): Promise<any> {
+
+    const response = await this.http.get('api/user/events/' + uid , this.httpOptions)
+                                    .toPromise()
+                                    .catch(err => this.handleError(err));
+    let events = response['userEvents'];
+    console.log("events: " + JSON.stringify(events));  
+    if (response === undefined) {
+      return null;
+    }
+    let eventsArr = new Array();
+    events.forEach(event => {new Event(event.name, event.description, event.data, null);
+      eventsArr.push(event);
+    });
+    return eventsArr;
   }
 
   async getAvailableGifts(eventId: string): Promise<Array<Gift>> {
