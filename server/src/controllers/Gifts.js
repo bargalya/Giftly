@@ -27,10 +27,9 @@ class Gifts{
         return responseDocument;
     }
 
-    async getAvailableGifts(req, res) {
+    async getAllGiftsForEvent(req, res) {
         const id = ObjectID(req.params.eventId);
-        const query = {eventId: id,
-                        status : 0};
+        const query = {eventId: id};
         try {
             let gifts = await findMany(query, Gifts.giftsCollectionName);
             res.status(200).send({

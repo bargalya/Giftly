@@ -60,7 +60,8 @@ export class DataService {
       console.log(response['message']);
       return null;
     }
-    let event = new Event(response['event']['name'], response['event']['description'], response['event']['date'], null);
+    const gifts = await this.getAllGifts(eventId);
+    let event = new Event(response['event']['name'], response['event']['description'], response['event']['date'], gifts);
     return event;
   }
 
@@ -120,6 +121,12 @@ export class DataService {
 
   async getAvailableGifts(eventId: string): Promise<Array<Gift>> {
     const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();
+     let res = this.buildGiftArrayFromPromise(response).filter(x=>x.Status == GiftStatus.ReadyForGrabs);
+     return res;
+  }
+
+  async getAllGifts(eventId: string): Promise<Array<Gift>> {
+    const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();  
     return this.buildGiftArrayFromPromise(response);
   }
 
