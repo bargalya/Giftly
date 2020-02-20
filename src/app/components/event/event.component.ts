@@ -18,7 +18,7 @@ import { SessionService } from 'src/app/services/session.service';
 export class EventComponent implements OnInit {
 
     gifts = [];
-    eventId: number;
+    eventId: string;
     event: Event;
 
     searchForm = new FormGroup({
@@ -35,13 +35,13 @@ export class EventComponent implements OnInit {
         });
      }
 
-    ngOnInit() {
+    async ngOnInit() {
         const uid = this.sessionService.getUserIdFromsSession();
         console.log('logged in uid is: ' + uid);
         //Todo: remove this init!!
         this.gifts = [{ "title": "Table", "url":'https://media.baligam.co.il/_media/media/37154/316142.jpg' }, 
         { "title": "Clock", "url":'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg' }];
-        this.event = this.dataService.getEvent(uid);
+        this.event = await this.dataService.getEvent(this.eventId);
         if(this.event != null)
             this.gifts = this.event.getGifts();
         else
