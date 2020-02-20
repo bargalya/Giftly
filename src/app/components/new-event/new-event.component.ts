@@ -3,6 +3,7 @@ import { Gift, GiftStatus } from 'src/app/models/gift.class';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Event } from 'src/app/models/event.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-new-event',
   templateUrl: './new-event.component.html',
@@ -12,7 +13,7 @@ export class NewEventComponent implements OnInit {
   title = 'New Event';
   event: Event;
   myForm: FormGroup;
-  constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  constructor(private readonly dataService: DataService, private fb: FormBuilder, private cd: ChangeDetectorRef, private router: Router) { }
 
   gifts: Array<Gift> = new Array<Gift>();
   ngOnInit() {
@@ -54,12 +55,13 @@ export class NewEventComponent implements OnInit {
     this.gifts = this.gifts.filter(obj => obj !== gift);
   }
 
-  createEvent(): void {
+  async createEvent() {
     const eventName = this.myForm.get('name').value;
     const description = this.myForm.get('description').value;
     const date = this.myForm.get('date').value;
     this.event = new Event(eventName, description, date, this.gifts);
-    console.log('event created: ' + eventName);
-    this.dataService.saveEvent(this.event);
+    const eventId = await this.dataService.saveEvent(this.event);
+    console.log("Event " + eventName +" was created with eventId: " + eventId);
+    this.router.navigate(['/event', eventId]);
   }
 }
