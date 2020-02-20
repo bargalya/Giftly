@@ -14,7 +14,6 @@ export class EventsDashboardComponent implements OnInit {
   page_title = "Your events";
 
   columnDefs = [
-    {headerName: 'Id', field: 'eventId' },
     {headerName: 'Name', field: 'eventName' },
     {headerName: 'Description', field: 'eventDesription' },
     {headerName: 'EventDate', field: 'eventDate' },
