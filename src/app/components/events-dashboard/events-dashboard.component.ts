@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AllCommunityModules} from '@ag-grid-community/all-modules';
-import { HttpClient } from '@angular/common/http';
 import {Router} from "@angular/router"
+import { DataService } from 'src/app/services/data.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-events-dashboard',
@@ -19,18 +20,28 @@ export class EventsDashboardComponent implements OnInit {
     {headerName: 'EventDate', field: 'eventDate' },
 ];
 
-rowData = [
-    { eventId: 1, eventName: 'Birthday party', eventDesription: "celebrating my birthday", eventDate: '1/02/2020' },
-    { eventId: 2, eventName: 'Anniversary celebration', eventDesription: "", eventDate: '1/01/2020' },
-
-  ];
+rowData = [];
 
 modules = AllCommunityModules;
 
-constructor(private http: HttpClient, private router: Router) {}
+constructor(private router: Router, private readonly dataService: DataService,  private readonly sessionService: SessionService) {}
 
-  ngOnInit() {
-    // this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');        
+  async ngOnInit() {
+    const uid = this.sessionService.getUserIdFromsSession();
+    let events = await this.dataService.getUserEvents(uid);    
+    let eventsArr = [];
+    events.forEach(event => {
+      eventsArr.push({ eventId: event._id, eventName: event.name, eventDesription: event.description, eventDate: this.getDate(event.Date) });
+    });    
+    this.rowData = eventsArr;
+    console.log("rowData: " + JSON.stringify(this.rowData));
+  }
+
+  getDate(date: Date):string{
+    if(date === undefined)
+      return "";
+    else 
+      return date.toString();
   }
 
   onRowClicked(event){
