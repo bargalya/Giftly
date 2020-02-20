@@ -21,7 +21,8 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { MatCardModule, MatInputModule, MatButtonModule, MatFormFieldModule,
   MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatButtonToggleModule,
   MatIconModule, 
-  MatDialogModule} from '@angular/material';
+  MatDialogModule,
+  MatTableModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
@@ -67,6 +68,7 @@ import { CookieModule } from 'ngx-cookie';
     MatSelectModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatTableModule,
     AgGridModule.withComponents([]),
     CookieModule.forRoot()
   ],

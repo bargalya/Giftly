@@ -11,15 +11,10 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class EventsDashboardComponent implements OnInit {
 
-  page_title = "Your events";
+page_title = "Your events";
 
-  columnDefs = [
-    {headerName: 'Name', field: 'eventName' },
-    {headerName: 'Description', field: 'eventDesription' },
-    {headerName: 'EventDate', field: 'eventDate' },
-];
-
-rowData = [];
+displayedColumns: string[] = ['name', 'description', 'eventDate'];
+dataSource = [];
 
 modules = AllCommunityModules;
 
@@ -32,8 +27,7 @@ constructor(private router: Router, private readonly dataService: DataService,  
     events.forEach(event => {
       eventsArr.push({ eventId: event._id, eventName: event.name, eventDesription: event.description, eventDate: this.getDate(event.Date) });
     });    
-    this.rowData = eventsArr;
-    console.log("rowData: " + JSON.stringify(this.rowData));
+    this.dataSource = eventsArr;
   }
 
   getDate(date: Date):string{
@@ -44,7 +38,7 @@ constructor(private router: Router, private readonly dataService: DataService,  
   }
 
   onRowClicked(event){
-    this.router.navigate(['/event', event.data.eventId]);
+    this.router.navigate(['/event', event.eventId]);
   }
 
 }
