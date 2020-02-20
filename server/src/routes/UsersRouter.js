@@ -10,7 +10,7 @@ usersRouter.post('/', users.add);
 usersRouter.post('/:userName', users.find);
 
 // get all events for user
-usersRouter.get('/:userName/events', users.getAllEventsForUser)
+usersRouter.get('/events/:uid', users.getAllEventsForUser)
 
 //update user - not supported yet
 // router.put('/:userName',user.update);

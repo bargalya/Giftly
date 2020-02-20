@@ -1,10 +1,13 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const search = require('../dbMgr/dbMgr').search;
+const findMany = require('../dbMgr/dbMgr').findMany;
 
 class Users{    
 
     constructor(){
         Users.collectionName = "Users"; 
+        Users.userEventsCollectionName = "UserEvents"; 
+        Users.EventsCollectionName = "Events";
     }
 
     // Handle registration request
@@ -76,11 +79,18 @@ class Users{
     }
     
     async getAllEventsForUser(req, res) {  
-        console.log("got a request to get all events for  user " + req.params.userName);
-        try {
-            //TODO get from Mongo DB
-            let events = {"name": "foo"};
-            res.status(200).json({events});
+        console.log("got a request to get all events for user " + req.params.uid);
+        let query = {"uid" : req.params.uid};
+        let arr = new Array();
+        try {            
+            const document = await findMany(query, Users.userEventsCollectionName);
+            //pass role and gifts!//InnaToDo!!
+            for(const event of document) {
+                let queryEvent = {"_id" : event.eventId};
+                let eventFromDB = await search(queryEvent, Users.EventsCollectionName);
+                arr.push(eventFromDB);
+            }
+            res.status(200).json({'userEvents': arr});
             
         } catch(error) {
             console.log("DB error");
@@ -89,7 +99,6 @@ class Users{
                 'message': error.message
             });
         }
-
     }
 
     /*
