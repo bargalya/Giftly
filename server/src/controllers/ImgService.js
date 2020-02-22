@@ -10,13 +10,13 @@ class ImgService{
         console.log("req: " + req.body.url);
         metaget.fetch(req.body.url, function (err, meta_response) {
             if(err){
-                console.log(err);
-                res.status(500).send({
+                console.log('error: ' + err);
+                res.status(200).send({
                     'status': 'error',
                     'error': err
                 });
             } else{
-                console.log(meta_response);
+                console.log('success: ' + meta_response);
                 res.status(200).send({
                     'status': 'success',
                     'imgUrl': meta_response["og:image"],
