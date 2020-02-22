@@ -5,10 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Event } from 'src/app/models/event.class';
 import { DataService } from 'src/app/services/data.service';
-import { Gift } from 'src/app/models/gift.class';
-
-import { GiftStatus } from 'src/app/models/gift.class';
-import { SessionService } from 'src/app/services/session.service';
 
 @Component({
     selector: 'gifts',
@@ -28,31 +24,17 @@ export class EventComponent implements OnInit {
     modules = AllCommunityModules;
 
     constructor(private readonly router: Router, private route: ActivatedRoute, 
-        private readonly dataService: DataService, 
-        private readonly sessionService: SessionService) {
+        private readonly dataService: DataService) {
         this.route.params.subscribe(params => {
             this.eventId = params.id;
         });
      }
 
     async ngOnInit() {
-        const uid = this.sessionService.getUserIdFromsSession();
-        console.log('logged in uid is: ' + uid);
-        //Todo: remove this init!!
-        this.gifts = [{ "title": "Table", "url":'https://media.baligam.co.il/_media/media/37154/316142.jpg' }, 
-        { "title": "Clock", "url":'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg' }];
         this.event = await this.dataService.getEvent(this.eventId);
         if(this.event != null)
             this.gifts = this.event.getGifts();
-        else
-        {   
-            // todo: delete! dummy init - delete when the fetch from the BE will work            
-            this.event = new Event(
-                "Giftly kickoff event",
-                "Best event of the year",
-                new Date("2021-01-01"),
-                null);
-        
+        else {   
             alert("we are sorry, but we couldn't find you event!")
             console.log("can't find event with eventId: " + this.eventId);
         }
