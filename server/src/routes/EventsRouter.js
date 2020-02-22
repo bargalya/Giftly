@@ -6,7 +6,7 @@ const events = new Events;
 //get event
 eventsRouter.get('/:eventId', events.get);
 //update event
-eventsRouter.put('/:userid',events.update);
+eventsRouter.put('/:eventId',events.update);
 //add event
 eventsRouter.post('/',events.add);
 

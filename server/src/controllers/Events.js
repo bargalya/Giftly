@@ -1,5 +1,7 @@
+const ObjectId = require('mongodb').ObjectID;
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const search = require('../dbMgr/dbMgr').search;
+const update = require('../dbMgr/DbMgr').update;
 // const saveGifts = require('../src/Gifts').saveGifts;
 const Gifts = require('./Gifts');
 const gifts = new Gifts;
@@ -42,8 +44,21 @@ class Events{
     }
 
 
-    update(req, res){
-
+    async update(req, res){
+        try {            
+            const responseEventDocument = await updateEvent(req.params.eventId, req.body.name, req.body.description, req.body.date); 
+            
+            res.status(200).send({
+                'status': 'success'                
+            });
+        }
+        catch(error) {
+            console.log("Failed updating an event: " + req.body.name, " ", error.message);
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        } 
     }
 
     async add(req, res)    
@@ -92,5 +107,25 @@ var saveUserEventRel = async function(eventId, uid, role) {
     console.log("A new relation was added. event: " + eventId + " uid: " + uid);
     return responseDocument;
 } 
+
+var updateEvent = async function(id, name, description, date){
+    const eventIdObj = ObjectId(id);        
+    let query = {'_id' : eventIdObj};
+    let newValues = {};
+  
+    newValues['$set'] = {'name': name, 'description': description, 'date': date};
+    
+    try {
+        const updateResponse = await update(query, newValues, Events.collectionName);
+        return updateResponse;    
+    } catch(error) {
+        console.log('failed to update Event ' + eventId);
+        res.status(500).json({
+            'status': 'Failed',
+            'message': error.message
+        });
+    }
+
+}
 
 module.exports = Events;
