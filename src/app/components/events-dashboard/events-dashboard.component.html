@@ -1,22 +1,22 @@
 <h1>{{page_title}}</h1>
 
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
-  <!-- Position Column -->
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Pos class="events"i class="events"t class="events"i class="events"on Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.eventName}} </mat-cell>
+    <mat-cell class="events" *matCellDef="let element"> {{element.eventName}} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="description">
     <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.eventDesription}} </mat-cell>
+    <mat-cell class="events" *matCellDef="let element"> {{element.eventDesription}} </mat-cell>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="eventDate">
     <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.eventDate}} </mat-cell>
+    <mat-cell class="events" *matCellDef="let element"> {{element.eventDate}} </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
