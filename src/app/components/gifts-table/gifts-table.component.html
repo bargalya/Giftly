@@ -4,8 +4,8 @@
       <mat-card-header class="text-oneline">
         <mat-card-title>{{gift.Title}}</mat-card-title>
       </mat-card-header>
-      <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="isAvailable(gift.Status)">
-      <img id="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="!isAvailable(gift.Status)">
+      <img class="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="isAvailable(gift.Status)">
+      <img class="{{gift.Status | getGiftImageId}}" mat-card-image src="{{getImgUrl(gift.ImgUrl)}}" alt="{{gift.title}}" aria-disabled="true" *ngIf="!isAvailable(gift.Status)">
       <!-- <img mat-card-image src="{{gift.Status | getGiftImagePipe}}" alt="{{gift.title}}"> -->      
     </a>
     <mat-card-footer>
