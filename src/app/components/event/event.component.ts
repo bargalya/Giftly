@@ -1,3 +1,4 @@
+import { NewEventDataService } from './../../services/new-event-data/new-event-data.service';
 import { Component, OnInit } from '@angular/core';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { HttpClient } from '@angular/common/http';
@@ -24,14 +25,18 @@ export class EventComponent implements OnInit {
     modules = AllCommunityModules;
 
     constructor(private readonly router: Router, private route: ActivatedRoute, 
-        private readonly dataService: DataService) {
+        private readonly dataService: DataService, private newEventDataService: NewEventDataService) {
         this.route.params.subscribe(params => {
             this.eventId = params.id;
         });
      }
 
     async ngOnInit() {
-        this.event = await this.dataService.getEvent(this.eventId);
+        if(this.eventId === '')
+            this.event = this.newEventDataService.data;
+        else
+            this.event = await this.dataService.getEvent(this.eventId);
+        
         if(this.event != null)
             this.gifts = this.event.getGifts();
         else {   
