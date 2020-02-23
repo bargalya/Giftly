@@ -14,10 +14,7 @@
             <a routerLink="new-event" routerLinkActive="active">New Event</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
-            <a routerLink="find-event" routerLinkActive="active">Find Event (guest)</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isUserLoggedIn">
-            <a routerLink="friend-event" routerLinkActive="active">Friend Event</a>
+            <a routerLink="find-event" routerLinkActive="active">Find Event (Friend)</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']"  *ngIf="!isUserLoggedIn">
             <a class="nav-item nav-link" routerLink="/login">Login</a>
