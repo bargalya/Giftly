@@ -15,6 +15,6 @@
         <mat-card-title>{{item.title}}</mat-card-title>
         <img mat-card-image src="{{item.img}}" alt="{{item.title}}">
     </mat-card> -->
-    <giftly-gifts-table [(gifts)]="gifts" allowEditList="false"></giftly-gifts-table>
+    <giftly-gifts-table [(gifts)]="gifts" allowEditList="false" friendWatching="false"></giftly-gifts-table>
     <button mat-fab class="back-btn" (click)="backToDashboard()">Back</button>
 </div>

@@ -9,6 +9,7 @@ import { Gift, GiftStatus } from 'src/app/models/gift.class';
 export class GiftsTableComponent implements OnInit {
 
   @Input() allowEditList: string;
+  @Input() friendWatching: boolean;
   giftsArr: Array<Gift>;
 
   @Output() giftsChange = new EventEmitter();
