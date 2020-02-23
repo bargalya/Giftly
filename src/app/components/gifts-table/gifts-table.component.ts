@@ -12,6 +12,7 @@ export class GiftsTableComponent implements OnInit {
   giftsArr: Array<Gift>;
 
   @Output() giftsChange = new EventEmitter();
+  @Output() giftStatusChange = new EventEmitter();
   constructor() {
   }
 
@@ -49,5 +50,18 @@ export class GiftsTableComponent implements OnInit {
   set gifts(value) {
     this.giftsArr = value;
     this.giftsChange.emit(this.giftsArr);
+  }
+
+  isGiftAvailable(gift: Gift) {
+    return gift.Status == GiftStatus.ReadyForGrabs;
+  }
+
+  isGiftTakenByUser(gift: Gift) {
+    return gift.Status == GiftStatus.Taken;
+    // TODO: check that it was bought by the user
+  }
+
+  changeGiftStatus(gift: Gift) {
+    this.giftStatusChange.emit(gift);
   }
 }
