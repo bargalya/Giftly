@@ -17,10 +17,16 @@ class ImgService{
                 });
             } else{
                 console.log('success: ' + meta_response);
+                var imgUrl = meta_response["og:image"];
+                var imgTitle = meta_response["og:title"];
+                if(imgUrl.startsWith("{| ")) {
+                    imgTitle = undefined;
+                    imgUrl = undefined;
+                }
                 res.status(200).send({
                     'status': 'success',
-                    'imgUrl': meta_response["og:image"],
-                    'imgTitle':meta_response["twitter:title"]
+                    'imgUrl': imgUrl,
+                    'imgTitle': imgTitle
                 });
             }
         });
