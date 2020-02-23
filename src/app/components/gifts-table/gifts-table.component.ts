@@ -36,7 +36,7 @@ export class GiftsTableComponent implements OnInit {
   }
 
   getImgUrl(imgUrl: string) {
-    if (imgUrl === undefined) {
+    if (imgUrl == undefined) {
       return 'assets/giftly.png';
     }
     return imgUrl;
