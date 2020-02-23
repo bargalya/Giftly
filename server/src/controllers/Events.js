@@ -46,7 +46,7 @@ class Events{
 
     async update(req, res){
         try {            
-            const responseEventDocument = await updateEvent(req.params.eventId, req.body.name, req.body.description, req.body.date); 
+            await updateEvent(req.params.eventId, req.body.name, req.body.description, req.body.date);
             
             res.status(200).send({
                 'status': 'success'                
