@@ -123,22 +123,4 @@ export class FriendEventComponent implements OnInit {
     this.searchText = '';
     this.showItems = this.items;
   }
-  
-  getFreeGiftsMOCK() {
-    return [
-      new Gift('https://media.baligam.co.il/_media/media/37154/316142.jpg',
-      GiftStatus.ReadyForGrabs, 'A Table'),
-      new Gift('https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg',
-        GiftStatus.ReadyForGrabs, 'Clock')
-    ];
-  }
-  
-  getBoughtGiftsMOCK() {
-    return [
-      new Gift('https://media.baligam.co.il/_media/media/37154/316142.jpg', 
-      GiftStatus.Taken, 'B Table', 'https://media.baligam.co.il/_media/media/37154/316142.jpg'),
-      new Gift('https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg',
-        GiftStatus.Taken, 'C Clock', 'https://images.eq3.com/product-definitions/cjuedn73z05650162zt3g6fu8/image/8c3c3e00-85aa-4cb4-b092-a4fd9d12b09e.jpg')
-    ];
-  }
 }
