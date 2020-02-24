@@ -15,8 +15,8 @@ class Events{
         let eventId = req.params.eventId
         console.log("got a request to search event " + eventId);
         const ObjectId = require('mongodb').ObjectID;
-        const eventIdObj = ObjectId(eventId);
         try {
+            const eventIdObj = ObjectId(eventId);
             let query = {'_id' : eventIdObj};
             const document = await search(query, Events.collectionName);
             if(document != null) {

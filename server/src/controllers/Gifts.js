@@ -28,9 +28,9 @@ class Gifts{
     }
 
     async getAllGiftsForEvent(req, res) {
-        const id = ObjectID(req.params.eventId);
-        const query = {eventId: id};
         try {
+            const id = ObjectID(req.params.eventId);
+            const query = {eventId: id};
             let gifts = await findMany(query, Gifts.giftsCollectionName);
             res.status(200).send({
                 'status': 'success',
@@ -47,12 +47,12 @@ class Gifts{
     }
 
     async getBoughtGifts(req, res) {
-        const eventId = ObjectID(req.params.eventId);
-        const userId = ObjectID(req.params.userId);
-        const query = {"eventId": eventId,
-                        "userId": userId,
-                        "status": 1};
         try {
+            const eventId = ObjectID(req.params.eventId);
+            const userId = ObjectID(req.params.userId);
+            const query = {"eventId": eventId,
+                            "userId": userId,
+                            "status": 1};
             let gifts = await findMany(query, Gifts.giftsCollectionName);
             res.status(200).send({
                 'status': 'success',
@@ -69,9 +69,8 @@ class Gifts{
     }
 
     async updateGiftStatus(req, res) {
-        const giftId = ObjectID(req.params.giftId);
         const status = req.body.status;
-        var query = {'_id' : giftId};
+        var query = {};
         var newValues = {};
         if(status === 1) {
             query['status'] = 0;
@@ -83,6 +82,8 @@ class Gifts{
             newValues['$unset'] = {'userId': ""};
         }
         try {
+            const giftId = ObjectID(req.params.giftId);
+            query = {'_id' : giftId};
             const updateResponse = await update(query, newValues, Gifts.giftsCollectionName);
             if(updateResponse.result.nModified == 0) {
                 console.log("no update");
