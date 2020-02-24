@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
 import { SessionService } from 'src/app/services/session.service';
 import { Event } from 'src/app/models/event.class';
+import { NewEventDataService } from 'src/app/services/new-event-data/new-event-data.service';
 
 
 @Component({
@@ -30,14 +31,17 @@ export class FriendEventComponent implements OnInit {
               private readonly dataService: DataService, 
               private route: ActivatedRoute,
               private dialog: MatDialog,
-              private readonly sessionService: SessionService) {
+              private readonly sessionService: SessionService,
+              private newEventDataService: NewEventDataService) {
     route.params.subscribe(params => {this.eventId = params.eventId});
     this.userId = sessionService.getUserIdFromsSession();
  }
 
  async ngOnInit() {
-   this.event = await this.dataService.getEvent(this.eventId);
-   this.showItemsStatus = GiftStatus[GiftStatus.ReadyForGrabs];
+   this.event = this.newEventDataService.data;
+   if(this.eventId !== undefined) {
+     this.event = await this.dataService.getEvent(this.eventId);
+   }
    this.sortOptions = this.arrangeGiftList.getSortOptions();
    this.selectedSort = this.sortOptions[0];
    this.setGiftsAndArrange();
