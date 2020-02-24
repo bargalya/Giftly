@@ -15,18 +15,16 @@
               remove_shopping_cart
             </mat-icon>
         </button>
-        <div *ngIf="friendWatching">
-          <button mat-button (click)="changeGiftStatus(gift)" *ngIf="isGiftAvailable(gift)">
-            <mat-icon aria-hidden="false" aria-label="buy gift" >
-              card_giftcard
-            </mat-icon>
-          </button>
-          <button mat-button (click)="changeGiftStatus(gift)" *ngIf="isGiftTakenByUser(gift)">
-            <mat-icon aria-hidden="false" aria-label="free gift" >
-              clear
-            </mat-icon>
-          </button>
-        </div>
+        <button mat-button (click)="changeGiftStatus(gift)" *ngIf="showBuyGiftButton(gift)">
+          <mat-icon aria-hidden="false" aria-label="buy gift" >
+            card_giftcard
+          </mat-icon>
+        </button>
+        <button mat-button (click)="changeGiftStatus(gift)" *ngIf="showFreeGiftButton(gift)">
+          <mat-icon aria-hidden="false" aria-label="free gift" >
+            clear
+          </mat-icon>
+        </button>
       </mat-card-actions>
     </mat-card-footer>
   </mat-card>            

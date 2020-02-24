@@ -9,7 +9,7 @@ import { Gift, GiftStatus } from 'src/app/models/gift.class';
 export class GiftsTableComponent implements OnInit {
 
   @Input() allowEditList: string;
-  @Input() friendWatching: boolean;
+  @Input() friendWatching: string;
   giftsArr: Array<Gift>;
 
   @Output() giftsChange = new EventEmitter();
@@ -53,13 +53,13 @@ export class GiftsTableComponent implements OnInit {
     this.giftsChange.emit(this.giftsArr);
   }
 
-  isGiftAvailable(gift: Gift) {
-    return gift.Status == GiftStatus.ReadyForGrabs;
+  showBuyGiftButton(gift: Gift) : boolean {
+    return gift.Status == GiftStatus.ReadyForGrabs && this.friendWatching === 'true';
   }
 
-  isGiftTakenByUser(gift: Gift) {
-    return gift.Status == GiftStatus.Taken;
-    // TODO: check that it was bought by the user
+  showFreeGiftButton(gift: Gift) : boolean {
+    return gift.Status == GiftStatus.Taken && this.friendWatching === 'true';
+        // TODO: check that it was bought by the user
   }
 
   changeGiftStatus(gift: Gift) {
