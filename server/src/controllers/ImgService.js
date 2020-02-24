@@ -19,7 +19,7 @@ class ImgService{
                 console.log('success: ' + meta_response);
                 var imgUrl = meta_response["og:image"];
                 var imgTitle = meta_response["og:title"];
-                if(imgUrl.startsWith("{| ")) {
+                if(imgUrl && imgUrl.startsWith("{| ")) {
                     imgTitle = undefined;
                     imgUrl = undefined;
                 }
