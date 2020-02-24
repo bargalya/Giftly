@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
 import { SessionService } from 'src/app/services/session.service';
+import { Event } from 'src/app/models/event.class';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class FriendEventComponent implements OnInit {
   showItemsStatus: string;
   eventId: string;
   userId: string;
+  event: Event;
 
   constructor(private readonly arrangeGiftList: ArrangeGiftList, 
               private readonly dataService: DataService, 
@@ -33,7 +35,8 @@ export class FriendEventComponent implements OnInit {
     this.userId = sessionService.getUserIdFromsSession();
  }
 
- ngOnInit() {
+ async ngOnInit() {
+   this.event = await this.dataService.getEvent(this.eventId);
    this.showItemsStatus = GiftStatus[GiftStatus.ReadyForGrabs];
    this.sortOptions = this.arrangeGiftList.getSortOptions();
    this.selectedSort = this.sortOptions[0];

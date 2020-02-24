@@ -1,40 +1,46 @@
-<mat-button-toggle-group name="giftsToShow" #group="matButtonToggleGroup" aria-label="Gifts to Show" 
-    [(value)] = "showItemsStatus" 
-    (change)="changeGiftStatusToShow(group.value)">
-    <mat-button-toggle value="ReadyForGrabs">Gifts I Can Buy</mat-button-toggle>
-    <mat-button-toggle value="Taken">Gifts I Bought</mat-button-toggle>
-</mat-button-toggle-group>
+<div *ngIf="event">
+    <h1>{{event.Name}}</h1>
+    <h2>{{event.Description}}</h2>
+    <h2>{{event.Date | date : format : longDate}}</h2>
 
-<div class=bar>
-    <ul>
-        <li class="search-input">
-            <mat-form-field>
-                <button mat-button mat-icon-button matPrefix 
-                    (click)="clearSearchText()" *ngIf="searchText">
-                    <mat-icon>close</mat-icon>
+    <mat-button-toggle-group name="giftsToShow" #group="matButtonToggleGroup" aria-label="Gifts to Show" 
+        [(value)] = "showItemsStatus" 
+        (change)="changeGiftStatusToShow(group.value)">
+        <mat-button-toggle value="ReadyForGrabs">Gifts I Can Buy</mat-button-toggle>
+        <mat-button-toggle value="Taken">Gifts I Bought</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div class=bar>
+        <ul>
+            <li class="search-input">
+                <mat-form-field>
+                    <button mat-button mat-icon-button matPrefix 
+                        (click)="clearSearchText()" *ngIf="searchText">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <input 
+                    matInput 
+                    placeholder="Search a gift" 
+                    [(ngModel)] = "searchText">
+                </mat-form-field>
+                <button mat-button (click)=searchGifts(searchText)>
+                    <mat-icon class="search-icon" aria-hidden="false" aria-label="search">search</mat-icon>
                 </button>
-                <input 
-                matInput 
-                placeholder="Search a gift" 
-                [(ngModel)] = "searchText">
-            </mat-form-field>
-            <button mat-button (click)=searchGifts(searchText)>
-                <mat-icon class="search-icon" aria-hidden="false" aria-label="search">search</mat-icon>
-            </button>
-        </li>
-        <li class="sort">
-            <mat-form-field>
-                <mat-label>Sort By</mat-label>
-                <mat-select [(ngModel)] = "selectedSort" (selectionChange)="sort(selectedSort)">
-                  <mat-option *ngFor="let sortOption of sortOptions" [value]="sortOption">
-                    {{sortOption}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </li>
-    </ul>
-</div>
+            </li>
+            <li class="sort">
+                <mat-form-field>
+                    <mat-label>Sort By</mat-label>
+                    <mat-select [(ngModel)] = "selectedSort" (selectionChange)="sort(selectedSort)">
+                    <mat-option *ngFor="let sortOption of sortOptions" [value]="sortOption">
+                        {{sortOption}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </li>
+        </ul>
+    </div>
 
-<div class="gifts">
-    <giftly-gifts-table [gifts]="showItems" allowEditList="false" friendWatching="true" (giftStatusChange)="changeGiftStatus($event)"></giftly-gifts-table>
+    <div class="gifts">
+        <giftly-gifts-table [gifts]="showItems" allowEditList="false" friendWatching="true" (giftStatusChange)="changeGiftStatus($event)"></giftly-gifts-table>
+    </div>
 </div>
