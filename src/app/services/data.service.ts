@@ -56,7 +56,9 @@ export class DataService {
     .catch(err => this.handleError(err));
     
     console.log(response);
-    if (response === undefined || response['status'] === 'Failed') {
+    if (response === undefined)
+      return null;
+    if (response['status'] === 'Failed') {
       console.log(response['message']);
       return null;
     }
