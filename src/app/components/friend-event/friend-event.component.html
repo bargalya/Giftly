@@ -6,6 +6,7 @@
     <mat-button-toggle-group name="giftsToShow" #group="matButtonToggleGroup" aria-label="Gifts to Show" 
         [(value)] = "showItemsStatus" 
         (change)="changeGiftStatusToShow(group.value)">
+        <mat-button-toggle value="All">All Gifts</mat-button-toggle>
         <mat-button-toggle value="ReadyForGrabs">Gifts I Can Buy</mat-button-toggle>
         <mat-button-toggle value="Taken">Gifts I Bought</mat-button-toggle>
     </mat-button-toggle-group>
@@ -41,6 +42,7 @@
     </div>
 
     <div class="gifts">
-        <giftly-gifts-table [gifts]="showItems" allowEditList="false" friendWatching="true" (giftStatusChange)="changeGiftStatus($event)"></giftly-gifts-table>
+        <giftly-gifts-table [gifts]="giftListToShow" allowEditList="false" friendWatching="true" 
+            (giftStatusChange)="changeGiftStatus($event)"></giftly-gifts-table>
     </div>
 </div>

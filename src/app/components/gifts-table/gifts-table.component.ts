@@ -58,8 +58,8 @@ export class GiftsTableComponent implements OnInit {
   }
 
   showFreeGiftButton(gift: Gift) : boolean {
-    return gift.Status == GiftStatus.Taken && this.friendWatching === 'true';
-        // TODO: check that it was bought by the user
+    return gift.Status == GiftStatus.Taken && this.friendWatching === 'true' 
+      && gift.boughtByCurrentUser === true;
   }
 
   changeGiftStatus(gift: Gift) {

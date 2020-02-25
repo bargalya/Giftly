@@ -6,12 +6,14 @@ export class Gift {
     public Title: string;
     public ImgUrl: string;
     public GiftId: string;
-    constructor(url: string, status: GiftStatus, title?: string, imgUrl?: string, giftId?: string) {
+    public boughtByCurrentUser: boolean;
+    constructor(url: string, status: GiftStatus, title?: string, imgUrl?: string, giftId?: string, boughtByCurrentUser?: boolean) {
         this.Url = url;
         this.Status = status;
         this.Title = title;
         this.ImgUrl = imgUrl;
         this.GiftId = giftId;
+        this.boughtByCurrentUser = boughtByCurrentUser;
     }
 }
 

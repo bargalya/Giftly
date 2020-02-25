@@ -18,8 +18,10 @@ import { NewEventDataService } from 'src/app/services/new-event-data/new-event-d
 
 export class FriendEventComponent implements OnInit {
   searchText: string;
-  items: Array<Gift>;
-  showItems: Array<Gift>;
+  allGifts: Array<Gift>;
+  availableGifts: Array<Gift>;
+  giftsBoughtByUser: Array<Gift>;
+  giftListToShow: Array<Gift>;
   sortOptions: Array<string>;
   selectedSort: string;
   showItemsStatus: string;
@@ -44,27 +46,56 @@ export class FriendEventComponent implements OnInit {
    }
    this.sortOptions = this.arrangeGiftList.getSortOptions();
    this.selectedSort = this.sortOptions[0];
-   this.setGiftsAndArrange();
+   this.searchText = '';
+   this.getGifts(false);
+   this.changeGiftStatusToShow("All");
   }
 
-  private async getGiftsFromDB() {
-    if(this.showItemsStatus === GiftStatus[GiftStatus.ReadyForGrabs]) {
-      this.items = await this.dataService.getAvailableGifts(this.eventId); 
-    } else {
-      this.items = await this.dataService.getGiftsBoughtByUser(this.eventId, this.userId);
-    }
-    this.sort(this.selectedSort);
+  private async getGifts(getFromDB: boolean) {
+    if(getFromDB)
+      this.allGifts = await this.dataService.getAllGifts(this.eventId);
+    else
+      this.allGifts = this.event.Gifts;
+    this.availableGifts = this.allGifts.filter(gift => gift.Status === GiftStatus.ReadyForGrabs);
+    this.giftsBoughtByUser = await this.dataService.getGiftsBoughtByUser(this.eventId, this.userId);
+    this.markGiftsBoughtByUser();
   }
 
-  private setGiftsAndArrange() {
-    this.items = [];
-    this.getGiftsFromDB();
-    this.searchText = '';
+  private async markGiftsBoughtByUser() {
+    this.allGifts.forEach(gift => {
+      this.giftsBoughtByUser.forEach(boughtGift => {
+        boughtGift.boughtByCurrentUser = true;
+        if(boughtGift.GiftId === gift.GiftId)
+          gift.boughtByCurrentUser = true;
+      })
+    });
+  }
+
+  private getGiftsAccordingToStatusToShow() {
+    if(this.showItemsStatus == "All")
+      return this.allGifts;
+    if (this.showItemsStatus == "Taken")
+      return  this.giftsBoughtByUser;
+    else
+      return this.availableGifts;
   }
 
   changeGiftStatusToShow(status: string) {
     this.showItemsStatus = status;
-    this.setGiftsAndArrange();
+    this.giftListToShow = this.getGiftsAccordingToStatusToShow();
+    this.sort(this.selectedSort);
+  }
+
+  private changeGiftStatusInGiftLists(changedGift: Gift, listToFilter: Array<Gift>, listToAdd: Array<Gift>, 
+                                      newStatus: GiftStatus, boughtByCurrentUser: boolean) {
+    var gift = this.allGifts.find(g => g.GiftId == changedGift.GiftId);
+    gift.Status = newStatus;
+    gift.boughtByCurrentUser = boughtByCurrentUser;
+    listToFilter = listToFilter.filter(obj => obj !== changedGift);
+    changedGift.Status = newStatus;
+    changedGift.boughtByCurrentUser = boughtByCurrentUser;
+    listToAdd.push(changedGift);
+    return listToFilter;
   }
 
   async changeGiftStatus(gift: Gift) {
@@ -72,7 +103,8 @@ export class FriendEventComponent implements OnInit {
     if(this.isBought(gift)) {
       res = this.dataService.setGiftStatusToAvailable(gift.GiftId);
       if(res) {
-        this.filterGift(gift);
+        this.giftsBoughtByUser = 
+          this.changeGiftStatusInGiftLists(gift, this.giftsBoughtByUser, this.availableGifts, GiftStatus.ReadyForGrabs, false);
       } else {
       this.dialog.open(NotifyUserDialogComponent, 
         {'data' : 
@@ -83,12 +115,14 @@ export class FriendEventComponent implements OnInit {
     } else {
       res = await this.dataService.setGiftStatusToTaken(gift.GiftId, this.userId);
       if(res) {
-        this.filterGift(gift);
+        this.availableGifts = 
+          this.changeGiftStatusInGiftLists(gift, this.availableGifts, this.giftsBoughtByUser, GiftStatus.Taken, true);
         //TODO: add gift title to message and a link to "Gifts I Bought"
         this.dialog.open(NotifyUserDialogComponent, 
           {'data' : 
             {"title":"You are a good friend!", 
-              "message": "You just bought your friend a gift. To undo this go to \"Gifts I Bought\"."}
+              "message": "You just bought your friend a gift. To undo this click the X symbol." 
+                + " If you can't see the gift, go to \"Gifts I Bought\"."}
           });
       } else {
         //TODO: add gift title to message
@@ -97,14 +131,10 @@ export class FriendEventComponent implements OnInit {
             {"title":"Sorry,", 
               "message": "you can't buy this gift anymore. Either it was already bought, or your friend does not want it anymore."}
           });
-        this.setGiftsAndArrange()
+        this.getGifts(true);
       }
     }
-  }
-
-  filterGift(gift: Gift) {
-    this.showItems = this.showItems.filter(obj => obj !== gift);
-    this.items = this.items.filter(obj => obj !== gift);
+    this.sort(this.selectedSort);
   }
 
   isBought(gift: Gift): boolean {
@@ -112,15 +142,15 @@ export class FriendEventComponent implements OnInit {
   }
       
   sort(sortOption: string) {
-    this.showItems = this.arrangeGiftList.changeSort(this.items, sortOption);
+    this.giftListToShow = this.arrangeGiftList.changeSort(this.getGiftsAccordingToStatusToShow(), sortOption);
   }
   
   searchGifts(searchText: string) {
-    this.showItems = this.arrangeGiftList.searchGifts(this.items, searchText);
+    this.giftListToShow = this.arrangeGiftList.searchGifts(this.getGiftsAccordingToStatusToShow(), searchText);
   }
 
   clearSearchText() {
     this.searchText = '';
-    this.showItems = this.items;
+    this.giftListToShow = this.getGiftsAccordingToStatusToShow();
   }
 }
