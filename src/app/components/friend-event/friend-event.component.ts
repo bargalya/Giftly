@@ -39,7 +39,7 @@ export class FriendEventComponent implements OnInit {
 
  async ngOnInit() {
    this.event = this.newEventDataService.data;
-   if(this.eventId !== undefined) {
+   if(this.event === undefined) {
      this.event = await this.dataService.getEvent(this.eventId);
    }
    this.sortOptions = this.arrangeGiftList.getSortOptions();
