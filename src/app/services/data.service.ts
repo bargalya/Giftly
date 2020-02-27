@@ -84,6 +84,23 @@ export class DataService {
         return response[userStr][uidStr];
   }
 
+  async updateUser(user: User) {//Inna
+    let body = new HttpParams();
+    body = body.set(userNameStr, user.UserName);
+    body = body.set(firstNameStr, user.FirstName);
+    body = body.set(lastNameStr, user.LastName);
+    body = body.set(passwordStr, user.Password);
+    body = body.set(emailStr, user.Email);
+    const response = await this.http.put<any>('api/user/' + user.Uid , body, this.httpOptions)
+                                    .toPromise()
+                                    .catch(err => this.handleError(err));
+    if (response['status'] === 'Failed') {
+      console.log(response['message']);
+      return null;
+    }
+    return response[userStr][uidStr];
+}
+
   async getUser(userName: string, password: string): Promise<User> {
 
     let body = new HttpParams();
@@ -113,7 +130,7 @@ export class DataService {
     if (response === undefined) {
       return null;
     }
-    
+
     const user = new User(response[userStr][firstNameStr],
                           response[userStr][lastNameStr],
                           response[userStr][userNameStr],

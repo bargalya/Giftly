@@ -1,6 +1,7 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const search = require('../dbMgr/dbMgr').search;
 const findMany = require('../dbMgr/dbMgr').findMany;
+const update = require('../dbMgr/dbMgr').update;
 var ObjectId = require('mongodb').ObjectId; 
 
 class Users{    
@@ -135,50 +136,38 @@ class Users{
         }
     }
 
-    /*
-    // not supported yet
-    update(req, res){
-
-        dbMgr.update(req.params.userid, Users.collectionName, req.body,
-            function(err, response) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                else {
-                    res.send({
-                        'status': 'success',
-                        'data': response 
-                        });
-                }
-            });
-        /*
-        const ObjectId = require('mongodb').ObjectID;
-        const userid = ObjectId(req.params.userid);
-        let query = {'_id' : userid};
-        let newValues = {$set: req.body};
-        mongo.connect(Users.url, Users.connectParams, 
-            function(err, client) {
-                if(err) {
-                    res.send({'status': 'Failed',
-                            'error': err});
-                }
-                let db = client.db(Users.dbName);
-                let collection = db.collection(Users.collectionName);
-                collection.updateOne(query, newValues,
-                    function(err, response){
-                        if(err) {
-                            res.send({'status': 'Failed',
-                                    'error': err});
-                        }
-                        client.close();
-                        res.send({
-                            'status': 'success',
-                            'data': response
-                            });
+    async update(req, res) {
+        console.log("Here!!!!!! " + req.params.uid);
+        try { 
+            const userObj = ObjectId(req.params.uid);        
+            let query = {'_id' : userObj};
+            let newValues = {};
+          
+            newValues['$set'] = {'firstName': req.body.firstName, 'lastName': req.body.lastName, 'username': req.body.username, 'password': req.body.password, 'email': req.body.email};
+            
+            try {
+                const updateResponse = await update(query, newValues, Users.collectionName);
+                return updateResponse;    
+            } catch(error) {
+                console.log('failed to update user: ' + id);
+                res.status(500).json({
+                    'status': 'Failed',
+                    'message': error.message
                 });
-        });       */        
-//    }
+            } 
+
+            res.status(200).send({
+                'status': 'success'                
+            });
+        }
+        catch(error) {
+            console.log("Failed updating the user: " + req.body.name);
+            res.status(500).json({
+                'status': 'Failed',
+                'message': error.message
+            });
+        } 
+    }
 }
 
 module.exports = Users;

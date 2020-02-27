@@ -13,6 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 export class UpdateUserComponent implements OnInit {
 
   updateUserForm: FormGroup;
+  user: User;
   constructor(
     private formBuilder: FormBuilder,
     private readonly dataService: DataService,
@@ -23,13 +24,13 @@ export class UpdateUserComponent implements OnInit {
   async ngOnInit() {
     const uid = this.sessionService.getUserIdFromsSession();
     console.log("uid: " + uid);
-    const user = await this.dataService.getUserByUid(uid);
+    this.user = await this.dataService.getUserByUid(uid);
     this.updateUserForm = this.formBuilder.group({
-      firstName: [user.FirstName, Validators.required],
-      lastName: [user.LastName, Validators.required],
-      username: [user.UserName, Validators.required],
-      password: [user.Password, [Validators.required, Validators.minLength(6)]],
-      email: [user.Email, Validators.required]
+      firstName: [this.user.FirstName, Validators.required],
+      lastName: [this.user.LastName, Validators.required],
+      username: [this.user.UserName, Validators.required],
+      password: [this.user.Password, [Validators.required, Validators.minLength(6)]],
+      email: [this.user.Email, Validators.required]
     });
 
     this.updateUserForm.valueChanges.subscribe(x=>console.log(x));
@@ -43,12 +44,14 @@ export class UpdateUserComponent implements OnInit {
         return;
     }
 
-    const user = new User(
-        this.updateUserForm.value.firstName,
-        this.updateUserForm.value.lastName,
-        this.updateUserForm.value.username,
-        this.updateUserForm.value.password,
-        this.updateUserForm.value.email);
+    this.user.FirstName = this.updateUserForm.value.firstName;
+    this.user.LastName = this.updateUserForm.value.lastName;
+    this.user.UserName = this.updateUserForm.value.username;
+    this.user.Password = this.updateUserForm.value.password;
+    this.user.Email = this.updateUserForm.value.email;
+
+    await this.dataService.updateUser(this.user);
+
     this.router.navigate(['/home']);
   }
 

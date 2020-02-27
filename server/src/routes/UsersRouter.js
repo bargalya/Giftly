@@ -13,6 +13,6 @@ usersRouter.post('/:userName', users.find);
 usersRouter.get('/events/:uid', users.getAllEventsForUser)
 
 //update user - not supported yet
-// router.put('/:userName',user.update);
+usersRouter.put('/:uid',users.update);
 
  module.exports = usersRouter;
