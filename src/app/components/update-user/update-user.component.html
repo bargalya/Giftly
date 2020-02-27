@@ -1,0 +1,10 @@
+<h2>Update Profile</h2>
+<form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+    <app-editable-user-details [editUserForm]="updateUserForm"></app-editable-user-details>
+    <div class="form-group">
+        <button mat-raised-button color="primary" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Update
+        </button>
+    </div>
+</form>

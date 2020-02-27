@@ -1,3 +1,4 @@
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ const routes: Routes = [
 	{ path: 'new-event', component: NewEventComponent},
 	{ path: 'login', component: LoginComponent},
 	{ path: 'register', component: RegisterComponent},
+	{ path: 'update-profile', component: UpdateUserComponent},
 	{ path: 'logout', component: LogoutComponent},
 	{ path: 'event/:id', component: EventComponent},
 	{ path: 'find-event', component: FindEventComponent},

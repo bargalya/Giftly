@@ -33,6 +33,7 @@ import { NotifyUserDialogComponent } from './components/notify-user-dialog/notif
 import { LogoutComponent } from './components/logout/logout.component';
 import { CookieModule } from 'ngx-cookie';
 import { EditableUserDetailsComponent } from './editable-user-details/editable-user-details.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { EditableUserDetailsComponent } from './editable-user-details/editable-u
     GiftsTableComponent,
     LogoutComponent,
     NotifyUserDialogComponent,
-    EditableUserDetailsComponent
+    EditableUserDetailsComponent,
+    UpdateUserComponent
     ],
   imports: [
     BrowserModule,
