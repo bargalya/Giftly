@@ -56,7 +56,7 @@ class Users{
                     console.log("user was found. password is " + document.password);
                     res.status(200).send({
                         'status': 'success',
-                        'user': document//["ops"][0]
+                        'user': document
                     });
                 }
                 else {

@@ -113,7 +113,7 @@ export class DataService {
     if (response === undefined) {
       return null;
     }
-    console.log("response: " + response);
+    
     const user = new User(response[userStr][firstNameStr],
                           response[userStr][lastNameStr],
                           response[userStr][userNameStr],
