@@ -1,6 +1,7 @@
 const addToDb = require('../dbMgr/dbMgr').addToDb;
 const search = require('../dbMgr/dbMgr').search;
 const findMany = require('../dbMgr/dbMgr').findMany;
+var ObjectId = require('mongodb').ObjectId; 
 
 class Users{    
 
@@ -43,39 +44,72 @@ class Users{
    
     async find(req, res) {        
         console.log("got a request to search user " + req.params.userName);
-        try {
-            let query = {"userName" : req.params.userName};
-            const document = await search(query, Users.collectionName);
-            if(document != null) {
-                console.log("user was found. password is " + document.password);
-                if (document.password == req.body.password) {
-                    console.log("password match");                
-                    res.status(200).json({
+        let query;
+        if(req.body.password === undefined) {                                
+            var id = req.params.userName;       
+            var o_id = new ObjectId(id);
+            query = {"_id" : o_id};
+    
+            try {    
+                const document = await search(query, Users.collectionName);
+                if(document != null) {
+                    console.log("user was found. password is " + document.password);
+                    res.status(200).send({
                         'status': 'success',
-                        'user': document});
+                        'user': document//["ops"][0]
+                    });
                 }
                 else {
-                    console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
+                    console.log("Failed to find the user in the DB");
                     res.status(401).json({
                         'status': 'Failed',
-                        'message': 'username or password are incorrect'});                
+                        'message': 'Failed to find the user in the DB'
+                    });
                 }
             }
-            else {
-                console.log("Failed to find the user in the DB");
-                res.status(401).json({
+            catch(error) {
+                console.log("DB error");
+                res.status(500).json({
                     'status': 'Failed',
-                    'message': 'username or password are incorrect'
+                    'message': error.message
                 });
             }
         }
-        catch(error) {
-            console.log("DB error");
-            res.status(500).json({
-                'status': 'Failed',
-                'message': error.message
-            });
-        }
+        else
+            try {
+                query = {"userName" : req.params.userName};
+
+                const document = await search(query, Users.collectionName);
+                if(document != null) {
+                    console.log("user was found. password is " + document.password);
+                    if (document.password == req.body.password) {
+                        console.log("password match");                
+                        res.status(200).json({
+                            'status': 'success',
+                            'user': document});
+                    }
+                    else {
+                        console.log("password doesnt match! expected: " + req.body.password + " recieved " + document.password);                
+                        res.status(401).json({
+                            'status': 'Failed',
+                            'message': 'username or password are incorrect'});                
+                    }
+                }
+                else {
+                    console.log("Failed to find the user in the DB");
+                    res.status(401).json({
+                        'status': 'Failed',
+                        'message': 'username or password are incorrect'
+                    });
+                }
+            }
+            catch(error) {
+                console.log("DB error");
+                res.status(500).json({
+                    'status': 'Failed',
+                    'message': error.message
+                });
+            }
     }
     
     async getAllEventsForUser(req, res) {  

@@ -104,6 +104,25 @@ export class DataService {
     return user;
   }
 
+  async getUserByUid(uid: string): Promise<User> {
+
+    let body = new HttpParams();
+    const response = await this.http.post<any>('api/user/' + uid , body, this.httpOptions)
+                                    .toPromise()
+                                    .catch(err => this.handleError(err));
+    if (response === undefined) {
+      return null;
+    }
+    console.log("response: " + response);
+    const user = new User(response[userStr][firstNameStr],
+                          response[userStr][lastNameStr],
+                          response[userStr][userNameStr],
+                          response[userStr][passwordStr],
+                          response[userStr][emailStr]);
+    user.Uid = response[userStr][uidStr];
+    return user;
+  }
+
   async getUserEvents(uid: string): Promise<any> {
 
     const response = await this.http.get('api/user/events/' + uid , this.httpOptions)
