@@ -26,6 +26,8 @@ export class RegisterComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(6)]],
             email: ['', Validators.required]
         });
+
+        this.registerForm.valueChanges.subscribe(x=>console.log(x));
     }
 
     // convenience getter for easy access to form fields
@@ -36,6 +38,8 @@ export class RegisterComponent implements OnInit {
 
         // stop here if form is invalid
         if (this.registerForm.invalid) {
+            //InnaToDo: add messagecox!
+            console.log("Invalid form!")
             return;
         }
 

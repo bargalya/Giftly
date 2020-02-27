@@ -32,6 +32,7 @@ import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
 import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CookieModule } from 'ngx-cookie';
+import { EditableUserDetailsComponent } from './editable-user-details/editable-user-details.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CookieModule } from 'ngx-cookie';
     FriendEventComponent,
     GiftsTableComponent,
     LogoutComponent,
-    NotifyUserDialogComponent
+    NotifyUserDialogComponent,
+    EditableUserDetailsComponent
     ],
   imports: [
     BrowserModule,

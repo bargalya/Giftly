@@ -1,46 +1,6 @@
 ﻿<h2>Register</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <mat-form-field class="giftly-form-field">    
-            <input matInput type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" placeholder="First Name" />
-        </mat-form-field>
-        <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.firstName.errors.required">First Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-form-field class="giftly-form-field">    
-            <input matInput type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" placeholder="Last Name"/>
-        </mat-form-field>
-        <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.lastName.errors.required">Last Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-form-field class="giftly-form-field">    
-            <input matInput type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" placeholder="Username"/>
-        </mat-form-field>
-        <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
-            <div *ngIf="formControls.username.errors.required">Username is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-form-field class="giftly-form-field">    
-            <input matInput type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" placeholder="Password"/>
-        </mat-form-field>
-        <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
-            <div *ngIf="formControls.password.errors.required">Password is required</div>
-            <div *ngIf="formControls.password.errors.minlength">Password must be at least 6 characters</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <mat-form-field class="giftly-form-field">    
-            <input matInput type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" placeholder="Email"/>
-        </mat-form-field>
-        <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
-            <div *ngIf="formControls.email.errors.required">Email is required</div>            
-        </div>
-    </div>
+    <app-editable-user-details [editUserForm]="registerForm"></app-editable-user-details>
     <div class="form-group">
         <button mat-raised-button color="primary" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
