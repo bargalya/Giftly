@@ -1,7 +1,7 @@
 const mongo = require('mongodb').MongoClient;
 
 //url = "mongodb://localhost:27017/";
-url = "mongodb+srv://galya:VEpJqOuCnq71fP3Z@cluster0-olsrr.mongodb.net/test?retryWrites=true&w=majority";
+url = "mongodb+srv://galya:Aa123456@cluster0-olsrr.mongodb.net/test?retryWrites=true&w=majority";
 dbName = "giftlyDB";
 connectParams = {
         useNewUrlParser: true,
@@ -14,7 +14,7 @@ let db;
 mongo.connect(url, connectParams,
     function(err, client) {
         if(err) {
-            console.log("ERROR! failed to connect to Data base!");
+            console.log("ERROR! failed to connect to Data base!", err);
         }
         else {
             db = client.db(dbName);

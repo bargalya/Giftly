@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const app = express();
 const users = require('./src/routes/UsersRouter');
@@ -20,9 +21,7 @@ app.get('/', function (req, res) {
     res.send('Giftly Server');
 });
 
-/*app.listen(port, function () {
+app.listen(port, function () {
     console.log('Giftly app listening on port ' + port);
 });
 */
-
-app.listen(process.env.PORT, '0.0.0.0');
