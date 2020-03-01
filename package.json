@@ -15,6 +15,7 @@
     "@angular/cli": "~7.3.0",
     "@angular/compiler-cli": "~7.2.0",
     "@angular-devkit/build-angular": "^0.13.9",
+    "@nguniversal/express-engine": "^8.2.6",
     "@ag-grid-community/all-modules": "^22.0.0",
     "@ag-grid-community/angular": "^22.0.0",
     "@angular/animations": "~7.2.0",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@angular/language-service": "~7.2.0",
-    "@nguniversal/express-engine": "^8.2.6",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
