@@ -1,6 +1,6 @@
 <h1>{{event.Name}}</h1>
 <h2>{{event.Description}}</h2>
-<h2>{{event.Date | date : format : longDate}}</h2>
+<h2>{{event.Date | date: 'longDate'}}</h2>
 <div class="search-input">
     <form layout layout-align="center" layout-padding [formGroup]="searchForm" (ngSubmit)="searchGift()">
         <mat-form-field class="giftly-form-field">

@@ -5,6 +5,7 @@ import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
 import { SessionService } from './session.service';
+import {environment} from '../../environments/environment';
 
 const userStr = 'user';
 const firstNameStr = 'firstName';
@@ -17,6 +18,8 @@ const uidStr = '_id';
   providedIn: 'root'
 })
 export class DataService {
+
+  private api = environment.api;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -54,7 +57,7 @@ export class DataService {
     const response = await this.http.get('api/event/' + eventId , this.httpOptions)
     .toPromise()
     .catch(err => this.handleError(err));
-    
+
     console.log(response);
     if (response === undefined)
       return null;
@@ -146,7 +149,7 @@ export class DataService {
                                     .toPromise()
                                     .catch(err => this.handleError(err));
     let events = response['userEvents'];
-    console.log("events: " + JSON.stringify(events));  
+    console.log("events: " + JSON.stringify(events));
     if (response === undefined) {
       return null;
     }
@@ -164,7 +167,7 @@ export class DataService {
   }
 
   async getAllGifts(eventId: string): Promise<Array<Gift>> {
-    const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();  
+    const response = await this.http.get('api/gift/' + eventId, this.httpOptions).toPromise();
     return this.buildGiftArrayFromPromise(response);
   }
 
@@ -203,7 +206,7 @@ export class DataService {
     const body = {'status': GiftStatus.ReadyForGrabs};
     const response = await this.http.put('api/gift/' + giftId, body).toPromise()
       .then(() => true)
-      .catch((error) => {console.log(error); 
+      .catch((error) => {console.log(error);
                         return false; });
     return response;
   }

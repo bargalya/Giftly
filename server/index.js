@@ -6,6 +6,8 @@ const gifts = require('./src/routes/GiftsRouter');
 
 const imgService = require('./src/routes/ImgServiceRouter');
 
+const port = process.env.PORT || 8080;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -18,6 +20,6 @@ app.get('/', function (req, res) {
     res.send('Giftly Server');
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});  
+app.listen(port, function () {
+    console.log('Giftly app listening on port ' + port);
+});
