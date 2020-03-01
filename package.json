@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --configuration=production",
+    "start-test": "ng serve --proxy-config proxy.conf.json",
+    "start": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --proxy-config proxy.conf.json",
+    "build": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
