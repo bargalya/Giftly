@@ -1,6 +1,6 @@
 ﻿<h2>Register</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <app-editable-user-details [editUserForm]="registerForm"></app-editable-user-details>
+    <app-editable-user-details [editUserForm]="registerForm" [submitted]="submitted"></app-editable-user-details>
     <div class="form-group">
         <button mat-raised-button color="primary" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

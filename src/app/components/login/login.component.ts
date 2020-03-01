@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    error: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
         const user = await this.dataService.getUser(this.loginForm.value.username, this.loginForm.value.password);
         if (user === null) {
             alert('Wrong username or password');
+            this.error = 'Wrong username or password';
             return;
         }
         this.sessionService.setSession(user.Uid);

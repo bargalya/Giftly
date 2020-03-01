@@ -9,6 +9,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class EditableUserDetailsComponent implements OnInit {
 
   @Input() editUserForm: FormGroup;
+  @Input() submitted: boolean;
+
 
   constructor( ) { }
 
