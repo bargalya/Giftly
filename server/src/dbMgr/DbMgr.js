@@ -1,7 +1,7 @@
 const mongo = require('mongodb').MongoClient;
 
-//url = "mongodb://localhost:27017/";
-url = "mongodb+srv://galya:Aa123456@cluster0-olsrr.mongodb.net/test?retryWrites=true&w=majority";
+url = "mongodb://localhost:27017/";
+//url = "mongodb+srv://galya:Aa123456@cluster0-olsrr.mongodb.net/test?retryWrites=true&w=majority";
 dbName = "giftlyDB";
 connectParams = {
         useNewUrlParser: true,
