@@ -32,8 +32,9 @@ import { GetGiftImageId} from './components/gifts-table/gifts-table.pipe';
 import { NotifyUserDialogComponent } from './components/notify-user-dialog/notify-user-dialog.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CookieModule } from 'ngx-cookie';
-import { EditableUserDetailsComponent } from './editable-user-details/editable-user-details.component';
+import { EditableUserDetailsComponent } from './components/editable-user-details/editable-user-details.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { EditableEventDetailsComponent } from './components/editable-event-details/editable-event-details.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
     LogoutComponent,
     NotifyUserDialogComponent,
     EditableUserDetailsComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    EditableEventDetailsComponent
     ],
   imports: [
     BrowserModule,

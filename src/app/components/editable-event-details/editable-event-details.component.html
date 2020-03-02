@@ -1,7 +1,4 @@
-
-<h1>{{title}}</h1>
-<app-editable-event-details [editableEventForm]="newEventForm"></app-editable-event-details>
-  <!-- <form [formGroup]="myForm">
+<form [formGroup]="editableEventForm">
   <mat-form-field class="giftly-form-field">    
     <input matInput type="url" formControlName="name" placeholder="Event name" required>
   </mat-form-field>
@@ -20,6 +17,4 @@
     <input matInput formControlName="giftUrl" id="gift-url" placeholder="Add gift">
   </mat-form-field><button mat-stroked-button color="primary" (click)="addGift()" [disabled]="giftUrl.invalid">Add</button><br>
   <giftly-gifts-table [(gifts)]="gifts" allowEditList="true" friendWatching="false"></giftly-gifts-table>
-</form> -->
-  <button mat-raised-button color="primary" class="btn btn-primary" type="button" [disabled]="newEventForm.invalid" (click)="createEvent()">Save</button>  
-  <button mat-raised-button color="primary" class="btn btn-primary" type="button">Discard</button> <!-- TODO: redirect back to events list -->  
+</form>
