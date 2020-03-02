@@ -1,6 +1,6 @@
 import { Gift } from './gift.class';
 
-export class Event {
+export class GiftlyEvent {
     EventId: number;
     Name: string;
     Description: string;

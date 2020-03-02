@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NotifyUserDialogComponent } from '../notify-user-dialog/notify-user-dialog.component';
 import { SessionService } from 'src/app/services/session.service';
-import { Event } from 'src/app/models/event.class';
+import { GiftlyEvent } from 'src/app/models/event.class';
 import { NewEventDataService } from 'src/app/services/new-event-data/new-event-data.service';
 
 
@@ -27,7 +27,7 @@ export class FriendEventComponent implements OnInit {
   showItemsStatus: string;
   eventId: string;
   userId: string;
-  event: Event;
+  event: GiftlyEvent;
 
   constructor(private readonly arrangeGiftList: ArrangeGiftList, 
               private readonly dataService: DataService, 

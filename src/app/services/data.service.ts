@@ -1,6 +1,6 @@
 import { GiftStatus } from './../models/gift.class';
 import { Injectable } from '@angular/core';
-import { Event } from '../models/event.class';
+import { GiftlyEvent } from '../models/event.class';
 import { User } from '../models/user.class';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Gift } from '../models/gift.class';
@@ -39,7 +39,7 @@ export class DataService {
     return gift;
   }
 
-  async saveEvent(event: Event): Promise<string> {
+  async saveEvent(event: GiftlyEvent): Promise<string> {
     let body = new HttpParams();
     body = body.set('description', event.Description);
     body = body.set('name', event.Name);
@@ -53,7 +53,7 @@ export class DataService {
     return response["eventData"]["_id"];
   }
 
-  async getEvent(eventId: string): Promise<Event> {
+  async getEvent(eventId: string): Promise<GiftlyEvent> {
     const response = await this.http.get('api/event/' + eventId , this.httpOptions)
     .toPromise()
     .catch(err => this.handleError(err));
@@ -66,7 +66,7 @@ export class DataService {
       return null;
     }
     const gifts = await this.getAllGifts(eventId);
-    let event = new Event(response['event']['name'], response['event']['description'], response['event']['date'], gifts);
+    let event = new GiftlyEvent(response['event']['name'], response['event']['description'], response['event']['date'], gifts);
     return event;
   }
 
@@ -154,7 +154,7 @@ export class DataService {
       return null;
     }
     let eventsArr = new Array();
-    events.forEach(event => {new Event(event.name, event.description, event.data, null);
+    events.forEach(event => {new GiftlyEvent(event.name, event.description, event.data, null);
       eventsArr.push(event);
     });
     return eventsArr;
