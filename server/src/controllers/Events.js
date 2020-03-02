@@ -66,7 +66,10 @@ class Events{
         try {
             const responseEventDocument = await saveEvent(req.body.name, req.body.description, req.body.date); 
             const eventId = responseEventDocument["ops"][0]._id;
-            const responseGiftsDocument = await gifts.saveGifts(req.body.gifts, eventId);
+            let responseGiftsDocument = ['ops'];
+            if(req.body.gifts != "[]")
+                responseGiftsDocument = await gifts.saveGifts(req.body.gifts, eventId);
+            
             await saveUserEventRel(eventId, req.body.uid, "owner");
             res.status(200).send({
                 'status': 'success',
