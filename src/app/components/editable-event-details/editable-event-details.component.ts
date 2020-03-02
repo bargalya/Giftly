@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 export class EditableEventDetailsComponent implements OnInit {
 
   event: Event;
-  gifts: Array<Gift> = new Array<Gift>();
+  @Input() gifts: Array<Gift> = new Array<Gift>();
 
   @Input() editableEventForm: FormGroup;
   constructor(private readonly dataService: DataService, private cd: ChangeDetectorRef) { }

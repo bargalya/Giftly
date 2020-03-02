@@ -15,7 +15,7 @@ export class UpdateEventComponent implements OnInit {
 
   title = 'Update Event';
   updateEventForm: FormGroup;
-  gifts = [];
+  gifts: Array<Gift> = new Array<Gift>();;
   eventId: string;
   event: GiftlyEvent;
 
