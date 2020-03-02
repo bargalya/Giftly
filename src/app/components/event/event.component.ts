@@ -4,7 +4,7 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Event } from 'src/app/models/event.class';
+import { GiftlyEvent } from 'src/app/models/event.class';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -16,11 +16,11 @@ export class EventComponent implements OnInit {
 
     gifts = [];
     eventId: string;
-    event: Event;
+    event: GiftlyEvent;
 
-    searchForm = new FormGroup({
-        url: new FormControl(),
-   }); 
+//     searchForm = new FormGroup({
+//         url: new FormControl(),
+//    }); 
 
     modules = AllCommunityModules;
 
@@ -29,7 +29,7 @@ export class EventComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.eventId = params.id;
         });
-     }
+    }
 
     async ngOnInit() {
         if(this.eventId === '')
@@ -45,16 +45,20 @@ export class EventComponent implements OnInit {
         }
     }
 
-    searchGift() {
-        const url = this.searchForm.get('url').value;
-        const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-        if (urlRegex.test(url)) {
-            console.log('ok');
-        }
-    }
+    // searchGift() {
+    //     const url = this.searchForm.get('url').value;
+    //     const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+    //     if (urlRegex.test(url)) {
+    //         console.log('ok');
+    //     }
+    // }
 
     backToDashboard() {
         this.router.navigate(['/events-dashboard']);
+    }
+
+    updateEvent() {
+        this.router.navigate(['/update-event/', this.eventId]);
     }
 
 }

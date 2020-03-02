@@ -35,6 +35,7 @@ import { CookieModule } from 'ngx-cookie';
 import { EditableUserDetailsComponent } from './components/editable-user-details/editable-user-details.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { EditableEventDetailsComponent } from './components/editable-event-details/editable-event-details.component';
+import { UpdateEventComponent } from './components/update-event/update-event.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { EditableEventDetailsComponent } from './components/editable-event-detai
     NotifyUserDialogComponent,
     EditableUserDetailsComponent,
     UpdateUserComponent,
-    EditableEventDetailsComponent
+    EditableEventDetailsComponent,
+    UpdateEventComponent
     ],
   imports: [
     BrowserModule,
