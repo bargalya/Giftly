@@ -1,25 +1,5 @@
 
 <h1>{{title}}</h1>
-<app-editable-event-details [editableEventForm]="newEventForm"></app-editable-event-details>
-  <!-- <form [formGroup]="myForm">
-  <mat-form-field class="giftly-form-field">    
-    <input matInput type="url" formControlName="name" placeholder="Event name" required>
-  </mat-form-field>
-
-  <mat-form-field class="giftly-form-field">
-    <textarea matInput formControlName="description" id="event-description" placeholder="Enter description"></textarea>
-  </mat-form-field>
-  
-  <mat-form-field class="giftly-form-field">
-    <input formControlName="date" matInput [matDatepicker]="picker" id="event-date" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field class="giftly-form-field">
-    <input matInput formControlName="giftUrl" id="gift-url" placeholder="Add gift">
-  </mat-form-field><button mat-stroked-button color="primary" (click)="addGift()" [disabled]="giftUrl.invalid">Add</button><br>
-  <giftly-gifts-table [(gifts)]="gifts" allowEditList="true" friendWatching="false"></giftly-gifts-table>
-</form> -->
+<app-editable-event-details [editableEventForm]="newEventForm" [(gifts)]="gifts"></app-editable-event-details>
   <button mat-raised-button color="primary" class="btn btn-primary" type="button" [disabled]="newEventForm.invalid" (click)="createEvent()">Save</button>  
   <button mat-raised-button color="primary" class="btn btn-primary" type="button">Discard</button> <!-- TODO: redirect back to events list -->  
