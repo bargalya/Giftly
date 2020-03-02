@@ -61,7 +61,7 @@ async function insertOne(collectionName, document) {
 async function addManyToDb(collectionName, document)
 {
 
-    console.log("collectionName!!!!!!" + collectionName);
+    console.log("collectionName: " + collectionName);
     if (db)
     {
         return await insertMany(collectionName, document);
