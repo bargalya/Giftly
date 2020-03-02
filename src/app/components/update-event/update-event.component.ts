@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Gift } from 'src/app/models/gift.class';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GiftlyEvent } from 'src/app/models/event.class';
+import { CurrentEventDataService } from 'src/app/services/current-event-data/current-event-data.service';
 
 @Component({
   selector: 'app-update-event',
@@ -18,7 +19,7 @@ export class UpdateEventComponent implements OnInit {
   eventId: string;
   event: GiftlyEvent;
 
-  constructor(private readonly dataService: DataService, 
+  constructor(private readonly currentEventDataService: CurrentEventDataService, 
     private readonly router: Router, 
     private route: ActivatedRoute,
     private fb: FormBuilder) { 
@@ -27,13 +28,12 @@ export class UpdateEventComponent implements OnInit {
       });
     }
 
-
-  // gifts: Array<Gift> = new Array<Gift>();
   async ngOnInit() {
-    this.event = await this.dataService.getEvent(this.eventId);
+
+    this.event = await this.currentEventDataService.data;
         
-        if(this.event != null)
-            this.gifts = this.event.getGifts();
+    if(this.event != null)
+        this.gifts = this.event.getGifts();
 
     const URL_REGEXP = /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
     this.updateEventForm = this.fb.group({

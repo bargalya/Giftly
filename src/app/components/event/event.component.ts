@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GiftlyEvent } from 'src/app/models/event.class';
 import { DataService } from 'src/app/services/data.service';
+import { CurrentEventDataService } from 'src/app/services/current-event-data/current-event-data.service';
 
 @Component({
     selector: 'gifts',
@@ -25,7 +26,8 @@ export class EventComponent implements OnInit {
     modules = AllCommunityModules;
 
     constructor(private readonly router: Router, private route: ActivatedRoute, 
-        private readonly dataService: DataService, private newEventDataService: NewEventDataService) {
+        private readonly dataService: DataService, private newEventDataService: NewEventDataService, 
+        private readonly currentEventDataService: CurrentEventDataService) {
         this.route.params.subscribe(params => {
             this.eventId = params.id;
         });
@@ -36,6 +38,8 @@ export class EventComponent implements OnInit {
             this.event = this.newEventDataService.data;
         else
             this.event = await this.dataService.getEvent(this.eventId);
+
+        this.currentEventDataService.data = this.event;
         
         if(this.event != null)
             this.gifts = this.event.getGifts();
