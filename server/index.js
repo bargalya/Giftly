@@ -1,4 +1,3 @@
-/*
 const express = require('express');
 const app = express();
 const users = require('./src/routes/UsersRouter');
@@ -7,7 +6,7 @@ const gifts = require('./src/routes/GiftsRouter');
 
 const imgService = require('./src/routes/ImgServiceRouter');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,4 +23,3 @@ app.get('/', function (req, res) {
 app.listen(port, function () {
     console.log('Giftly app listening on port ' + port);
 });
-*/
