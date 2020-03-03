@@ -41,9 +41,4 @@ export class EditableEventDetailsComponent implements OnInit {
     this.cd.detectChanges();
     this.giftsChange.emit(this.gifts);
   }
-
-  removeGift(gift: Gift): void {
-    this.gifts = this.gifts.filter(obj => obj !== gift);
-    this.giftsChange.emit(this.gifts);
-  }
 }
