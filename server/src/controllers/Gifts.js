@@ -1,6 +1,7 @@
 const addManyToDb = require('../dbMgr/dbMgr').addManyToDb;
 const findMany = require('../dbMgr/DbMgr').findMany;
 const update = require('../dbMgr/DbMgr').update;
+const deleteMany = require('../dbMgr/DbMgr').deleteMany;
 const ObjectID = require('mongodb').ObjectID;
 
 class Gifts{
@@ -9,6 +10,7 @@ class Gifts{
     }    
 
     async saveGifts(giftsReq, eventId) {
+        console.log('gifts to add: ' + giftsReq);
         let gifts = JSON.parse(giftsReq);
         let giftsDocument = [];
         gifts.forEach(gift => { 
@@ -23,7 +25,15 @@ class Gifts{
             ); 
         });
         const responseDocument = await addManyToDb(Gifts.giftsCollectionName, giftsDocument);
-        console.log("New gifts were added");
+        //console.log("New gifts were added: " + JSON.stringify(responseDocument["ops"]));
+        return responseDocument;
+    }
+
+    async updateGifts(giftsReq, eventId) {
+        console.log('gifts to update');
+        const query = {"eventId": eventId};
+        await deleteMany(query, Gifts.giftsCollectionName);
+        const responseDocument = await this.saveGifts(giftsReq, eventId);
         return responseDocument;
     }
 

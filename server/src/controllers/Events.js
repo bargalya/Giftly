@@ -22,7 +22,7 @@ class Events{
             let query = {'_id' : eventIdObj};
             const document = await search(query, Events.collectionName);
             if(document != null) {
-                console.log("event was found." + document);
+                console.log("event was found.");
                 res.status(200).json({
                     'status': 'success',
                     'event': document});
@@ -46,9 +46,12 @@ class Events{
 
     async update(req, res){
         try {    
-            console.log("got a request to update event " + req.params.eventId);      
+            console.log("got a request to update event " + req.params.eventId);    
             await updateEvent(req.params.eventId, req.body.name, req.body.description, req.body.date);
-            
+            if(req.body.gifts != "[]") {
+                const eventIdObj = ObjectId(req.params.eventId); 
+                await gifts.updateGifts(req.body.gifts, eventIdObj);
+            }
             res.status(200).send({
                 'status': 'success'                
             });
@@ -129,7 +132,6 @@ var updateEvent = async function(id, name, description, date){
             'message': error.message
         });
     }
-
 }
 
 module.exports = Events;
