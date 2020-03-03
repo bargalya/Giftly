@@ -1,5 +1,5 @@
 import { DataService } from 'src/app/services/data.service';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Gift } from 'src/app/models/gift.class';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,10 +10,9 @@ import { NewEventDataService } from 'src/app/services/new-event-data/new-event-d
 @Component({
   selector: 'app-update-event',
   templateUrl: './update-event.component.html',
-  styleUrls: ['./update-event.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./update-event.component.scss']
 })
-export class UpdateEventComponent implements OnInit {
+export class UpdateEventComponent implements AfterViewInit  {
 
   title = 'Update Event';
   updateEventForm: FormGroup;
@@ -26,15 +25,16 @@ export class UpdateEventComponent implements OnInit {
     private readonly dataService: DataService,
     private readonly router: Router, 
     private route: ActivatedRoute,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder, 
+    private cdr: ChangeDetectorRef) { 
         this.route.params.subscribe(params => {
           this.eventId = params.id;
       });
     }
 
-  async ngOnInit() {
+  async ngAfterViewInit() {
 
-    this.event = await this.currentEventDataService.data;
+    this.event = await this.dataService.getEvent(this.eventId);
         
     if(this.event != null)
         this.gifts = this.event.getGifts();
@@ -51,6 +51,8 @@ export class UpdateEventComponent implements OnInit {
         Validators.pattern(URL_REGEXP)
       ]],
     });
+
+    this.cdr.detectChanges();
   }
 
   async updateEvent() {
