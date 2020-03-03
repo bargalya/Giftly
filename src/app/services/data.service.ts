@@ -166,8 +166,11 @@ export class DataService {
       return null;
     }
     let eventsArr = new Array();
-    events.forEach(event => {new GiftlyEvent(event.name, event.description, event.data, null);
-      eventsArr.push(event);
+    events.forEach(event => {if(event != null)
+                        {
+                          new GiftlyEvent(event.name, event.description, event.data, null);
+                          eventsArr.push(event);
+                        }
     });
     return eventsArr;
   }
