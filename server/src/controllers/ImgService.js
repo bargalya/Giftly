@@ -7,7 +7,7 @@ class ImgService{
     }
     
     getDetails(req, res){
-        console.log("req: " + req.body.url);
+        //console.log("req: " + req.body.url);
         metaget.fetch(req.body.url, function (err, meta_response) {
             if(err){
                 console.log('error: ' + err);
@@ -16,7 +16,7 @@ class ImgService{
                     'error': err
                 });
             } else{
-                console.log('success: ' + meta_response);
+                //console.log('success: ' + meta_response);
                 var imgUrl = meta_response["og:image"];
                 var imgTitle = meta_response["og:title"];
                 if(imgUrl && imgUrl.startsWith("{| ")) {
