@@ -1,5 +1,7 @@
 
-<h1>{{title}}</h1>
-<app-editable-event-details [editableEventForm]="updateEventForm" [(gifts)]="gifts"></app-editable-event-details>
+<div *ngIf="updateEventForm">
+  <h1>{{title}}</h1>
+  <app-editable-event-details [editableEventForm]="updateEventForm" [(gifts)]="gifts"></app-editable-event-details>
   <button mat-raised-button color="primary" class="btn btn-primary" type="button" [disabled]="updateEventForm.invalid" (click)="createEvent()">Save</button>  
   <button mat-raised-button color="primary" class="btn btn-primary" type="button">Discard</button> <!-- TODO: redirect back to events list -->  
+</div>
