@@ -70,6 +70,19 @@ export class DataService {
     return event;
   }
 
+  async updateEvent(event: GiftlyEvent) {
+    let body = new HttpParams();
+    body = body.set('description', event.Description);
+    body = body.set('name', event.Name);
+    body = body.set('date', event.Date.toString());
+    body = body.set('gifts', JSON.stringify(event.Gifts));
+    //const uid = this.sessionService.getUserIdFromsSession();
+  //body = body.set('uid', uid);
+    const response = await this.http.put<any>('api/event/' + event.EventId, body, this.httpOptions)
+                    .toPromise()
+                    .catch(err => this.handleError(err));
+  }
+
   async saveUser(user: User): Promise<string> {
         let body = new HttpParams();
         body = body.set(userNameStr, user.UserName);
@@ -87,7 +100,7 @@ export class DataService {
         return response[userStr][uidStr];
   }
 
-  async updateUser(user: User) {//Inna
+  async updateUser(user: User) {
     let body = new HttpParams();
     body = body.set(userNameStr, user.UserName);
     body = body.set(firstNameStr, user.FirstName);
@@ -101,7 +114,6 @@ export class DataService {
       console.log(response['message']);
       return null;
     }
-    return response[userStr][uidStr];
 }
 
   async getUser(userName: string, password: string): Promise<User> {

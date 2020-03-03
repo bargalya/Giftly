@@ -45,7 +45,8 @@ class Events{
 
 
     async update(req, res){
-        try {            
+        try {    
+            console.log("got a request to update event " + req.params.eventId);      
             await updateEvent(req.params.eventId, req.body.name, req.body.description, req.body.date);
             
             res.status(200).send({

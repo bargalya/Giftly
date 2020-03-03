@@ -1,7 +1,7 @@
 import { Gift } from './gift.class';
 
 export class GiftlyEvent {
-    EventId: number;
+    EventId: string;
     Name: string;
     Description: string;
     Date: Date;

@@ -5,6 +5,7 @@ import { Gift } from 'src/app/models/gift.class';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GiftlyEvent } from 'src/app/models/event.class';
 import { CurrentEventDataService } from 'src/app/services/current-event-data/current-event-data.service';
+import { NewEventDataService } from 'src/app/services/new-event-data/new-event-data.service';
 
 @Component({
   selector: 'app-update-event',
@@ -20,6 +21,8 @@ export class UpdateEventComponent implements OnInit {
   event: GiftlyEvent;
 
   constructor(private readonly currentEventDataService: CurrentEventDataService, 
+    private readonly newEventDataService: NewEventDataService,
+    private readonly dataService: DataService,
     private readonly router: Router, 
     private route: ActivatedRoute,
     private fb: FormBuilder) { 
@@ -49,15 +52,17 @@ export class UpdateEventComponent implements OnInit {
     });
   }
 
-  async createEvent() {
-    // const eventName = this.newEventForm.get('name').value;
-    // const description = this.newEventForm.get('description').value;
-    // const date = this.newEventForm.get('date').value;
-    // this.event = new Event(eventName, description, date, this.gifts);
-    // this.dataService.saveEvent(this.event);
-    // console.log("Event " + eventName +" was created");
-    // this.newEventDataService.data = this.event;
-    this.router.navigate(['/event', '']);
+  async updateEvent() {
+    const eventName = this.updateEventForm.get('name').value;
+    const description = this.updateEventForm.get('description').value;
+    const date = this.updateEventForm.get('date').value;
+    this.event = new GiftlyEvent(eventName, description, date, this.gifts);
+    this.event.EventId = this.eventId;
+    this.dataService.updateEvent(this.event);
+    console.log("Event " + eventName +" was created");
+    this.newEventDataService.data = this.event;
+    this.currentEventDataService.data = this.event;
+    this.router.navigate(['/event', this.event.EventId]);
   }
 
 }
