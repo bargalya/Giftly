@@ -62,6 +62,7 @@ async function addManyToDb(collectionName, document)
 {
 
     console.log("collectionName: " + collectionName);
+    //console.log("document: " + JSON.stringify(document));
     if (db)
     {
         return await insertMany(collectionName, document);
@@ -144,10 +145,27 @@ async function update(query, newValues, collectionName) {
     }
 }
 
+async function deleteMany(query, collectionName) {
+    if(db) {
+        try {
+            console.log("Here!!!");
+            const collection = db.collection(collectionName);
+            return await collection.deleteMany(query);
+        }
+        catch(err) {
+            console.log("DbMgr: failed to update documents in " + collectionName + " collection. Error:", err);
+            throw new Error("DbMgr: failed to update documents in " + collectionName + " collection");
+        }
+    } else {
+        console.log("DbMgr Error: No connection to DB")
+    }
+}
+
 module.exports = {
     addToDb,
     addManyToDb,
     search,
     findMany,
-    update
+    update,
+    deleteMany
 };
