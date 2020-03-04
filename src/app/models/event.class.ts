@@ -9,7 +9,7 @@ export class GiftlyEvent {
     constructor(name: string, description: string, date: Date, gifts: Array<Gift>) {
         this.Name = name;
         this.Description = description;
-        this.Date = date;
+        this.Date = new Date(date);
         this.Gifts = gifts;
     }
 
