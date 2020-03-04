@@ -29,7 +29,8 @@ export class EditableEventDetailsComponent implements OnInit {
     return this.editableEventForm.get('giftUrl');
   }
 
-  async addGift() {
+  async addGift() {  
+
     const giftUrl = this.editableEventForm.get('giftUrl').value;
     if (giftUrl === '') {
       return;
@@ -39,6 +40,11 @@ export class EditableEventDetailsComponent implements OnInit {
     this.editableEventForm.get('giftUrl').setValue('');
     // this.myForm.get('giftUrl').markAsUntouched(); //This didn't work :(
     this.cd.detectChanges();
+    this.giftsChange.emit(this.gifts);
+  }
+
+  onGiftsArrUpdate(giftsArr) {
+    this.gifts = giftsArr;
     this.giftsChange.emit(this.gifts);
   }
 }

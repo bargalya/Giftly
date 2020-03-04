@@ -16,5 +16,5 @@
   <mat-form-field class="giftly-form-field">
     <input matInput formControlName="giftUrl" id="gift-url" placeholder="Add gift">
   </mat-form-field><button mat-stroked-button color="primary" (click)="addGift()" [disabled]="giftUrl.invalid">Add</button><br>
-  <giftly-gifts-table [(gifts)]="gifts" allowEditList="true" friendWatching="false"></giftly-gifts-table>
+  <giftly-gifts-table [(gifts)]="gifts" allowEditList="true" friendWatching="false" (giftsChange)="onGiftsArrUpdate($event)"></giftly-gifts-table>
 </form>
